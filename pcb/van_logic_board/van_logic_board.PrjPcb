@@ -174,7 +174,7 @@ GenerateClassCluster=0
 DocumentUniqueId=CXQXDGZB
 
 [Document9]
-DocumentPath=sensors_module.SchDoc
+DocumentPath=interfaces_module.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
