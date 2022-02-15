@@ -1,0 +1,1531 @@
+[
+    {
+        "id": "a7233230404c3289",
+        "type": "tab",
+        "label": "Dummy HW",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3b13721691d68660",
+        "type": "tab",
+        "label": "UI",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "78b28997a4d07be2",
+        "type": "tab",
+        "label": "Fridge",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4e5a79410f858330",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "a74bb25de5c78e26",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "eb3dc518d2e4c032",
+        "type": "ui_group",
+        "name": "Temperature",
+        "tab": "4e5a79410f858330",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "36d09c259c655fae",
+        "type": "ui_group",
+        "name": "fridge",
+        "tab": "4e5a79410f858330",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bf5fc43d691b1bab",
+        "type": "ui_group",
+        "name": "Water System",
+        "tab": "4e5a79410f858330",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1b844a8aa1ffbad4",
+        "type": "ui_group",
+        "name": "Inverter",
+        "tab": "4e5a79410f858330",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8d207109f202f502",
+        "type": "ui_tab",
+        "name": "Fridge",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "6c304982dc7231d9",
+        "type": "ui_group",
+        "name": "Group 1",
+        "tab": "8d207109f202f502",
+        "order": 1,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0b3e1c2622ed431f",
+        "type": "ui_slider",
+        "z": "a7233230404c3289",
+        "name": "",
+        "label": "lead battery",
+        "tooltip": "",
+        "group": "1b844a8aa1ffbad4",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "9",
+        "max": "14",
+        "step": "0.1",
+        "className": "",
+        "x": 490,
+        "y": 80,
+        "wires": [
+            [
+                "99c22af463a4c1cc",
+                "22e944c028d8b804"
+            ]
+        ]
+    },
+    {
+        "id": "99c22af463a4c1cc",
+        "type": "ui_gauge",
+        "z": "a7233230404c3289",
+        "name": "",
+        "group": "1b844a8aa1ffbad4",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Lead Battery voltage",
+        "label": "Volts",
+        "format": "{{value}}",
+        "min": "9",
+        "max": "14",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 740,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "caf4c6bb088ba532",
+        "type": "ui_slider",
+        "z": "a7233230404c3289",
+        "name": "",
+        "label": "temperature outside",
+        "tooltip": "",
+        "group": "eb3dc518d2e4c032",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "-20",
+        "max": "50",
+        "step": "0.5",
+        "className": "",
+        "x": 460,
+        "y": 900,
+        "wires": [
+            [
+                "5526c013d2a24fec",
+                "b3d9c6b1983dfca5"
+            ]
+        ]
+    },
+    {
+        "id": "5526c013d2a24fec",
+        "type": "ui_gauge",
+        "z": "a7233230404c3289",
+        "name": "",
+        "group": "eb3dc518d2e4c032",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature Outside",
+        "label": "C°",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#00a3d7",
+            "#00f900",
+            "#ca3838"
+        ],
+        "seg1": "10",
+        "seg2": "30",
+        "className": "",
+        "x": 680,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "0531f7948b8b2301",
+        "type": "ui_slider",
+        "z": "a7233230404c3289",
+        "name": "",
+        "label": "temperature inside",
+        "tooltip": "",
+        "group": "eb3dc518d2e4c032",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "-20",
+        "max": "50",
+        "step": "0.5",
+        "className": "",
+        "x": 450,
+        "y": 980,
+        "wires": [
+            [
+                "9337dcef227f9dc2",
+                "755c217e0328299b"
+            ]
+        ]
+    },
+    {
+        "id": "9337dcef227f9dc2",
+        "type": "ui_gauge",
+        "z": "a7233230404c3289",
+        "name": "",
+        "group": "eb3dc518d2e4c032",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature Inside",
+        "label": "C°",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#00a3d7",
+            "#00f900",
+            "#ca3838"
+        ],
+        "seg1": "10",
+        "seg2": "30",
+        "className": "",
+        "x": 670,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "a59923252fcb42db",
+        "type": "ui_slider",
+        "z": "a7233230404c3289",
+        "name": "",
+        "label": "temperature fridge",
+        "tooltip": "",
+        "group": "36d09c259c655fae",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "-20",
+        "max": "50",
+        "step": "0.5",
+        "className": "",
+        "x": 450,
+        "y": 1100,
+        "wires": [
+            [
+                "e5d7e3a0044aee2e",
+                "8a9c33c902845731"
+            ]
+        ]
+    },
+    {
+        "id": "e5d7e3a0044aee2e",
+        "type": "ui_gauge",
+        "z": "a7233230404c3289",
+        "name": "",
+        "group": "36d09c259c655fae",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature Fridge",
+        "label": "C°",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#00a3d7",
+            "#00f900",
+            "#ca3838"
+        ],
+        "seg1": "10",
+        "seg2": "30",
+        "className": "",
+        "x": 670,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "5f636e4317b4615a",
+        "type": "ui_slider",
+        "z": "a7233230404c3289",
+        "name": "",
+        "label": "flow sensor",
+        "tooltip": "",
+        "group": "bf5fc43d691b1bab",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "0",
+        "max": "10",
+        "step": "0.1",
+        "className": "",
+        "x": 510,
+        "y": 660,
+        "wires": [
+            [
+                "8cdfd17965b27460",
+                "d023b67835d9125c"
+            ]
+        ]
+    },
+    {
+        "id": "8cdfd17965b27460",
+        "type": "ui_gauge",
+        "z": "a7233230404c3289",
+        "name": "",
+        "group": "bf5fc43d691b1bab",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Flow sensor",
+        "label": "l/min",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "10",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 730,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "086173b7be5b7a42",
+        "type": "ui_switch",
+        "z": "a7233230404c3289",
+        "name": "",
+        "label": "pump switch",
+        "tooltip": "",
+        "group": "bf5fc43d691b1bab",
+        "order": 1,
+        "width": "5",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 510,
+        "y": 740,
+        "wires": [
+            [
+                "f0391c744ff7bdeb",
+                "06b191bc112c9c39"
+            ]
+        ]
+    },
+    {
+        "id": "f0391c744ff7bdeb",
+        "type": "ui_text",
+        "z": "a7233230404c3289",
+        "group": "bf5fc43d691b1bab",
+        "order": 2,
+        "width": "1",
+        "height": "1",
+        "name": "pump switch",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 730,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "c61391390eba57d0",
+        "type": "ui_switch",
+        "z": "a7233230404c3289",
+        "name": "",
+        "label": "inverter switch",
+        "tooltip": "",
+        "group": "1b844a8aa1ffbad4",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 500,
+        "y": 160,
+        "wires": [
+            [
+                "2df0850a6cf69df6",
+                "83869ca7c0d5d806"
+            ]
+        ]
+    },
+    {
+        "id": "2df0850a6cf69df6",
+        "type": "ui_text",
+        "z": "a7233230404c3289",
+        "group": "1b844a8aa1ffbad4",
+        "order": 2,
+        "width": "3",
+        "height": "1",
+        "name": "inverter switch",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 720,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "11a8122511c203bd",
+        "type": "ui_switch",
+        "z": "a7233230404c3289",
+        "name": "",
+        "label": "pump",
+        "tooltip": "",
+        "group": "bf5fc43d691b1bab",
+        "order": 6,
+        "width": "5",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 490,
+        "y": 780,
+        "wires": [
+            [
+                "c69252472a3d4ed1"
+            ]
+        ]
+    },
+    {
+        "id": "c69252472a3d4ed1",
+        "type": "ui_text",
+        "z": "a7233230404c3289",
+        "group": "bf5fc43d691b1bab",
+        "order": 7,
+        "width": "1",
+        "height": "1",
+        "name": "pump",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 710,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "22e944c028d8b804",
+        "type": "debug",
+        "z": "a7233230404c3289",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "b3d9c6b1983dfca5",
+        "type": "debug",
+        "z": "a7233230404c3289",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "d023b67835d9125c",
+        "type": "debug",
+        "z": "a7233230404c3289",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "755c217e0328299b",
+        "type": "debug",
+        "z": "a7233230404c3289",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "06b191bc112c9c39",
+        "type": "debug",
+        "z": "a7233230404c3289",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "83869ca7c0d5d806",
+        "type": "debug",
+        "z": "a7233230404c3289",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "7407821bdd94fd53",
+        "type": "inject",
+        "z": "a7233230404c3289",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 150,
+        "y": 780,
+        "wires": [
+            [
+                "11a8122511c203bd"
+            ]
+        ]
+    },
+    {
+        "id": "57064ef7ae0db40a",
+        "type": "inject",
+        "z": "a7233230404c3289",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 150,
+        "y": 820,
+        "wires": [
+            [
+                "11a8122511c203bd"
+            ]
+        ]
+    },
+    {
+        "id": "c77083e10fbebf8b",
+        "type": "ui_switch",
+        "z": "a7233230404c3289",
+        "name": "",
+        "label": "Inverter source",
+        "tooltip": "",
+        "group": "1b844a8aa1ffbad4",
+        "order": 6,
+        "width": "3",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "Lead battery",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "LFP battery",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 500,
+        "y": 200,
+        "wires": [
+            [
+                "ac9db93a3d2623f2"
+            ]
+        ]
+    },
+    {
+        "id": "ac9db93a3d2623f2",
+        "type": "ui_text",
+        "z": "a7233230404c3289",
+        "group": "1b844a8aa1ffbad4",
+        "order": 7,
+        "width": "3",
+        "height": "1",
+        "name": "inverter source",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 720,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ed3e2b3d9ee9136e",
+        "type": "inject",
+        "z": "a7233230404c3289",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Lead battery",
+        "payloadType": "str",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "c77083e10fbebf8b"
+            ]
+        ]
+    },
+    {
+        "id": "ed33bde0f0dd6409",
+        "type": "inject",
+        "z": "a7233230404c3289",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "LFP battery",
+        "payloadType": "str",
+        "x": 150,
+        "y": 240,
+        "wires": [
+            [
+                "c77083e10fbebf8b"
+            ]
+        ]
+    },
+    {
+        "id": "db39488bd8f4eb8a",
+        "type": "ui_switch",
+        "z": "a7233230404c3289",
+        "name": "",
+        "label": "Inverter Enable",
+        "tooltip": "",
+        "group": "1b844a8aa1ffbad4",
+        "order": 8,
+        "width": "3",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 500,
+        "y": 280,
+        "wires": [
+            [
+                "3c492e3be7a6ea41"
+            ]
+        ]
+    },
+    {
+        "id": "3c492e3be7a6ea41",
+        "type": "ui_text",
+        "z": "a7233230404c3289",
+        "group": "1b844a8aa1ffbad4",
+        "order": 9,
+        "width": "3",
+        "height": "1",
+        "name": "inverter enable",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 720,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "9998af8b0b68cf5b",
+        "type": "inject",
+        "z": "a7233230404c3289",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 130,
+        "y": 280,
+        "wires": [
+            [
+                "db39488bd8f4eb8a"
+            ]
+        ]
+    },
+    {
+        "id": "a5aa5dd763025522",
+        "type": "inject",
+        "z": "a7233230404c3289",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "db39488bd8f4eb8a"
+            ]
+        ]
+    },
+    {
+        "id": "e4561b1744db5b6a",
+        "type": "ui_switch",
+        "z": "a7233230404c3289",
+        "name": "",
+        "label": "Charger enable",
+        "tooltip": "",
+        "group": "1b844a8aa1ffbad4",
+        "order": 10,
+        "width": "3",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 500,
+        "y": 360,
+        "wires": [
+            [
+                "1729772998d403db"
+            ]
+        ]
+    },
+    {
+        "id": "1729772998d403db",
+        "type": "ui_text",
+        "z": "a7233230404c3289",
+        "group": "1b844a8aa1ffbad4",
+        "order": 11,
+        "width": "3",
+        "height": "1",
+        "name": "charger enable",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 720,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "6a6f8cc820193f92",
+        "type": "inject",
+        "z": "a7233230404c3289",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 130,
+        "y": 360,
+        "wires": [
+            [
+                "e4561b1744db5b6a"
+            ]
+        ]
+    },
+    {
+        "id": "116e869ccc7d644a",
+        "type": "inject",
+        "z": "a7233230404c3289",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 130,
+        "y": 400,
+        "wires": [
+            [
+                "e4561b1744db5b6a"
+            ]
+        ]
+    },
+    {
+        "id": "afc002fd9b5dc06c",
+        "type": "ui_text",
+        "z": "a7233230404c3289",
+        "group": "36d09c259c655fae",
+        "order": 3,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "Readings",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 60,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "05f01907415a96d5",
+        "type": "ui_text",
+        "z": "a7233230404c3289",
+        "group": "1b844a8aa1ffbad4",
+        "order": 5,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "Readings",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 140,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9518b6e9a9ca72d0",
+        "type": "ui_text",
+        "z": "a7233230404c3289",
+        "group": "bf5fc43d691b1bab",
+        "order": 5,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "Readings",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 140,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "8a9c33c902845731",
+        "type": "link out",
+        "z": "a7233230404c3289",
+        "name": "fridge temp",
+        "mode": "link",
+        "links": [
+            "824207ada65b92c0"
+        ],
+        "x": 595,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "1ee8a0ddf5ec7130",
+        "type": "link in",
+        "z": "a7233230404c3289",
+        "name": "fridge motor",
+        "links": [
+            "fc70ec1c8f6bc9d5"
+        ],
+        "x": 95,
+        "y": 1140,
+        "wires": [
+            [
+                "a317185146b83f39"
+            ]
+        ]
+    },
+    {
+        "id": "a317185146b83f39",
+        "type": "ui_led",
+        "z": "a7233230404c3289",
+        "order": 3,
+        "group": "36d09c259c655fae",
+        "width": "6",
+        "height": "2",
+        "label": "Fridge Compressor Status",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "error",
+                "valueType": "str"
+            },
+            {
+                "color": "#008000",
+                "value": "running",
+                "valueType": "str"
+            },
+            {
+                "color": "#000000",
+                "value": "stopped",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Fridge Compressor Status",
+        "x": 480,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "08c5c713b62ce9a6",
+        "type": "ui_gauge",
+        "z": "78b28997a4d07be2",
+        "name": "",
+        "group": "6c304982dc7231d9",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "Fridge Temperature",
+        "label": "C°",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "20",
+        "colors": [
+            "#00fdff",
+            "#00f900",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 350,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "b5c43be785249085",
+        "type": "ui_dropdown",
+        "z": "78b28997a4d07be2",
+        "name": "",
+        "label": "Fridge Algorithm",
+        "tooltip": "",
+        "place": "always off",
+        "group": "6c304982dc7231d9",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Winter",
+                "value": "winter",
+                "type": "str"
+            },
+            {
+                "label": "summer",
+                "value": "summer",
+                "type": "str"
+            },
+            {
+                "label": "battery life",
+                "value": "battery life",
+                "type": "str"
+            },
+            {
+                "label": "always on",
+                "value": "always on",
+                "type": "str"
+            },
+            {
+                "label": "always off",
+                "value": "always off",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "9342b1041f1f9ae3",
+                "3313eca393a477fb",
+                "6dd922fb88a0058b"
+            ]
+        ]
+    },
+    {
+        "id": "2a87cc921872582f",
+        "type": "ui_led",
+        "z": "78b28997a4d07be2",
+        "order": 3,
+        "group": "6c304982dc7231d9",
+        "width": "6",
+        "height": "2",
+        "label": "Fridge Compressor Status",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "error",
+                "valueType": "str"
+            },
+            {
+                "color": "#008000",
+                "value": "running",
+                "valueType": "str"
+            },
+            {
+                "color": "#919191",
+                "value": "stopped",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": false,
+        "name": "Fridge Compressor Status",
+        "x": 1240,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "3313eca393a477fb",
+        "type": "function",
+        "z": "78b28997a4d07be2",
+        "name": "always off",
+        "func": "var algorithm=flow.get('algorithm') || 0;\n\nif(algorithm == \"always off\"){\n    msg.payload = \"stopped\";\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 200,
+        "wires": [
+            [
+                "2a87cc921872582f",
+                "fc70ec1c8f6bc9d5"
+            ]
+        ]
+    },
+    {
+        "id": "6dd922fb88a0058b",
+        "type": "function",
+        "z": "78b28997a4d07be2",
+        "name": "always on",
+        "func": "var algorithm=flow.get('algorithm') || 0;\n\nif(algorithm == \"always on\"){\n    msg.payload = \"running\";\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 240,
+        "wires": [
+            [
+                "fc70ec1c8f6bc9d5",
+                "2a87cc921872582f"
+            ]
+        ]
+    },
+    {
+        "id": "883ff0dabf8e8aaa",
+        "type": "function",
+        "z": "78b28997a4d07be2",
+        "name": "winter algorithm",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 280,
+        "wires": [
+            [
+                "fc70ec1c8f6bc9d5"
+            ]
+        ]
+    },
+    {
+        "id": "1966728c9236e2bb",
+        "type": "function",
+        "z": "78b28997a4d07be2",
+        "name": "summer algorithm",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 320,
+        "wires": [
+            [
+                "fc70ec1c8f6bc9d5"
+            ]
+        ]
+    },
+    {
+        "id": "a0bbb818d234da39",
+        "type": "function",
+        "z": "78b28997a4d07be2",
+        "name": "battery life algorithm",
+        "func": "var algorithm=flow.get('algorithm') || 0;\n\nif(algorithm == \"battery life\"){\n\n    var battery_level = 0.5;\n    var temp = msg.payload;\n    const threshold_level = 0.2;\n    const threshold_temp = 10;\n    \n    if(battery_level > threshold_level && temp <= threshold_temp){\n        msg.payload = \"running\";\n    }\n    else {\n        msg.payload = \"stopped\";\n    }\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 360,
+        "wires": [
+            [
+                "fc70ec1c8f6bc9d5",
+                "2a87cc921872582f"
+            ]
+        ]
+    },
+    {
+        "id": "824207ada65b92c0",
+        "type": "link in",
+        "z": "78b28997a4d07be2",
+        "name": "fridge temp",
+        "links": [
+            "8a9c33c902845731"
+        ],
+        "x": 205,
+        "y": 280,
+        "wires": [
+            [
+                "08c5c713b62ce9a6",
+                "883ff0dabf8e8aaa",
+                "1966728c9236e2bb",
+                "a0bbb818d234da39",
+                "c92a3c94349a1550"
+            ]
+        ]
+    },
+    {
+        "id": "9342b1041f1f9ae3",
+        "type": "change",
+        "z": "78b28997a4d07be2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "algorithm",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d549bd85a95f082e",
+        "type": "comment",
+        "z": "78b28997a4d07be2",
+        "name": "fridge temperature",
+        "info": "",
+        "x": 90,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "fc70ec1c8f6bc9d5",
+        "type": "link out",
+        "z": "78b28997a4d07be2",
+        "name": "fridge motor",
+        "mode": "link",
+        "links": [
+            "1ee8a0ddf5ec7130"
+        ],
+        "x": 1135,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "0e2de6308da39b4e",
+        "type": "function",
+        "z": "78b28997a4d07be2",
+        "name": "initialize variables",
+        "func": "",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\nif(flow.get('algorithm') == undefined){\n    flow.set('algorithm', \"always off\");\n}",
+        "finalize": "",
+        "libs": [],
+        "x": 150,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "c92a3c94349a1550",
+        "type": "debug",
+        "z": "78b28997a4d07be2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 480,
+        "wires": []
+    }
+]
