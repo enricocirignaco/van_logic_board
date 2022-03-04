@@ -24,6 +24,30 @@
         "env": []
     },
     {
+        "id": "726798b2ed2e9d52",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "162cea04a51a0717",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ffd71fb61f1d4553",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "4e5a79410f858330",
         "type": "ui_tab",
         "name": "Home",
@@ -204,6 +228,160 @@
         "width": "6",
         "collapse": false,
         "className": ""
+    },
+    {
+        "id": "bd4868f5f122cb15",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "a2fa63e7b733b5e1",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "c0873438b4b186e4",
+        "type": "ui_group",
+        "name": "Outputs",
+        "tab": "bd4868f5f122cb15",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7d05444eba45da17",
+        "type": "ui_group",
+        "name": "Inputs",
+        "tab": "bd4868f5f122cb15",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "594a8a527370c352",
+        "type": "serial-port",
+        "serialport": "/dev/ttyS0",
+        "serialbaud": "19200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "94b0afa1b11b1713",
+        "type": "ui_tab",
+        "name": "Tab 4",
+        "icon": "dashboard",
+        "order": 4
     },
     {
         "id": "0b3e1c2622ed431f",
@@ -1869,6 +2047,1467 @@
         "statusType": "auto",
         "x": 1590,
         "y": 120,
+        "wires": []
+    },
+    {
+        "id": "3c1ffe73b922b48d",
+        "type": "ui_button",
+        "z": "726798b2ed2e9d52",
+        "name": "on_fridge",
+        "group": "c0873438b4b186e4",
+        "order": 5,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "ON",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 220,
+        "y": 140,
+        "wires": [
+            [
+                "aa8a66372e7ba44e",
+                "da1eae8a7f3d3b71",
+                "57ec586e7e859027"
+            ]
+        ]
+    },
+    {
+        "id": "aa8a66372e7ba44e",
+        "type": "rpi-gpio out",
+        "z": "726798b2ed2e9d52",
+        "name": "fridge enable",
+        "pin": "23",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 750,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "5cbf47ddd2592a40",
+        "type": "ui_button",
+        "z": "726798b2ed2e9d52",
+        "name": "off_fridge",
+        "group": "c0873438b4b186e4",
+        "order": 6,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "OFF",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 220,
+        "y": 180,
+        "wires": [
+            [
+                "31560b05859fb872",
+                "4d221330a3a27921"
+            ]
+        ]
+    },
+    {
+        "id": "31560b05859fb872",
+        "type": "rpi-gpio out",
+        "z": "726798b2ed2e9d52",
+        "name": "fridge disable",
+        "pin": "22",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 760,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "16e0cfdba48a053c",
+        "type": "ui_button",
+        "z": "726798b2ed2e9d52",
+        "name": "on_charger",
+        "group": "c0873438b4b186e4",
+        "order": 2,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "ON",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 190,
+        "y": 400,
+        "wires": [
+            [
+                "96de38f7c94c4261",
+                "bf906055a61956b9",
+                "fdcede4eaa217b62"
+            ]
+        ]
+    },
+    {
+        "id": "50b04ce704067397",
+        "type": "ui_button",
+        "z": "726798b2ed2e9d52",
+        "name": "off_charger",
+        "group": "c0873438b4b186e4",
+        "order": 3,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "OFF",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 190,
+        "y": 440,
+        "wires": [
+            [
+                "f1aebf49c104cbd9",
+                "6645311d11a2e0e2"
+            ]
+        ]
+    },
+    {
+        "id": "da1eae8a7f3d3b71",
+        "type": "delay",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 60,
+        "wires": [
+            [
+                "403a86068e97f93e"
+            ]
+        ]
+    },
+    {
+        "id": "403a86068e97f93e",
+        "type": "change",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 60,
+        "wires": [
+            [
+                "aa8a66372e7ba44e"
+            ]
+        ]
+    },
+    {
+        "id": "9ed59ab1c6c5ebce",
+        "type": "change",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 240,
+        "wires": [
+            [
+                "31560b05859fb872",
+                "57ec586e7e859027"
+            ]
+        ]
+    },
+    {
+        "id": "96de38f7c94c4261",
+        "type": "rpi-gpio out",
+        "z": "726798b2ed2e9d52",
+        "name": "charger enable",
+        "pin": "18",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 760,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "f1aebf49c104cbd9",
+        "type": "rpi-gpio out",
+        "z": "726798b2ed2e9d52",
+        "name": "charger disable",
+        "pin": "17",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 760,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "9a787a55cce7550d",
+        "type": "change",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 320,
+        "wires": [
+            [
+                "96de38f7c94c4261"
+            ]
+        ]
+    },
+    {
+        "id": "9885c691789552ed",
+        "type": "change",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 500,
+        "wires": [
+            [
+                "f1aebf49c104cbd9",
+                "bf906055a61956b9"
+            ]
+        ]
+    },
+    {
+        "id": "707ff0e522ee5e51",
+        "type": "ui_button",
+        "z": "726798b2ed2e9d52",
+        "name": "on_inverter",
+        "group": "c0873438b4b186e4",
+        "order": 8,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "ON",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 190,
+        "y": 660,
+        "wires": [
+            [
+                "c0ea6a0136a69417",
+                "7ecc510900c975ac",
+                "7587fcd36be82f0f"
+            ]
+        ]
+    },
+    {
+        "id": "324754eaad111fb8",
+        "type": "ui_button",
+        "z": "726798b2ed2e9d52",
+        "name": "off_inverter",
+        "group": "c0873438b4b186e4",
+        "order": 9,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "OFF",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 190,
+        "y": 700,
+        "wires": [
+            [
+                "0eef2817868f5432",
+                "f6a539d5975a8810",
+                "a43114fd64e99e97"
+            ]
+        ]
+    },
+    {
+        "id": "c0ea6a0136a69417",
+        "type": "rpi-gpio out",
+        "z": "726798b2ed2e9d52",
+        "name": "inverter enable",
+        "pin": "8",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 760,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "0eef2817868f5432",
+        "type": "rpi-gpio out",
+        "z": "726798b2ed2e9d52",
+        "name": "inverter disable",
+        "pin": "25",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 760,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "89ee0aea7b7c93b5",
+        "type": "change",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 580,
+        "wires": [
+            [
+                "c0ea6a0136a69417"
+            ]
+        ]
+    },
+    {
+        "id": "83810d043c095d6a",
+        "type": "change",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 760,
+        "wires": [
+            [
+                "0eef2817868f5432",
+                "7ecc510900c975ac"
+            ]
+        ]
+    },
+    {
+        "id": "6abdf169843197a4",
+        "type": "rpi-gpio out",
+        "z": "726798b2ed2e9d52",
+        "name": "inverter source sel",
+        "pin": "24",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 770,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "57ec586e7e859027",
+        "type": "ui_led",
+        "z": "726798b2ed2e9d52",
+        "order": 4,
+        "group": "c0873438b4b186e4",
+        "width": "0",
+        "height": "0",
+        "label": "fridge relay: ",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "led fridge",
+        "x": 740,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "bf906055a61956b9",
+        "type": "ui_led",
+        "z": "726798b2ed2e9d52",
+        "order": 1,
+        "group": "c0873438b4b186e4",
+        "width": "0",
+        "height": "0",
+        "label": "charger relay: ",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "led charger",
+        "x": 750,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "7ecc510900c975ac",
+        "type": "ui_led",
+        "z": "726798b2ed2e9d52",
+        "order": 7,
+        "group": "c0873438b4b186e4",
+        "width": "0",
+        "height": "0",
+        "label": "inverter relay: ",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "led inverter",
+        "x": 750,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "4d221330a3a27921",
+        "type": "delay",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 240,
+        "wires": [
+            [
+                "9ed59ab1c6c5ebce"
+            ]
+        ]
+    },
+    {
+        "id": "fdcede4eaa217b62",
+        "type": "delay",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 320,
+        "wires": [
+            [
+                "9a787a55cce7550d"
+            ]
+        ]
+    },
+    {
+        "id": "6645311d11a2e0e2",
+        "type": "delay",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 500,
+        "wires": [
+            [
+                "9885c691789552ed"
+            ]
+        ]
+    },
+    {
+        "id": "7587fcd36be82f0f",
+        "type": "delay",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 580,
+        "wires": [
+            [
+                "89ee0aea7b7c93b5"
+            ]
+        ]
+    },
+    {
+        "id": "f6a539d5975a8810",
+        "type": "delay",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 760,
+        "wires": [
+            [
+                "83810d043c095d6a"
+            ]
+        ]
+    },
+    {
+        "id": "b283bc9fdcb5ba87",
+        "type": "ui_button",
+        "z": "726798b2ed2e9d52",
+        "name": "lfp battery",
+        "group": "c0873438b4b186e4",
+        "order": 11,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "LFP",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 180,
+        "y": 860,
+        "wires": [
+            [
+                "6abdf169843197a4",
+                "7f3657f0c73f821d",
+                "a43114fd64e99e97"
+            ]
+        ]
+    },
+    {
+        "id": "f8df2460124aeee3",
+        "type": "ui_button",
+        "z": "726798b2ed2e9d52",
+        "name": "lead battery",
+        "group": "c0873438b4b186e4",
+        "order": 12,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "Lead",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 190,
+        "y": 900,
+        "wires": [
+            [
+                "6abdf169843197a4",
+                "221c43b06023d1ee",
+                "a43114fd64e99e97"
+            ]
+        ]
+    },
+    {
+        "id": "66df1dcf38a45c40",
+        "type": "ui_text",
+        "z": "726798b2ed2e9d52",
+        "group": "c0873438b4b186e4",
+        "order": 10,
+        "width": "0",
+        "height": "0",
+        "name": "",
+        "label": "inverter source select: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 780,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "221c43b06023d1ee",
+        "type": "change",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Lead Battery",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 880,
+        "wires": [
+            [
+                "66df1dcf38a45c40"
+            ]
+        ]
+    },
+    {
+        "id": "7f3657f0c73f821d",
+        "type": "change",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "LFP Battery",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 840,
+        "wires": [
+            [
+                "66df1dcf38a45c40"
+            ]
+        ]
+    },
+    {
+        "id": "8dfbc6a06a53a979",
+        "type": "rpi-gpio out",
+        "z": "726798b2ed2e9d52",
+        "name": "electrovalve",
+        "pin": "13",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 770,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "1d04ec08ad4d7761",
+        "type": "rpi-gpio out",
+        "z": "726798b2ed2e9d52",
+        "name": "pump",
+        "pin": "12",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 750,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "3e360aa06b0897a1",
+        "type": "ui_switch",
+        "z": "726798b2ed2e9d52",
+        "name": "pump switch",
+        "label": "pump switch",
+        "tooltip": "",
+        "group": "c0873438b4b186e4",
+        "order": 13,
+        "width": "4",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 210,
+        "y": 1060,
+        "wires": [
+            [
+                "1d04ec08ad4d7761",
+                "1cc9c852a6ae4447",
+                "a43114fd64e99e97"
+            ]
+        ]
+    },
+    {
+        "id": "1cc9c852a6ae4447",
+        "type": "ui_led",
+        "z": "726798b2ed2e9d52",
+        "order": 14,
+        "group": "c0873438b4b186e4",
+        "width": "2",
+        "height": "1",
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "led pump",
+        "x": 760,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "e3098072c88e0663",
+        "type": "ui_led",
+        "z": "726798b2ed2e9d52",
+        "order": 14,
+        "group": "c0873438b4b186e4",
+        "width": "2",
+        "height": "1",
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "led pump",
+        "x": 760,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "2286f91378141185",
+        "type": "ui_switch",
+        "z": "726798b2ed2e9d52",
+        "name": "pump switch",
+        "label": "pump switch",
+        "tooltip": "",
+        "group": "c0873438b4b186e4",
+        "order": 13,
+        "width": "4",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 230,
+        "y": 1200,
+        "wires": [
+            [
+                "8dfbc6a06a53a979",
+                "e3098072c88e0663"
+            ]
+        ]
+    },
+    {
+        "id": "a43114fd64e99e97",
+        "type": "debug",
+        "z": "726798b2ed2e9d52",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "0d8e3427da114831",
+        "type": "rpi-gpio in",
+        "z": "162cea04a51a0717",
+        "name": "reservoir sen",
+        "pin": "6",
+        "intype": "up",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 330,
+        "y": 140,
+        "wires": [
+            [
+                "173762bf3ce1a121"
+            ]
+        ]
+    },
+    {
+        "id": "9ad42ad1ea3659c3",
+        "type": "rpi-gpio in",
+        "z": "162cea04a51a0717",
+        "name": "inverter switch",
+        "pin": "16",
+        "intype": "up",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 340,
+        "y": 180,
+        "wires": [
+            [
+                "89d18d24e97ba65f"
+            ]
+        ]
+    },
+    {
+        "id": "0c296120e3b8b1ad",
+        "type": "rpi-gpio in",
+        "z": "162cea04a51a0717",
+        "name": "water sen",
+        "pin": "20",
+        "intype": "up",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 320,
+        "y": 220,
+        "wires": [
+            [
+                "f5d6cb1e3511cdae"
+            ]
+        ]
+    },
+    {
+        "id": "cf77fa3e2ca39d65",
+        "type": "rpi-gpio in",
+        "z": "162cea04a51a0717",
+        "name": "pump switch",
+        "pin": "21",
+        "intype": "up",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 330,
+        "y": 260,
+        "wires": [
+            [
+                "466409e79e012929"
+            ]
+        ]
+    },
+    {
+        "id": "466409e79e012929",
+        "type": "ui_led",
+        "z": "162cea04a51a0717",
+        "order": 4,
+        "group": "7d05444eba45da17",
+        "width": 0,
+        "height": 0,
+        "label": "pump switch state:",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "0",
+                "valueType": "num"
+            },
+            {
+                "color": "#008000",
+                "value": "1",
+                "valueType": "num"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "led pump switch",
+        "x": 660,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "173762bf3ce1a121",
+        "type": "ui_led",
+        "z": "162cea04a51a0717",
+        "order": 1,
+        "group": "7d05444eba45da17",
+        "width": 0,
+        "height": 0,
+        "label": "reservoir state:",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "0",
+                "valueType": "num"
+            },
+            {
+                "color": "#008000",
+                "value": "1",
+                "valueType": "num"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "led reservoir",
+        "x": 650,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "89d18d24e97ba65f",
+        "type": "ui_led",
+        "z": "162cea04a51a0717",
+        "order": 2,
+        "group": "7d05444eba45da17",
+        "width": 0,
+        "height": 0,
+        "label": "inverter switch state:",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "0",
+                "valueType": "num"
+            },
+            {
+                "color": "#008000",
+                "value": "1",
+                "valueType": "num"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "led inverter switch",
+        "x": 670,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f5d6cb1e3511cdae",
+        "type": "ui_led",
+        "z": "162cea04a51a0717",
+        "order": 3,
+        "group": "7d05444eba45da17",
+        "width": 0,
+        "height": 0,
+        "label": "water sensor state:",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "0",
+                "valueType": "num"
+            },
+            {
+                "color": "#008000",
+                "value": "1",
+                "valueType": "num"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "led water sensor",
+        "x": 660,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "8bdc0ad591b59ea7",
+        "type": "debug",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "4ad8306cc0f623a2",
+        "type": "inject",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 80,
+        "y": 540,
+        "wires": [
+            [
+                "036150936425b19a",
+                "055da7845f57ef57"
+            ]
+        ]
+    },
+    {
+        "id": "036150936425b19a",
+        "type": "i2c in",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "busno": "1",
+        "address": "105",
+        "command": "16",
+        "count": "3",
+        "x": 250,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a0b92734684d1f04",
+        "type": "function",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "func": "\nvar adc_val = msg.payload[1]+ (msg.payload[0]<<8);\nvar voltage_val = Math.round(adc_val);\nmsg.payload = adc_val;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "31ef7c8c1c70049b",
+        "type": "i2c scan",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "busno": "1",
+        "x": 220,
+        "y": 680,
+        "wires": [
+            [
+                "8bdc0ad591b59ea7"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "47cdcb0f6df16690",
+        "type": "inject",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 80,
+        "y": 620,
+        "wires": [
+            [
+                "31ef7c8c1c70049b"
+            ]
+        ]
+    },
+    {
+        "id": "055da7845f57ef57",
+        "type": "delay",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "200",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 250,
+        "y": 580,
+        "wires": [
+            [
+                "6861e23f2f51feed"
+            ]
+        ]
+    },
+    {
+        "id": "6861e23f2f51feed",
+        "type": "i2c in",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "busno": "1",
+        "address": "105",
+        "command": "16",
+        "count": "3",
+        "x": 390,
+        "y": 580,
+        "wires": [
+            [
+                "8bdc0ad591b59ea7"
+            ]
+        ]
+    },
+    {
+        "id": "b19c3b71d991e062",
+        "type": "serial in",
+        "z": "ffd71fb61f1d4553",
+        "name": "",
+        "serial": "594a8a527370c352",
+        "x": 180,
+        "y": 300,
+        "wires": [
+            [
+                "8eb1ff939cbcc3d7",
+                "086f1eb819c169f0"
+            ]
+        ]
+    },
+    {
+        "id": "a8da268bbe5325e2",
+        "type": "debug",
+        "z": "ffd71fb61f1d4553",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "8eb1ff939cbcc3d7",
+        "type": "join",
+        "z": "ffd71fb61f1d4553",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "21",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 310,
+        "y": 300,
+        "wires": [
+            [
+                "86907e3547eabe12"
+            ]
+        ]
+    },
+    {
+        "id": "86907e3547eabe12",
+        "type": "delay",
+        "z": "ffd71fb61f1d4553",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 500,
+        "y": 300,
+        "wires": [
+            [
+                "a8da268bbe5325e2"
+            ]
+        ]
+    },
+    {
+        "id": "086f1eb819c169f0",
+        "type": "debug",
+        "z": "ffd71fb61f1d4553",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 390,
+        "y": 360,
         "wires": []
     }
 ]
