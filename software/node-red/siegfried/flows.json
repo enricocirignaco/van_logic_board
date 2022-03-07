@@ -240,104 +240,6 @@
         "hidden": false
     },
     {
-        "id": "a2fa63e7b733b5e1",
-        "type": "ui_base",
-        "theme": {
-            "name": "theme-dark",
-            "lightTheme": {
-                "default": "#0094CE",
-                "baseColor": "#0094CE",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": true,
-                "reset": false
-            },
-            "darkTheme": {
-                "default": "#097479",
-                "baseColor": "#097479",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": true,
-                "reset": false
-            },
-            "customTheme": {
-                "name": "Untitled Theme 1",
-                "default": "#4B7930",
-                "baseColor": "#4B7930",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
-            },
-            "themeState": {
-                "base-color": {
-                    "default": "#097479",
-                    "value": "#097479",
-                    "edited": false
-                },
-                "page-titlebar-backgroundColor": {
-                    "value": "#097479",
-                    "edited": false
-                },
-                "page-backgroundColor": {
-                    "value": "#111111",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#333333",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#0eb8c0",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#555555",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#333333",
-                    "edited": false
-                },
-                "widget-textColor": {
-                    "value": "#eeeeee",
-                    "edited": false
-                },
-                "widget-backgroundColor": {
-                    "value": "#097479",
-                    "edited": false
-                },
-                "widget-borderColor": {
-                    "value": "#333333",
-                    "edited": false
-                },
-                "base-font": {
-                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
-                }
-            },
-            "angularTheme": {
-                "primary": "indigo",
-                "accents": "blue",
-                "warn": "red",
-                "background": "grey",
-                "palette": "light"
-            }
-        },
-        "site": {
-            "name": "Node-RED Dashboard",
-            "hideToolbar": "false",
-            "allowSwipe": "false",
-            "lockMenu": "false",
-            "allowTempTheme": "true",
-            "dateFormat": "DD/MM/YYYY",
-            "sizes": {
-                "sx": 48,
-                "sy": 48,
-                "gx": 6,
-                "gy": 6,
-                "cx": 6,
-                "cy": 6,
-                "px": 0,
-                "py": 0
-            }
-        }
-    },
-    {
         "id": "c0873438b4b186e4",
         "type": "ui_group",
         "name": "Outputs",
@@ -2008,6 +1910,70 @@
         ]
     },
     {
+        "id": "052d6165b45ef74d",
+        "type": "function",
+        "z": "a7233230404c3289",
+        "name": "",
+        "func": "\nvar input_state;\ninput_state.test1 = true;\ninput_state.test1 = false;\n\nglobal.set('input_state', input_state);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 900,
+        "wires": [
+            [
+                "1aa2697447ebcce7"
+            ]
+        ]
+    },
+    {
+        "id": "9b7204d915ea951a",
+        "type": "inject",
+        "z": "a7233230404c3289",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1240,
+        "y": 900,
+        "wires": [
+            [
+                "052d6165b45ef74d"
+            ]
+        ]
+    },
+    {
+        "id": "1aa2697447ebcce7",
+        "type": "debug",
+        "z": "a7233230404c3289",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1610,
+        "y": 860,
+        "wires": []
+    },
+    {
         "id": "3c1ffe73b922b48d",
         "type": "ui_button",
         "z": "726798b2ed2e9d52",
@@ -2027,8 +1993,8 @@
         "payloadType": "bool",
         "topic": "topic",
         "topicType": "msg",
-        "x": 220,
-        "y": 140,
+        "x": 200,
+        "y": 400,
         "wires": [
             [
                 "aa8a66372e7ba44e",
@@ -2048,8 +2014,8 @@
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 750,
-        "y": 80,
+        "x": 730,
+        "y": 340,
         "wires": []
     },
     {
@@ -2072,8 +2038,8 @@
         "payloadType": "bool",
         "topic": "topic",
         "topicType": "msg",
-        "x": 220,
-        "y": 180,
+        "x": 200,
+        "y": 440,
         "wires": [
             [
                 "31560b05859fb872",
@@ -2092,8 +2058,8 @@
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 760,
-        "y": 180,
+        "x": 740,
+        "y": 440,
         "wires": []
     },
     {
@@ -2116,8 +2082,8 @@
         "payloadType": "bool",
         "topic": "topic",
         "topicType": "msg",
-        "x": 190,
-        "y": 400,
+        "x": 170,
+        "y": 160,
         "wires": [
             [
                 "96de38f7c94c4261",
@@ -2146,8 +2112,8 @@
         "payloadType": "bool",
         "topic": "topic",
         "topicType": "msg",
-        "x": 190,
-        "y": 440,
+        "x": 170,
+        "y": 200,
         "wires": [
             [
                 "f1aebf49c104cbd9",
@@ -2172,8 +2138,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 370,
-        "y": 60,
+        "x": 350,
+        "y": 320,
         "wires": [
             [
                 "403a86068e97f93e"
@@ -2199,8 +2165,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 530,
-        "y": 60,
+        "x": 510,
+        "y": 320,
         "wires": [
             [
                 "aa8a66372e7ba44e"
@@ -2226,8 +2192,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 540,
-        "y": 240,
+        "x": 520,
+        "y": 500,
         "wires": [
             [
                 "31560b05859fb872",
@@ -2240,14 +2206,14 @@
         "type": "rpi-gpio out",
         "z": "726798b2ed2e9d52",
         "name": "charger enable",
-        "pin": "18",
+        "pin": "8",
         "set": true,
         "level": "0",
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 760,
-        "y": 380,
+        "x": 740,
+        "y": 140,
         "wires": []
     },
     {
@@ -2255,14 +2221,14 @@
         "type": "rpi-gpio out",
         "z": "726798b2ed2e9d52",
         "name": "charger disable",
-        "pin": "17",
+        "pin": "25",
         "set": true,
         "level": "0",
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 760,
-        "y": 480,
+        "x": 740,
+        "y": 240,
         "wires": []
     },
     {
@@ -2284,8 +2250,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 540,
-        "y": 320,
+        "x": 520,
+        "y": 80,
         "wires": [
             [
                 "96de38f7c94c4261"
@@ -2311,8 +2277,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 540,
-        "y": 500,
+        "x": 520,
+        "y": 260,
         "wires": [
             [
                 "f1aebf49c104cbd9",
@@ -2384,7 +2350,7 @@
         "type": "rpi-gpio out",
         "z": "726798b2ed2e9d52",
         "name": "inverter enable",
-        "pin": "8",
+        "pin": "18",
         "set": true,
         "level": "0",
         "freq": "",
@@ -2399,7 +2365,7 @@
         "type": "rpi-gpio out",
         "z": "726798b2ed2e9d52",
         "name": "inverter disable",
-        "pin": "25",
+        "pin": "17",
         "set": true,
         "level": "0",
         "freq": "",
@@ -2506,8 +2472,8 @@
         "shape": "circle",
         "showGlow": true,
         "name": "led fridge",
-        "x": 740,
-        "y": 140,
+        "x": 720,
+        "y": 400,
         "wires": []
     },
     {
@@ -2537,8 +2503,8 @@
         "shape": "circle",
         "showGlow": true,
         "name": "led charger",
-        "x": 750,
-        "y": 400,
+        "x": 730,
+        "y": 180,
         "wires": []
     },
     {
@@ -2589,8 +2555,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 370,
-        "y": 240,
+        "x": 350,
+        "y": 500,
         "wires": [
             [
                 "9ed59ab1c6c5ebce"
@@ -2614,8 +2580,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 370,
-        "y": 320,
+        "x": 350,
+        "y": 80,
         "wires": [
             [
                 "9a787a55cce7550d"
@@ -2639,8 +2605,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 370,
-        "y": 500,
+        "x": 350,
+        "y": 260,
         "wires": [
             [
                 "9885c691789552ed"
@@ -2713,7 +2679,7 @@
         "bgcolor": "",
         "className": "",
         "icon": "",
-        "payload": "true",
+        "payload": "false",
         "payloadType": "bool",
         "topic": "topic",
         "topicType": "msg",
@@ -2742,7 +2708,7 @@
         "bgcolor": "",
         "className": "",
         "icon": "",
-        "payload": "false",
+        "payload": "true",
         "payloadType": "bool",
         "topic": "topic",
         "topicType": "msg",
@@ -2830,7 +2796,7 @@
         "id": "8dfbc6a06a53a979",
         "type": "rpi-gpio out",
         "z": "726798b2ed2e9d52",
-        "name": "electrovalve",
+        "name": "aux output",
         "pin": "13",
         "set": true,
         "level": "0",
@@ -2846,7 +2812,7 @@
         "type": "rpi-gpio out",
         "z": "726798b2ed2e9d52",
         "name": "pump",
-        "pin": "12",
+        "pin": "13",
         "set": true,
         "level": "0",
         "freq": "",
@@ -2926,7 +2892,7 @@
         "id": "e3098072c88e0663",
         "type": "ui_led",
         "z": "726798b2ed2e9d52",
-        "order": 14,
+        "order": 16,
         "group": "c0873438b4b186e4",
         "width": "2",
         "height": "1",
@@ -2948,8 +2914,8 @@
         "allowColorForValueInMessage": false,
         "shape": "circle",
         "showGlow": true,
-        "name": "led pump",
-        "x": 760,
+        "name": "led aux output",
+        "x": 780,
         "y": 1260,
         "wires": []
     },
@@ -2957,11 +2923,11 @@
         "id": "2286f91378141185",
         "type": "ui_switch",
         "z": "726798b2ed2e9d52",
-        "name": "pump switch",
-        "label": "pump switch",
+        "name": "aux output switch",
+        "label": "aux output switch",
         "tooltip": "",
         "group": "c0873438b4b186e4",
-        "order": 13,
+        "order": 15,
         "width": "4",
         "height": "1",
         "passthru": true,
@@ -2979,7 +2945,7 @@
         "offcolor": "",
         "animate": false,
         "className": "",
-        "x": 230,
+        "x": 250,
         "y": 1200,
         "wires": [
             [
@@ -3938,12 +3904,14 @@
         "id": "a8da268bbe5325e2",
         "type": "debug",
         "z": "ffd71fb61f1d4553",
+        "d": true,
         "name": "",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 670,
@@ -4007,12 +3975,14 @@
         "id": "086f1eb819c169f0",
         "type": "debug",
         "z": "ffd71fb61f1d4553",
+        "d": true,
         "name": "",
         "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 390,
