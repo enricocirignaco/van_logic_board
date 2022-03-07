@@ -6,6 +6,7 @@ Node Red running on a docker container. Image used is the official node-red imag
 - create project: `docker run -it -p 1880:1880 -v ${PWD}:/data --name node-red nodered/node-red`
 - to stop container run `docker stop node-red`
 - to start container and attach to it run `docker start -a node-red`
+  Source: https://nodered.org/docs/getting-started/docker
 
 ## GPIO configuration:
 
