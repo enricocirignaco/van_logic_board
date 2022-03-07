@@ -47,11 +47,11 @@ The software was so implemented that 100ms after one of both coils is turned on 
 
 ## Inputs
 
-As the state of any gpio input changes this part of the flow is triggered and and the state of each input stored on a global array is updated.
+As the state of any gpio input changes this part of the flow is triggered and and the state of each input stored in a global object is updated. The state of the inputs is also updated when the flow is deployed.
 
 ### Name of inputs stored as global variables:
 
-- input_state() (array)
+- input_state (object)
   - switch_kitchen
   - switch_living_room
   - aux_input_1
