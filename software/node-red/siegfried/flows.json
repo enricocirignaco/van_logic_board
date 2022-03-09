@@ -10,7 +10,7 @@
     {
         "id": "726798b2ed2e9d52",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "hardware test",
         "disabled": false,
         "info": "",
         "env": []
@@ -281,6 +281,17 @@
         "order": 1,
         "disp": true,
         "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7ac90561cb0ad481",
+        "type": "ui_group",
+        "name": "Serial COM",
+        "tab": "bd4868f5f122cb15",
+        "order": 3,
+        "disp": true,
+        "width": "6",
         "collapse": false,
         "className": ""
     },
@@ -2050,6 +2061,7 @@
         "id": "7070617653022f14",
         "type": "serial in",
         "z": "162cea04a51a0717",
+        "d": true,
         "name": "",
         "serial": "594a8a527370c352",
         "x": 100,
@@ -2148,6 +2160,306 @@
         "statusType": "auto",
         "x": 310,
         "y": 560,
+        "wires": []
+    },
+    {
+        "id": "45cb4c50f5f186b6",
+        "type": "serial request",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "serial": "594a8a527370c352",
+        "x": 810,
+        "y": 840,
+        "wires": [
+            [
+                "e74e20aef28e16a9"
+            ]
+        ]
+    },
+    {
+        "id": "db17ac221c946cfa",
+        "type": "function",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "func": "msg.payload = \":8F0ED0064000C\" + '\\n';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9964cdefdb711288",
+        "type": "inject",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 660,
+        "wires": [
+            [
+                "db17ac221c946cfa"
+            ]
+        ]
+    },
+    {
+        "id": "ca27c47937e7c4eb",
+        "type": "ui_text_input",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "label": "enter HEX",
+        "tooltip": "",
+        "group": "7ac90561cb0ad481",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "topic",
+        "sendOnBlur": false,
+        "className": "",
+        "topicType": "msg",
+        "x": 420,
+        "y": 840,
+        "wires": [
+            [
+                "dd17b34a371b0aa1",
+                "15099b162f16fa44"
+            ]
+        ]
+    },
+    {
+        "id": "c91ee92a56272905",
+        "type": "ui_text",
+        "z": "162cea04a51a0717",
+        "group": "7ac90561cb0ad481",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Command:",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 1210,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "dd17b34a371b0aa1",
+        "type": "function",
+        "z": "162cea04a51a0717",
+        "name": "messageParser",
+        "func": "var string = msg.payload;\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string\nvar checksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n\nmsg.payload = ':' + string + checksum + '\\n';\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 840,
+        "wires": [
+            [
+                "45cb4c50f5f186b6"
+            ]
+        ]
+    },
+    {
+        "id": "e74e20aef28e16a9",
+        "type": "function",
+        "z": "162cea04a51a0717",
+        "name": "getParser",
+        "func": "var string = msg.payload;\n\n// take out start and stop signs (: and \\n)\nstring = string.substring(11, string.length-1);\n// get checksum (last byte)\nvar checksum = string.substring(string.length-2);\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1, string.length-2).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string all caps\nvar myChecksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n// check data integrity\nvar isDataCorrupted;\nif(myChecksum == checksum){\n    // command\n    var msg1 = {payload: string.substring(0,1)};\n    // data\n    var msg2 = {payload: string.substring(1, string.length-2)};\n    return[msg1, msg2, null];\n}\nelse {\n    return[null, null, {payload: true}];\n}\n",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 840,
+        "wires": [
+            [
+                "c91ee92a56272905"
+            ],
+            [
+                "e95c799fefc1d442",
+                "e1c3ebe05a69d282"
+            ],
+            [
+                "0d9ae756e8a7c710"
+            ]
+        ]
+    },
+    {
+        "id": "e95c799fefc1d442",
+        "type": "ui_text",
+        "z": "162cea04a51a0717",
+        "group": "7ac90561cb0ad481",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Data:",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 1190,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "0d9ae756e8a7c710",
+        "type": "ui_led",
+        "z": "162cea04a51a0717",
+        "order": 2,
+        "group": "7ac90561cb0ad481",
+        "width": 0,
+        "height": 0,
+        "label": "Data corrupted",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": false,
+        "name": "",
+        "x": 1190,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "15099b162f16fa44",
+        "type": "change",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 900,
+        "wires": [
+            [
+                "ca27c47937e7c4eb"
+            ]
+        ]
+    },
+    {
+        "id": "943d2b2dcabedf09",
+        "type": "function",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "func": "var max_capacity = 384; //Wh\nvar yield_today;\nvar consumed_today;\nvar left_capacity = max_capacity + yield_today - consumed_today;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 1120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5711dac769c19230",
+        "type": "inject",
+        "z": "162cea04a51a0717",
+        "name": "request today history",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "7501000",
+        "payloadType": "str",
+        "x": 400,
+        "y": 760,
+        "wires": [
+            [
+                "dd17b34a371b0aa1"
+            ]
+        ]
+    },
+    {
+        "id": "e1c3ebe05a69d282",
+        "type": "function",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "func": "\nvar data = {\n    energy_yield: 32,\n    energy_consumed: 32,\n    battery_voltage_max: 16,\n    battery_voltage_min: 16,\n    error_database: 8,\n    error_0: 8,\n    error_1: 8,\n    error_2: 8,\n    error_3: 8,\n    time_bulk: 16,\n    time_absorpion: 16,\n    time_float: 16,\n    power_max: 32,\n    battery_current_max: 16,\n    panel_voltage_max: 16,\n    day_sequence_number: 16\n};\n\nvar hex = msg.payload;\n// save substring of interest (66-70) in array of bytes\nvar power = hex.substring(66, 70).match(/.{1,2}/g);\n// invert low nibble with high nibble\nvar arr = [];\nfor(var i=power.length-1; i>=0; i--){\n    arr.push(power[i]);\n}\n// join array of bytes into string\npower = arr.join('');\n// parse string into dec value\nvar val = parseInt(power, 16)\n\nmsg.payload = val;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 1020,
+        "wires": [
+            [
+                "29bba9a33957312e"
+            ]
+        ]
+    },
+    {
+        "id": "29bba9a33957312e",
+        "type": "debug",
+        "z": "162cea04a51a0717",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 1040,
         "wires": []
     },
     {
