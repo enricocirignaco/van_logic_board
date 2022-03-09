@@ -15,12 +15,13 @@ Node Red running on a docker container. Image used is the official node-red imag
 - Fridge
   - enable: GPIO23 (HW 16)
   - disable: GPIO22 (HW 15)
-- Inverter
-  - enable: GPIO18 (HW 12)
-  - disable: GPIO17 (HW 11)
 - Charger
   - enable: GPIO8 (HW 24)
   - disable: GPIO25 (HW 22)
+- Inverter
+  - enable: GPIO18 (HW 12)
+  - disable: GPIO17 (HW 11)
+
 - Source Select **(ON = lead battery, OFF = lfp battery)**: GPIO24 (HW 18)
 - Pump: GPIO13 (HW33)
 - Aux output: GPIO12 (HW32)
