@@ -24,6 +24,14 @@
         "env": []
     },
     {
+        "id": "493e4b0fcbc7484f",
+        "type": "tab",
+        "label": "MPPT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "78b28997a4d07be2",
         "type": "tab",
         "label": "Fridge",
@@ -2068,8 +2076,7 @@
         "y": 500,
         "wires": [
             [
-                "14076d51a5eb81bc",
-                "2e876a81b4e9518e"
+                "14076d51a5eb81bc"
             ]
         ]
     },
@@ -2087,7 +2094,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 590,
+        "x": 610,
         "y": 500,
         "wires": []
     },
@@ -2095,6 +2102,7 @@
         "id": "14076d51a5eb81bc",
         "type": "join",
         "z": "162cea04a51a0717",
+        "d": true,
         "name": "",
         "mode": "custom",
         "build": "array",
@@ -2111,7 +2119,7 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 230,
+        "x": 250,
         "y": 500,
         "wires": [
             [
@@ -2123,6 +2131,7 @@
         "id": "e816023dd76585b7",
         "type": "delay",
         "z": "162cea04a51a0717",
+        "d": true,
         "name": "",
         "pauseType": "rate",
         "timeout": "5",
@@ -2145,80 +2154,16 @@
         ]
     },
     {
-        "id": "2e876a81b4e9518e",
-        "type": "debug",
-        "z": "162cea04a51a0717",
-        "d": true,
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 310,
-        "y": 560,
-        "wires": []
-    },
-    {
         "id": "45cb4c50f5f186b6",
         "type": "serial request",
         "z": "162cea04a51a0717",
         "name": "",
         "serial": "594a8a527370c352",
-        "x": 810,
-        "y": 840,
+        "x": 530,
+        "y": 620,
         "wires": [
             [
                 "e74e20aef28e16a9"
-            ]
-        ]
-    },
-    {
-        "id": "db17ac221c946cfa",
-        "type": "function",
-        "z": "162cea04a51a0717",
-        "name": "",
-        "func": "msg.payload = \":8F0ED0064000C\" + '\\n';\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 220,
-        "y": 720,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "9964cdefdb711288",
-        "type": "inject",
-        "z": "162cea04a51a0717",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 100,
-        "y": 660,
-        "wires": [
-            [
-                "db17ac221c946cfa"
             ]
         ]
     },
@@ -2240,8 +2185,8 @@
         "sendOnBlur": false,
         "className": "",
         "topicType": "msg",
-        "x": 420,
-        "y": 840,
+        "x": 140,
+        "y": 620,
         "wires": [
             [
                 "dd17b34a371b0aa1",
@@ -2262,23 +2207,23 @@
         "format": "{{msg.payload}}",
         "layout": "col-center",
         "className": "",
-        "x": 1210,
-        "y": 800,
+        "x": 930,
+        "y": 580,
         "wires": []
     },
     {
         "id": "dd17b34a371b0aa1",
         "type": "function",
         "z": "162cea04a51a0717",
-        "name": "messageParser",
+        "name": "checksum builder",
         "func": "var string = msg.payload;\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string\nvar checksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n\nmsg.payload = ':' + string + checksum + '\\n';\n\nreturn msg;\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 620,
-        "y": 840,
+        "x": 350,
+        "y": 620,
         "wires": [
             [
                 "45cb4c50f5f186b6"
@@ -2289,22 +2234,21 @@
         "id": "e74e20aef28e16a9",
         "type": "function",
         "z": "162cea04a51a0717",
-        "name": "getParser",
-        "func": "var string = msg.payload;\n\n// take out start and stop signs (: and \\n)\nstring = string.substring(11, string.length-1);\n// get checksum (last byte)\nvar checksum = string.substring(string.length-2);\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1, string.length-2).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string all caps\nvar myChecksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n// check data integrity\nvar isDataCorrupted;\nif(myChecksum == checksum){\n    // command\n    var msg1 = {payload: string.substring(0,1)};\n    // data\n    var msg2 = {payload: string.substring(1, string.length-2)};\n    return[msg1, msg2, null];\n}\nelse {\n    return[null, null, {payload: true}];\n}\n",
+        "name": "checksum tester",
+        "func": "// first output: command value\n// second output: message\n// third output: true if data is corrupted\n\nvar string = msg.payload;\n\n// take out start and stop signs (: and \\n)\nstring = string.substring(11, string.length-1);\n// get checksum (last byte)\nvar checksum = string.substring(string.length-2);\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1, string.length-2).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string all caps\nvar myChecksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n// check data integrity\nvar isDataCorrupted;\nif(myChecksum == checksum){\n    // command\n    var msg1 = {payload: string.substring(0,1)};\n    // data\n    var msg2 = {payload: string.substring(1, string.length-2)};\n    return[msg1, msg2, null];\n}\nelse {\n    return[null, null, {payload: true}];\n}\n",
         "outputs": 3,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1020,
-        "y": 840,
+        "x": 710,
+        "y": 620,
         "wires": [
             [
                 "c91ee92a56272905"
             ],
             [
-                "e95c799fefc1d442",
-                "e1c3ebe05a69d282"
+                "e95c799fefc1d442"
             ],
             [
                 "0d9ae756e8a7c710"
@@ -2324,8 +2268,8 @@
         "format": "{{msg.payload}}",
         "layout": "col-center",
         "className": "",
-        "x": 1190,
-        "y": 840,
+        "x": 910,
+        "y": 620,
         "wires": []
     },
     {
@@ -2350,8 +2294,8 @@
         "shape": "circle",
         "showGlow": false,
         "name": "",
-        "x": 1190,
-        "y": 880,
+        "x": 910,
+        "y": 660,
         "wires": []
     },
     {
@@ -2373,8 +2317,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 420,
-        "y": 900,
+        "x": 140,
+        "y": 680,
         "wires": [
             [
                 "ca27c47937e7c4eb"
@@ -2382,26 +2326,102 @@
         ]
     },
     {
-        "id": "943d2b2dcabedf09",
-        "type": "function",
+        "id": "f3ef3446055ae61d",
+        "type": "comment",
         "z": "162cea04a51a0717",
-        "name": "",
-        "func": "var max_capacity = 384; //Wh\nvar yield_today;\nvar consumed_today;\nvar left_capacity = max_capacity + yield_today - consumed_today;\nreturn msg;",
+        "name": "Standard text mode",
+        "info": "",
+        "x": 130,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "041052e740fb61ab",
+        "type": "comment",
+        "z": "162cea04a51a0717",
+        "name": "Hex mode",
+        "info": "",
+        "x": 100,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "522a28de03c194b1",
+        "type": "serial request",
+        "z": "493e4b0fcbc7484f",
+        "name": "MPPT request",
+        "serial": "594a8a527370c352",
+        "x": 560,
+        "y": 180,
+        "wires": [
+            [
+                "de36f2d1d965bb8e"
+            ]
+        ]
+    },
+    {
+        "id": "b60a37816360662b",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "name": "checksum builder",
+        "func": "var string = msg.payload;\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string\nvar checksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n\nmsg.payload = ':' + string + checksum + '\\n';\n\nreturn msg;\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 600,
-        "y": 1120,
+        "x": 350,
+        "y": 180,
         "wires": [
+            [
+                "522a28de03c194b1"
+            ]
+        ]
+    },
+    {
+        "id": "de36f2d1d965bb8e",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "name": "checksum tester",
+        "func": "// first output: command value\n// second output: message\n// third output: true if data is corrupted\n\nvar string = msg.payload;\n\n// take out start and stop signs (: and \\n)\nstring = string.substring(11, string.length-1);\n// get checksum (last byte)\nvar checksum = string.substring(string.length-2);\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1, string.length-2).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string all caps\nvar myChecksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n// check data integrity\nvar isDataCorrupted;\nif(myChecksum == checksum){\n    // command\n    var msg1 = {payload: string.substring(0,1)};\n    // data\n    var msg2 = {payload: string.substring(1, string.length-2)};\n    return[msg1, msg2, null];\n}\nelse {\n    return[null, null, {payload: true}];\n}\n",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 180,
+        "wires": [
+            [],
+            [
+                "a805575efa3fd140"
+            ],
             []
         ]
     },
     {
-        "id": "5711dac769c19230",
+        "id": "79ef0823a6b283f4",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "name": "SOC calculator",
+        "func": "var max_capacity = 384; //Wh (12.5V * 30Ah)\n\nvar left_capacity = max_capacity + (msg.payload.energy_yield*10) - (msg.payload.energy_consumed*10);\nvar soc = (left_capacity*100) / max_capacity;\n\nreturn {payload:soc};\n\n\n// to implement: report soc from yesterday\n// reset soc to 100% if charging completed",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 340,
+        "wires": [
+            [
+                "608c783bed42f658"
+            ]
+        ]
+    },
+    {
+        "id": "4ba88c3a7bf4d7cf",
         "type": "inject",
-        "z": "162cea04a51a0717",
+        "z": "493e4b0fcbc7484f",
         "name": "request today history",
         "props": [
             {
@@ -2419,37 +2439,38 @@
         "topic": "",
         "payload": "7501000",
         "payloadType": "str",
-        "x": 400,
-        "y": 760,
+        "x": 120,
+        "y": 180,
         "wires": [
             [
-                "dd17b34a371b0aa1"
+                "b60a37816360662b"
             ]
         ]
     },
     {
-        "id": "e1c3ebe05a69d282",
+        "id": "a805575efa3fd140",
         "type": "function",
-        "z": "162cea04a51a0717",
-        "name": "",
-        "func": "\nvar data = {\n    energy_yield: 32,\n    energy_consumed: 32,\n    battery_voltage_max: 16,\n    battery_voltage_min: 16,\n    error_database: 8,\n    error_0: 8,\n    error_1: 8,\n    error_2: 8,\n    error_3: 8,\n    time_bulk: 16,\n    time_absorpion: 16,\n    time_float: 16,\n    power_max: 32,\n    battery_current_max: 16,\n    panel_voltage_max: 16,\n    day_sequence_number: 16\n};\n\nvar hex = msg.payload;\n// save substring of interest (66-70) in array of bytes\nvar power = hex.substring(66, 70).match(/.{1,2}/g);\n// invert low nibble with high nibble\nvar arr = [];\nfor(var i=power.length-1; i>=0; i--){\n    arr.push(power[i]);\n}\n// join array of bytes into string\npower = arr.join('');\n// parse string into dec value\nvar val = parseInt(power, 16)\n\nmsg.payload = val;\nreturn msg;",
+        "z": "493e4b0fcbc7484f",
+        "name": "data parser",
+        "func": "var raw_data = msg.payload;\nvar data = {\n    energy_yield:           [8, 16],    //*10 to Wh\n    energy_consumed:        [16, 24],   //*10 to Wh\n    battery_voltage_max:    [24, 28],   //*10 to mV\n    battery_voltage_min:    [28, 32],   //*10 to mV\n    error_database:         [32, 34],\n    error_0:                [34, 36],\n    error_1:                [36, 38],\n    error_2:                [38, 40],\n    error_3:                [40, 42],\n    time_bulk:              [42, 46],   // minutes\n    time_absorpion:         [46, 50],   // minutes\n    time_float:             [50, 54],   // minutes\n    power_max:              [54, 62],   // in W\n    battery_current_max:    [62, 66],   //*100 in mA\n    panel_voltage_max:      [66, 70],   //*10 in mV\n    day_sequence_number:    [70, 74]\n};\n// decoding routine\nfor(const property in data){\n    // save substring of interest in array of bytes\n    var byte_arr = raw_data.substring(data[property][0], data[property][1]).match(/.{1,2}/g);\n    // invert low nibble with high nibble\n    var inverted_arr = [];\n    for(var i=byte_arr.length-1; i>=0; i--){\n        inverted_arr.push(byte_arr[i]);\n    }\n    // join array of bytes into string then parse string into dec value\n    data[property] = parseInt(inverted_arr.join(''), 16);\n}\n\n\nflow.set(\"today_history\", data);\nmsg.payload = data;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 920,
-        "y": 1020,
+        "x": 150,
+        "y": 320,
         "wires": [
             [
-                "29bba9a33957312e"
+                "79ef0823a6b283f4",
+                "608c783bed42f658"
             ]
         ]
     },
     {
-        "id": "29bba9a33957312e",
+        "id": "608c783bed42f658",
         "type": "debug",
-        "z": "162cea04a51a0717",
+        "z": "493e4b0fcbc7484f",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -2458,9 +2479,38 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1070,
-        "y": 1040,
+        "x": 790,
+        "y": 340,
         "wires": []
+    },
+    {
+        "id": "d860b3b2bc4b6c26",
+        "type": "inject",
+        "z": "493e4b0fcbc7484f",
+        "name": "request yesterday  history",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "7511000",
+        "payloadType": "str",
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "b60a37816360662b"
+            ]
+        ]
     },
     {
         "id": "08c5c713b62ce9a6",
