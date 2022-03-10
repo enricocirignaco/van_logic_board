@@ -2383,7 +2383,7 @@
         "type": "function",
         "z": "493e4b0fcbc7484f",
         "name": "checksum tester",
-        "func": "// first output: command value\n// second output: message\n// third output: true if data is corrupted\n\nvar string = msg.payload;\n\n// take out start and stop signs (: and \\n)\nstring = string.substring(11, string.length-1);\n// get checksum (last byte)\nvar checksum = string.substring(string.length-2);\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1, string.length-2).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string all caps\nvar myChecksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n// check data integrity\nvar isDataCorrupted;\nif(myChecksum == checksum){\n    // command\n    var msg1 = {payload: string.substring(0,1)};\n    // data\n    var msg2 = {payload: string.substring(1, string.length-2)};\n    return[msg1, msg2, null];\n}\nelse {\n    return[null, null, {payload: true}];\n}\n",
+        "func": "// first output: command value\n// second output: message\n// third output: true if data is corrupted\n\nvar string = msg.payload.toString();\n//msg.payload = string;\n//return[null, msg, null];\n\n// take out start and stop signs (: and \\n)\nstring = string.substring(11, string.length-1);\n// get checksum (last byte)\nvar checksum = string.substring(string.length-2);\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1, string.length-2).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string all caps\nvar myChecksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n// check data integrity\nvar isDataCorrupted;\nif(myChecksum == checksum){\n    // command\n    var msg1 = {payload: string.substring(0,1)};\n    // data\n    var msg2 = {payload: string.substring(1, string.length-2)};\n    return[msg1, msg2, null];\n}\nelse {\n    return[null, null, {payload: true}];\n}\n",
         "outputs": 3,
         "noerr": 0,
         "initialize": "",
@@ -2404,7 +2404,7 @@
         "type": "function",
         "z": "493e4b0fcbc7484f",
         "name": "SOC calculator",
-        "func": "var max_capacity = 384; //Wh (12.5V * 30Ah)\n\nvar left_capacity = max_capacity + (msg.payload.energy_yield*10) - (msg.payload.energy_consumed*10);\nvar soc = (left_capacity*100) / max_capacity;\n\nreturn {payload:soc};\n\n\n// to implement: report soc from yesterday\n// reset soc to 100% if charging completed",
+        "func": "var max_capacity = 384; //Wh (12.5V * 30Ah)\nvar isCharged;\n//if(flow.get(mppt_broadcast).CS == '4'){\n//    isCharged = true;\n//}\nvar left_capacity = max_capacity + (msg.payload.energy_yield*10) - (msg.payload.energy_consumed*10);\nvar soc = (left_capacity*100) / max_capacity;\nmsg.payload = flow.get(mppt_broadcast);\nreturn msg;\n\n\n// to implement: report soc from yesterday\n// reset soc to 100% if charging completed",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2413,9 +2413,7 @@
         "x": 440,
         "y": 340,
         "wires": [
-            [
-                "608c783bed42f658"
-            ]
+            []
         ]
     },
     {
@@ -2462,8 +2460,7 @@
         "y": 320,
         "wires": [
             [
-                "79ef0823a6b283f4",
-                "608c783bed42f658"
+                "79ef0823a6b283f4"
             ]
         ]
     },
@@ -2510,6 +2507,120 @@
             [
                 "b60a37816360662b"
             ]
+        ]
+    },
+    {
+        "id": "bf2fda8594cf902e",
+        "type": "serial in",
+        "z": "493e4b0fcbc7484f",
+        "name": "MPPT broadcast",
+        "serial": "594a8a527370c352",
+        "x": 100,
+        "y": 40,
+        "wires": [
+            [
+                "a5ac2984b26adfaf"
+            ]
+        ]
+    },
+    {
+        "id": "e24b696b89968d8e",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "name": "broadcast parser",
+        "func": "var string = msg.payload;\nvar data = {};\n\n// reorder and standardize data string\nstring = string.substring(string.indexOf(\"PID\"), string.indexOf(\"PID\", string.indexOf(\"PID\")+1));\n//calculate checksum for data integrity\nvar checksum = 0;\nvar bit_stream = new Buffer(string);\nfor(const element of bit_stream) {\n   checksum = (checksum + element) & 255; /* Take modulo 256 in account */\n}\nif(checksum == 0){\n    // remove checksum\n    string = string.substring(0, string.indexOf(\"Checksum\")-1);\n    // convert string to array\n    var array = string.split('\\n');\n    // convert array of string into data object\n    for(const element of array){\n        var property_name = element.substring(0, element.indexOf('\\t'));\n        var property_value = element.substring(element.indexOf('\\t')+1, element.length-1);\n        data[property_name] = property_value;\n    }\n    // update flow object with new data\n    flow.set(\"mppt_broadcast\", data);\n    return [{payload: data} ,null];\n}\nelse {\n    // data corrucped flag\n    return [null, {payload: true}];\n}\n",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 40,
+        "wires": [
+            [],
+            [
+                "e171066b96771584"
+            ]
+        ]
+    },
+    {
+        "id": "e171066b96771584",
+        "type": "debug",
+        "z": "493e4b0fcbc7484f",
+        "name": "data corrupted",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "a3ecfdd37bf9d9d1",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "func": "var count = context.get(\"msg_counter\") || 0;\nvar data =  \"\";\nvar input = msg.payload.toString();\n\nif(input.includes(\"PID\") == true){\n    context.set(\"msg_counter\", 0);\n    context.set(\"data\", input);\n    return;\n}\nelse if(count < 19){\n    context.set(\"msg_counter\", count+1);\n    context.set(\"data\", data.concat(input));\n    return;\n}\nelse{\n    msg.payload = data;\n    context.set(\"msg_counter\", 0);\n    context.set(\"data\", \"\");\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a5ac2984b26adfaf",
+        "type": "join",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "mode": "custom",
+        "build": "string",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "40",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 270,
+        "y": 40,
+        "wires": [
+            [
+                "e24b696b89968d8e"
+            ]
+        ]
+    },
+    {
+        "id": "8b9525389f5c546b",
+        "type": "rbe",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 130,
+        "y": 380,
+        "wires": [
+            []
         ]
     },
     {
