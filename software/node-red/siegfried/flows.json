@@ -2404,7 +2404,7 @@
         "type": "function",
         "z": "493e4b0fcbc7484f",
         "name": "SOC calculator",
-        "func": "var max_capacity = 384; //Wh (12.5V * 30Ah)\nvar isCharged;\n//if(flow.get(mppt_broadcast).CS == '4'){\n//    isCharged = true;\n//}\nvar left_capacity = max_capacity + (msg.payload.energy_yield*10) - (msg.payload.energy_consumed*10);\nvar soc = (left_capacity*100) / max_capacity;\nmsg.payload = flow.get(mppt_broadcast);\nreturn msg;\n\n\n// to implement: report soc from yesterday\n// reset soc to 100% if charging completed",
+        "func": "const data = msg.payload;\nconst max_capacity = 384; //Wh (12.5V * 30Ah)\nconst energy_yield = data.energy_yield*10; //Wh\nconst energy_consumed = data.energy_consumed*10;   //Wh\nvar offset_energy = context.get(\"offset_energy\") || max_capacity;\nvar today_number = flow.get(\"today_number\") || data.day_sequence_number;\n\n// if its a new day\nif(today_number+1 == data.day_sequence_number){\n    today_number = data.day_sequence_number;\n    context.set(\"offset_energy\", (context.get(\"tomorrow_offset_energy\") || offset_energy));\n}\n\n// if battery fully charged (float mode)\nif(flow.get(\"mppt_broadcast\").CS == '5'){\n    context.set(\"offset_energy\", (max_capacity - energy_yield + energy_consumed));\n}\n\nvar left_energy = offset_energy + energy_yield - energy_consumed;\n\n// adjust offset if error detected (SOC > 100%)\nif(left_energy > max_capacity){\n    offset_energy = max_capacity - energy_yield + energy_consumed;\n    context.set(\"offset_energy\", offset_energy);\n    left_energy = offset_energy + energy_yield - energy_consumed;\n}\n// SOC < 0%\nelse if(left_energy < 0){\n    context.set(\"offset_energy\", (0 - energy_yield + energy_consumed));\n    left_energy = 0;\n}\n\ncontext.set(\"tomorrow_offset_energy\", left_energy);\n\nvar soc = left_energy * 100 / max_capacity;\nmsg.payload = soc;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2413,7 +2413,9 @@
         "x": 440,
         "y": 340,
         "wires": [
-            []
+            [
+                "2fd94ec572823321"
+            ]
         ]
     },
     {
@@ -2432,8 +2434,8 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "2",
         "topic": "",
         "payload": "7501000",
         "payloadType": "str",
@@ -2457,28 +2459,12 @@
         "finalize": "",
         "libs": [],
         "x": 150,
-        "y": 320,
+        "y": 340,
         "wires": [
             [
                 "79ef0823a6b283f4"
             ]
         ]
-    },
-    {
-        "id": "608c783bed42f658",
-        "type": "debug",
-        "z": "493e4b0fcbc7484f",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 790,
-        "y": 340,
-        "wires": []
     },
     {
         "id": "d860b3b2bc4b6c26",
@@ -2561,23 +2547,6 @@
         "wires": []
     },
     {
-        "id": "a3ecfdd37bf9d9d1",
-        "type": "function",
-        "z": "493e4b0fcbc7484f",
-        "name": "",
-        "func": "var count = context.get(\"msg_counter\") || 0;\nvar data =  \"\";\nvar input = msg.payload.toString();\n\nif(input.includes(\"PID\") == true){\n    context.set(\"msg_counter\", 0);\n    context.set(\"data\", input);\n    return;\n}\nelse if(count < 19){\n    context.set(\"msg_counter\", count+1);\n    context.set(\"data\", data.concat(input));\n    return;\n}\nelse{\n    msg.payload = data;\n    context.set(\"msg_counter\", 0);\n    context.set(\"data\", \"\");\n    return msg;\n}\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 360,
-        "y": 520,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "a5ac2984b26adfaf",
         "type": "join",
         "z": "493e4b0fcbc7484f",
@@ -2606,21 +2575,71 @@
         ]
     },
     {
-        "id": "8b9525389f5c546b",
-        "type": "rbe",
+        "id": "2fd94ec572823321",
+        "type": "ui_gauge",
         "z": "493e4b0fcbc7484f",
         "name": "",
-        "func": "rbe",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "septopics": true,
-        "property": "payload",
-        "topi": "topic",
-        "x": 130,
-        "y": 380,
+        "group": "7ac90561cb0ad481",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "SOC",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff2600",
+            "#000000",
+            "#00f900"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 710,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "5f1bf2f0ddf26c61",
+        "type": "ui_ui_control",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "events": "connect",
+        "x": 100,
+        "y": 240,
         "wires": [
-            []
+            [
+                "faab1e33cd83d2ce"
+            ]
+        ]
+    },
+    {
+        "id": "faab1e33cd83d2ce",
+        "type": "change",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "7501000",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 260,
+        "y": 240,
+        "wires": [
+            [
+                "b60a37816360662b"
+            ]
         ]
     },
     {
