@@ -418,7 +418,7 @@
         "z": "b57434cd3c37a84c",
         "name": "10sec delay",
         "pauseType": "delay",
-        "timeout": "20",
+        "timeout": "10",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -1213,7 +1213,8 @@
             "cf823661185c38d0",
             "a5648e89b7eefc68",
             "1015dea166c50136",
-            "a9176efe56078ac0"
+            "a9176efe56078ac0",
+            "a093fe71c6d3f8f1"
         ],
         "x": 105,
         "y": 400,
@@ -3840,70 +3841,15 @@
         "wires": []
     },
     {
-        "id": "7c8375a038ae2ec7",
-        "type": "inject",
-        "z": "78b28997a4d07be2",
-        "name": "turn on",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "switch_to_lfp",
-                "v": "true",
-                "vt": "bool"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 190,
-        "y": 600,
-        "wires": [
-            [
-                "944ac0d044d0463f"
-            ]
-        ]
-    },
-    {
         "id": "944ac0d044d0463f",
         "type": "subflow:b57434cd3c37a84c",
         "z": "78b28997a4d07be2",
         "name": "",
-        "x": 480,
-        "y": 600,
+        "x": 640,
+        "y": 840,
         "wires": [
             [
                 "a9176efe56078ac0"
-            ]
-        ]
-    },
-    {
-        "id": "707f2250a7efb10c",
-        "type": "inject",
-        "z": "78b28997a4d07be2",
-        "name": "turn off",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "false",
-        "payloadType": "bool",
-        "x": 190,
-        "y": 660,
-        "wires": [
-            [
-                "944ac0d044d0463f"
             ]
         ]
     },
@@ -3916,8 +3862,153 @@
         "links": [
             "3c41044470a0259c"
         ],
-        "x": 635,
-        "y": 600,
+        "x": 805,
+        "y": 840,
         "wires": []
+    },
+    {
+        "id": "436bb5a1885fb6f2",
+        "type": "ui_button",
+        "z": "78b28997a4d07be2",
+        "name": "on_fridge_lead",
+        "group": "6c304982dc7231d9",
+        "order": 5,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "ON LEAD",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "fridge",
+        "topicType": "str",
+        "x": 220,
+        "y": 800,
+        "wires": [
+            [
+                "43396a7bb8bc1b88",
+                "944ac0d044d0463f"
+            ]
+        ]
+    },
+    {
+        "id": "e84782d952521dd4",
+        "type": "ui_button",
+        "z": "78b28997a4d07be2",
+        "name": "off_fridge",
+        "group": "6c304982dc7231d9",
+        "order": 6,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "label": "OFF",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "topic": "fridge",
+        "topicType": "str",
+        "x": 200,
+        "y": 840,
+        "wires": [
+            [
+                "43396a7bb8bc1b88",
+                "944ac0d044d0463f"
+            ]
+        ]
+    },
+    {
+        "id": "43396a7bb8bc1b88",
+        "type": "ui_led",
+        "z": "78b28997a4d07be2",
+        "order": 4,
+        "group": "6c304982dc7231d9",
+        "width": "0",
+        "height": "0",
+        "label": "fridge relay: ",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "led fridge",
+        "x": 440,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "85e90673b47d7d1b",
+        "type": "change",
+        "z": "78b28997a4d07be2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "switch_to_lfp",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 760,
+        "wires": [
+            [
+                "944ac0d044d0463f"
+            ]
+        ]
+    },
+    {
+        "id": "00fb4a4ada0221c3",
+        "type": "ui_button",
+        "z": "78b28997a4d07be2",
+        "name": "on_fridge_lfp",
+        "group": "6c304982dc7231d9",
+        "order": 5,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "ON LFP",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "fridge",
+        "topicType": "str",
+        "x": 210,
+        "y": 760,
+        "wires": [
+            [
+                "43396a7bb8bc1b88",
+                "85e90673b47d7d1b"
+            ]
+        ]
     }
 ]
