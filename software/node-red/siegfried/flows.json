@@ -105,15 +105,6 @@
         "h": 402
     },
     {
-        "id": "4e5a79410f858330",
-        "type": "ui_tab",
-        "name": "Home",
-        "icon": "dashboard",
-        "order": 3,
-        "disabled": false,
-        "hidden": false
-    },
-    {
         "id": "a74bb25de5c78e26",
         "type": "ui_base",
         "theme": {
@@ -213,55 +204,11 @@
         }
     },
     {
-        "id": "eb3dc518d2e4c032",
-        "type": "ui_group",
-        "name": "Temperature",
-        "tab": "4e5a79410f858330",
-        "order": 5,
-        "disp": true,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "36d09c259c655fae",
-        "type": "ui_group",
-        "name": "fridge",
-        "tab": "4e5a79410f858330",
-        "order": 2,
-        "disp": true,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "bf5fc43d691b1bab",
-        "type": "ui_group",
-        "name": "Water System",
-        "tab": "4e5a79410f858330",
-        "order": 3,
-        "disp": true,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "1b844a8aa1ffbad4",
-        "type": "ui_group",
-        "name": "Inverter",
-        "tab": "4e5a79410f858330",
-        "order": 4,
-        "disp": true,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "8d207109f202f502",
         "type": "ui_tab",
         "name": "Fridge",
         "icon": "dashboard",
-        "order": 4,
+        "order": 1,
         "disabled": false,
         "hidden": false
     },
@@ -292,7 +239,7 @@
         "type": "ui_tab",
         "name": "Home",
         "icon": "dashboard",
-        "order": 1,
+        "order": 2,
         "disabled": false,
         "hidden": false
     },
@@ -336,26 +283,6 @@
         "out": "char",
         "addchar": "",
         "responsetimeout": "10000"
-    },
-    {
-        "id": "94b0afa1b11b1713",
-        "type": "ui_tab",
-        "name": "Hardware",
-        "icon": "dashboard",
-        "order": 2,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "1af7c6782ddcc994",
-        "type": "ui_group",
-        "name": "Default",
-        "tab": "94b0afa1b11b1713",
-        "order": 1,
-        "disp": true,
-        "width": "12",
-        "collapse": false,
-        "className": ""
     },
     {
         "id": "7ac90561cb0ad481",
@@ -2749,6 +2676,16 @@
         ],
         "x": 675,
         "y": 640,
+        "wires": []
+    },
+    {
+        "id": "edc2567c3c6ea10c",
+        "type": "comment",
+        "z": "78b28997a4d07be2",
+        "name": "",
+        "info": "# to do:\n- algorithms\n- update inverter and fridge val\n- implement temperature\n- implement low batt",
+        "x": 120,
+        "y": 120,
         "wires": []
     },
     {
