@@ -73,7 +73,29 @@
         "color": "#DDAA99"
     },
     {
-        "id": "46041db9c90532bc",
+        "id": "aafd3139471e4341",
+        "type": "group",
+        "z": "78b28997a4d07be2",
+        "name": "Get fridge temperature",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "cdfe4e7906432fc7",
+            "f8698c7c8ff0f5fd",
+            "69c6474a3e5206cf",
+            "815bfddf1ad94fa1",
+            "fd8daec22a21340d",
+            "62906c83cf10458c",
+            "56b19a046b403ecb"
+        ],
+        "x": 34,
+        "y": 619,
+        "w": 702,
+        "h": 209.5
+    },
+    {
+        "id": "1f214a35ca4b4bfc",
         "type": "group",
         "z": "78b28997a4d07be2",
         "name": "Dashboard",
@@ -98,34 +120,16 @@
             "77657b396bd64515",
             "d8d9d4ba8d5a073e",
             "fa59361f2834c145",
-            "6bdaa473a64227ef"
+            "6bdaa473a64227ef",
+            "cec34ce5eff33318",
+            "53013d123f23fa54",
+            "1f64a934a55cdb96",
+            "c2d2f1fff31fac97"
         ],
-        "x": 1134,
-        "y": 19,
-        "w": 512,
-        "h": 442
-    },
-    {
-        "id": "aafd3139471e4341",
-        "type": "group",
-        "z": "78b28997a4d07be2",
-        "name": "Get fridge temperature",
-        "style": {
-            "label": true
-        },
-        "nodes": [
-            "cdfe4e7906432fc7",
-            "f8698c7c8ff0f5fd",
-            "69c6474a3e5206cf",
-            "815bfddf1ad94fa1",
-            "fd8daec22a21340d",
-            "62906c83cf10458c",
-            "56b19a046b403ecb"
-        ],
-        "x": 34,
-        "y": 599,
-        "w": 702,
-        "h": 209.5
+        "x": 994,
+        "y": -1,
+        "w": 712,
+        "h": 482
     },
     {
         "id": "a74bb25de5c78e26",
@@ -1704,7 +1708,7 @@
         "id": "08c5c713b62ce9a6",
         "type": "ui_gauge",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "name": "",
         "group": "6c304982dc7231d9",
         "order": 1,
@@ -1724,8 +1728,8 @@
         "seg1": "",
         "seg2": "",
         "className": "",
-        "x": 1430,
-        "y": 60,
+        "x": 1490,
+        "y": 40,
         "wires": []
     },
     {
@@ -1737,7 +1741,7 @@
         "tooltip": "",
         "place": "always off",
         "group": "6c304982dc7231d9",
-        "order": 6,
+        "order": 7,
         "width": 0,
         "height": 0,
         "passthru": true,
@@ -1779,7 +1783,7 @@
         "topicType": "msg",
         "className": "",
         "x": 340,
-        "y": 360,
+        "y": 380,
         "wires": [
             [
                 "9342b1041f1f9ae3",
@@ -1791,11 +1795,11 @@
         "id": "2a87cc921872582f",
         "type": "ui_led",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "order": 2,
         "group": "6c304982dc7231d9",
-        "width": "0",
-        "height": "0",
+        "width": 0,
+        "height": 0,
         "label": "Fridge Compressor Status",
         "labelPlacement": "left",
         "labelAlignment": "left",
@@ -1804,19 +1808,14 @@
                 "color": "#008000",
                 "value": "true",
                 "valueType": "bool"
-            },
-            {
-                "color": "#000000",
-                "value": "false",
-                "valueType": "bool"
             }
         ],
         "allowColorForValueInMessage": false,
         "shape": "circle",
-        "showGlow": false,
+        "showGlow": true,
         "name": "Fridge Compressor Status",
-        "x": 1460,
-        "y": 100,
+        "x": 1520,
+        "y": 80,
         "wires": []
     },
     {
@@ -1831,7 +1830,7 @@
         "finalize": "",
         "libs": [],
         "x": 1160,
-        "y": 540,
+        "y": 560,
         "wires": [
             [
                 "a86f443541fb1ad9"
@@ -1850,7 +1849,7 @@
         "finalize": "",
         "libs": [],
         "x": 1160,
-        "y": 580,
+        "y": 600,
         "wires": [
             [
                 "a86f443541fb1ad9"
@@ -1869,7 +1868,7 @@
         "finalize": "",
         "libs": [],
         "x": 1180,
-        "y": 660,
+        "y": 680,
         "wires": [
             []
         ]
@@ -1886,7 +1885,7 @@
         "finalize": "",
         "libs": [],
         "x": 1190,
-        "y": 700,
+        "y": 720,
         "wires": [
             [
                 "a86f443541fb1ad9"
@@ -1905,7 +1904,7 @@
         "finalize": "",
         "libs": [],
         "x": 1200,
-        "y": 740,
+        "y": 760,
         "wires": [
             []
         ]
@@ -1930,7 +1929,7 @@
         "to": "",
         "reg": false,
         "x": 590,
-        "y": 420,
+        "y": 440,
         "wires": [
             [
                 "d4159a4a77d49a75"
@@ -1958,7 +1957,7 @@
         "to": "",
         "reg": false,
         "x": 560,
-        "y": 640,
+        "y": 660,
         "wires": [
             [
                 "59f6bbaa386ef7db",
@@ -2009,7 +2008,7 @@
         "repair": false,
         "outputs": 6,
         "x": 970,
-        "y": 640,
+        "y": 660,
         "wires": [
             [
                 "3313eca393a477fb"
@@ -2037,7 +2036,7 @@
         "z": "78b28997a4d07be2",
         "name": "",
         "x": 1480,
-        "y": 600,
+        "y": 620,
         "wires": [
             [
                 "d79bcea1e9a923c6"
@@ -2051,11 +2050,11 @@
         "name": "hw_out",
         "mode": "link",
         "links": [
-            "3603c76f60fe4f3d",
-            "3c41044470a0259c"
+            "3c41044470a0259c",
+            "1f64a934a55cdb96"
         ],
         "x": 1625,
-        "y": 600,
+        "y": 620,
         "wires": []
     },
     {
@@ -2070,7 +2069,7 @@
         "finalize": "",
         "libs": [],
         "x": 1180,
-        "y": 620,
+        "y": 640,
         "wires": [
             [
                 "a86f443541fb1ad9"
@@ -2081,14 +2080,14 @@
         "id": "cd4cceed0a32202e",
         "type": "ui_slider",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "name": "slider on",
         "label": "",
         "tooltip": "",
         "group": "6c304982dc7231d9",
-        "order": 8,
-        "width": "1",
-        "height": "4",
+        "order": 9,
+        "width": 1,
+        "height": 4,
         "passthru": true,
         "outs": "all",
         "topic": "topic",
@@ -2097,8 +2096,8 @@
         "max": "20",
         "step": 1,
         "className": "",
-        "x": 1220,
-        "y": 300,
+        "x": 1280,
+        "y": 320,
         "wires": [
             [
                 "f68bf2125f361c6d",
@@ -2110,12 +2109,12 @@
         "id": "f68bf2125f361c6d",
         "type": "ui_gauge",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "name": "donut on",
         "group": "6c304982dc7231d9",
-        "order": 9,
-        "width": "6",
-        "height": "4",
+        "order": 10,
+        "width": 6,
+        "height": 4,
         "gtype": "donut",
         "title": "",
         "label": "°C",
@@ -2130,22 +2129,22 @@
         "seg1": "",
         "seg2": "",
         "className": "",
-        "x": 1400,
-        "y": 300,
+        "x": 1460,
+        "y": 320,
         "wires": []
     },
     {
         "id": "c1fc73b7982dad73",
         "type": "ui_slider",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "name": "slider off",
         "label": "",
         "tooltip": "",
         "group": "6c304982dc7231d9",
-        "order": 11,
-        "width": "1",
-        "height": "4",
+        "order": 12,
+        "width": 1,
+        "height": 4,
         "passthru": true,
         "outs": "all",
         "topic": "topic",
@@ -2154,8 +2153,8 @@
         "max": "20",
         "step": 1,
         "className": "",
-        "x": 1220,
-        "y": 340,
+        "x": 1280,
+        "y": 360,
         "wires": [
             [
                 "4679b57a12795705",
@@ -2167,12 +2166,12 @@
         "id": "4679b57a12795705",
         "type": "ui_gauge",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "name": "donut off",
         "group": "6c304982dc7231d9",
-        "order": 12,
-        "width": "6",
-        "height": "4",
+        "order": 13,
+        "width": 6,
+        "height": 4,
         "gtype": "donut",
         "title": "",
         "label": "°C",
@@ -2187,8 +2186,8 @@
         "seg1": "",
         "seg2": "",
         "className": "",
-        "x": 1400,
-        "y": 340,
+        "x": 1460,
+        "y": 360,
         "wires": []
     },
     {
@@ -2203,7 +2202,7 @@
         "finalize": "",
         "libs": [],
         "x": 150,
-        "y": 80,
+        "y": 100,
         "wires": [
             []
         ]
@@ -2228,7 +2227,7 @@
         "to": "",
         "reg": false,
         "x": 750,
-        "y": 340,
+        "y": 360,
         "wires": [
             [
                 "c1fc73b7982dad73"
@@ -2262,7 +2261,7 @@
         "to": "",
         "reg": false,
         "x": 750,
-        "y": 300,
+        "y": 320,
         "wires": [
             [
                 "cd4cceed0a32202e"
@@ -2273,7 +2272,7 @@
         "id": "6864dae823ed17bf",
         "type": "function",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "name": "update algorithms property",
         "func": "var algorithm = msg.topic;\nvar algorithms = flow.get(\"algorithms\");\n\n// update algorithms property with new threshold values\nif(msg.topic == \"threshold_on\"){\n  algorithms[algorithm].on_threshold = msg.payload;\n  \n}\nelse if(msg.topic == \"threshold_off\") {\n    algorithms[algorithm].off_threshold = msg.payload;\n}\nflow.set(\"algorithms\", algorithms);\n\nreturn;\n\n",
         "outputs": 1,
@@ -2281,8 +2280,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1460,
-        "y": 260,
+        "x": 1520,
+        "y": 280,
         "wires": [
             []
         ]
@@ -2301,7 +2300,7 @@
         "oldrc": false,
         "name": "get temp",
         "x": 300,
-        "y": 760,
+        "y": 780,
         "wires": [
             [
                 "815bfddf1ad94fa1"
@@ -2333,7 +2332,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 150,
-        "y": 760,
+        "y": 780,
         "wires": [
             [
                 "f8698c7c8ff0f5fd"
@@ -2353,7 +2352,7 @@
         "finalize": "",
         "libs": [],
         "x": 440,
-        "y": 760,
+        "y": 780,
         "wires": [
             [
                 "62906c83cf10458c"
@@ -2380,7 +2379,7 @@
         "to": "",
         "reg": false,
         "x": 760,
-        "y": 380,
+        "y": 400,
         "wires": [
             [
                 "69453e4b006bb3aa"
@@ -2391,10 +2390,10 @@
         "id": "69453e4b006bb3aa",
         "type": "ui_template",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "group": "6c304982dc7231d9",
         "name": "description",
-        "order": 13,
+        "order": 14,
         "width": 0,
         "height": 0,
         "format": "\n<div style=\"font-weight: bold\">Description:<br></div>\n<div ng-bind-html=\"msg.payload\"></div>",
@@ -2403,8 +2402,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1410,
-        "y": 380,
+        "x": 1470,
+        "y": 400,
         "wires": [
             []
         ]
@@ -2427,7 +2426,7 @@
         "payload": "always_off",
         "payloadType": "str",
         "x": 170,
-        "y": 340,
+        "y": 360,
         "wires": [
             [
                 "b5c43be785249085"
@@ -2438,10 +2437,10 @@
         "id": "360aa971f7f3e56e",
         "type": "ui_template",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "group": "6c304982dc7231d9",
         "name": "donut on title",
-        "order": 7,
+        "order": 8,
         "width": 0,
         "height": 0,
         "format": "<div style=\"text-align: center\">Turn On Temperature</div>",
@@ -2450,8 +2449,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1550,
-        "y": 300,
+        "x": 1610,
+        "y": 320,
         "wires": [
             []
         ]
@@ -2460,10 +2459,10 @@
         "id": "e1ef809bf9053ec0",
         "type": "ui_template",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "group": "6c304982dc7231d9",
         "name": "donut off title",
-        "order": 10,
+        "order": 11,
         "width": 0,
         "height": 0,
         "format": "<div style=\"text-align: center\">Turn Off Temperature</div>",
@@ -2472,8 +2471,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1550,
-        "y": 340,
+        "x": 1610,
+        "y": 360,
         "wires": [
             []
         ]
@@ -2482,25 +2481,29 @@
         "id": "418af5f93c370176",
         "type": "inject",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "name": "init",
         "props": [
             {
                 "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
             }
         ],
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "1",
-        "topic": "",
+        "topic": "fridge",
         "payload": "output_state.fridge",
         "payloadType": "global",
-        "x": 1250,
+        "x": 1090,
         "y": 100,
         "wires": [
             [
-                "2a87cc921872582f"
+                "c2d2f1fff31fac97"
             ]
         ]
     },
@@ -2508,11 +2511,11 @@
         "id": "5022643e36f772b8",
         "type": "ui_led",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "order": 3,
         "group": "6c304982dc7231d9",
-        "width": "0",
-        "height": "0",
+        "width": 0,
+        "height": 0,
         "label": "Inverter Status",
         "labelPlacement": "left",
         "labelAlignment": "left",
@@ -2521,44 +2524,43 @@
                 "color": "#008000",
                 "value": "true",
                 "valueType": "bool"
-            },
-            {
-                "color": "#000000",
-                "value": "false",
-                "valueType": "bool"
             }
         ],
         "allowColorForValueInMessage": false,
         "shape": "circle",
-        "showGlow": false,
+        "showGlow": true,
         "name": "inverter Status",
-        "x": 1420,
-        "y": 140,
+        "x": 1480,
+        "y": 120,
         "wires": []
     },
     {
         "id": "ba2d6458a7db3ba3",
         "type": "inject",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "name": "init",
         "props": [
             {
                 "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
             }
         ],
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "1",
-        "topic": "",
-        "payload": "output_state.fridge",
+        "topic": "inverter",
+        "payload": "output_state.inverter",
         "payloadType": "global",
-        "x": 1250,
+        "x": 1090,
         "y": 140,
         "wires": [
             [
-                "5022643e36f772b8"
+                "c2d2f1fff31fac97"
             ]
         ]
     },
@@ -2566,43 +2568,47 @@
         "id": "1935f47f3671086f",
         "type": "ui_text",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "group": "6c304982dc7231d9",
-        "order": 4,
-        "width": "0",
-        "height": "0",
+        "order": 5,
+        "width": 0,
+        "height": 0,
         "name": "power_source",
         "label": "Power Source:   ",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 1420,
-        "y": 180,
+        "x": 1480,
+        "y": 200,
         "wires": []
     },
     {
         "id": "77657b396bd64515",
         "type": "inject",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "name": "init",
         "props": [
             {
                 "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
             }
         ],
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "1",
-        "topic": "",
+        "topic": "battery_select",
         "payload": "output_state.inverter_source",
         "payloadType": "global",
-        "x": 1250,
-        "y": 180,
+        "x": 1090,
+        "y": 220,
         "wires": [
             [
-                "1935f47f3671086f"
+                "c2d2f1fff31fac97"
             ]
         ]
     },
@@ -2610,20 +2616,20 @@
         "id": "d8d9d4ba8d5a073e",
         "type": "ui_template",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "group": "6c304982dc7231d9",
         "name": "settings",
-        "order": 5,
-        "width": "7",
-        "height": "1",
+        "order": 6,
+        "width": 7,
+        "height": 1,
         "format": "<p>Settings</p>\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1400,
-        "y": 220,
+        "x": 1460,
+        "y": 240,
         "wires": [
             []
         ]
@@ -2651,7 +2657,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 640,
+        "y": 660,
         "wires": [
             [
                 "62906c83cf10458c"
@@ -2672,7 +2678,7 @@
         "property": "payload",
         "topi": "topic",
         "x": 330,
-        "y": 640,
+        "y": 660,
         "wires": [
             [
                 "cdfe4e7906432fc7"
@@ -2683,13 +2689,13 @@
         "id": "fa59361f2834c145",
         "type": "link in",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "name": "temp_in",
         "links": [
             "56b19a046b403ecb"
         ],
-        "x": 1285,
-        "y": 60,
+        "x": 1345,
+        "y": 40,
         "wires": [
             [
                 "08c5c713b62ce9a6"
@@ -2710,7 +2716,7 @@
             "14448cd412e1f441"
         ],
         "x": 695,
-        "y": 680,
+        "y": 700,
         "wires": []
     },
     {
@@ -2718,9 +2724,9 @@
         "type": "comment",
         "z": "78b28997a4d07be2",
         "name": "",
-        "info": "# to do:\n- algorithms\n- update inverter and fridge val\n- implement temperature\n- implement low batt",
+        "info": "# to do:\n- algorithms\n- update inverter and fridge val done\n- implement temperature\n- implement low batt done",
         "x": 120,
-        "y": 120,
+        "y": 140,
         "wires": []
     },
     {
@@ -2733,7 +2739,7 @@
             "3c8b09578758d60a"
         ],
         "x": 55,
-        "y": 380,
+        "y": 400,
         "wires": [
             [
                 "33ad44b98264aa12"
@@ -2752,7 +2758,7 @@
         "finalize": "",
         "libs": [],
         "x": 780,
-        "y": 420,
+        "y": 440,
         "wires": [
             [
                 "3c8b09578758d60a",
@@ -2794,7 +2800,7 @@
         "to": "",
         "reg": false,
         "x": 160,
-        "y": 380,
+        "y": 400,
         "wires": [
             [
                 "b5c43be785249085"
@@ -2811,14 +2817,14 @@
             "0186a8e4e7eeeee7"
         ],
         "x": 945,
-        "y": 420,
+        "y": 440,
         "wires": []
     },
     {
         "id": "6bdaa473a64227ef",
         "type": "ui_toast",
         "z": "78b28997a4d07be2",
-        "g": "46041db9c90532bc",
+        "g": "1f214a35ca4b4bfc",
         "position": "dialog",
         "displayTime": "3",
         "highlight": "",
@@ -2830,8 +2836,8 @@
         "className": "",
         "topic": "",
         "name": "",
-        "x": 1410,
-        "y": 420,
+        "x": 1470,
+        "y": 440,
         "wires": [
             []
         ]
@@ -2854,12 +2860,137 @@
         "allowrate": false,
         "outputs": 1,
         "x": 570,
-        "y": 340,
+        "y": 360,
         "wires": [
             [
                 "e692ff3887d118ab",
                 "97683e1186617581",
                 "986e7a47ab9af213"
+            ]
+        ]
+    },
+    {
+        "id": "cec34ce5eff33318",
+        "type": "ui_led",
+        "z": "78b28997a4d07be2",
+        "g": "1f214a35ca4b4bfc",
+        "order": 4,
+        "group": "6c304982dc7231d9",
+        "width": 0,
+        "height": 0,
+        "label": "Low Battery",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Low Battery",
+        "x": 1470,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "53013d123f23fa54",
+        "type": "inject",
+        "z": "78b28997a4d07be2",
+        "g": "1f214a35ca4b4bfc",
+        "name": "init",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "low_soc",
+        "payload": "low_soc",
+        "payloadType": "global",
+        "x": 1090,
+        "y": 180,
+        "wires": [
+            [
+                "c2d2f1fff31fac97"
+            ]
+        ]
+    },
+    {
+        "id": "1f64a934a55cdb96",
+        "type": "link in",
+        "z": "78b28997a4d07be2",
+        "g": "1f214a35ca4b4bfc",
+        "name": "output_state_trigger",
+        "links": [
+            "23a40e9d5ce7f267",
+            "d79bcea1e9a923c6"
+        ],
+        "x": 1125,
+        "y": 60,
+        "wires": [
+            [
+                "c2d2f1fff31fac97"
+            ]
+        ]
+    },
+    {
+        "id": "c2d2f1fff31fac97",
+        "type": "switch",
+        "z": "78b28997a4d07be2",
+        "g": "1f214a35ca4b4bfc",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "fridge",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "inverter",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "low_soc",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "battery_select",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 1290,
+        "y": 140,
+        "wires": [
+            [
+                "2a87cc921872582f"
+            ],
+            [
+                "5022643e36f772b8"
+            ],
+            [
+                "cec34ce5eff33318"
+            ],
+            [
+                "1935f47f3671086f"
             ]
         ]
     },
@@ -4514,7 +4645,9 @@
         "name": "low_soc_trigger",
         "mode": "link",
         "links": [
-            "0186a8e4e7eeeee7"
+            "0186a8e4e7eeeee7",
+            "743132f7b7cf69a7",
+            "1f64a934a55cdb96"
         ],
         "x": 785,
         "y": 580,
@@ -4628,8 +4761,8 @@
         "height": 0,
         "passthru": true,
         "decouple": "false",
-        "topic": "topic",
-        "topicType": "msg",
+        "topic": "low_soc",
+        "topicType": "str",
         "style": "",
         "onvalue": "true",
         "onvalueType": "bool",
