@@ -124,7 +124,8 @@
             "cec34ce5eff33318",
             "53013d123f23fa54",
             "1f64a934a55cdb96",
-            "c2d2f1fff31fac97"
+            "c2d2f1fff31fac97",
+            "1850446ee06bddc3"
         ],
         "x": 994,
         "y": -1,
@@ -1763,8 +1764,8 @@
                 "type": "str"
             },
             {
-                "label": "Winter",
-                "value": "winter",
+                "label": "no temp sensor",
+                "value": "no_sensor",
                 "type": "str"
             },
             {
@@ -1860,17 +1861,20 @@
         "id": "883ff0dabf8e8aaa",
         "type": "function",
         "z": "78b28997a4d07be2",
-        "name": "winter algorithm",
-        "func": "\nreturn msg;",
+        "name": "no sensor algorithm",
+        "func": "var fridge_state = global.get(\"output_state.fridge\");\nvar soc = global.get(\"state_of_charge\");\nvar properties = flow.get(\"algorithms.summer\");\nvar interval = context.get(\"interval\");\nconst on_timeout = 10 // 5 min on time\nconst off_timeout = 60 // 5 min on time\n\n// turn on fridge if battery is fully charged with 60 min interval\nif((soc >= 95) && (((Date.now()/60000)-interval) >= off_timeout)) {\n    // if fridge already on\n    if(fridge_state) {\n        return;\n    }\n    context.set(\"interval\", Date.now()/60000);\n    msg.payload = true;\n    msg.switch_to_lfp = true;\n    return msg;\n}\n\n// turn off fridge 10 mins on\nelse if(((Date.now()/60000)-interval) >= on_timeout) {\n    // if fridge already off\n    if(!fridge_state) {\n        return;\n    }\n    context.set(\"interval\", Date.now()/60000);\n    return {payload:false};\n}\n\nreturn;\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1180,
+        "x": 1200,
         "y": 680,
         "wires": [
-            []
+            [
+                "cfe8e847f31cdac1",
+                "a86f443541fb1ad9"
+            ]
         ]
     },
     {
@@ -1878,7 +1882,7 @@
         "type": "function",
         "z": "78b28997a4d07be2",
         "name": "summer algorithm",
-        "func": "\nreturn msg;",
+        "func": "var fridge_state = global.get(\"output_state.fridge\");\nvar soc = global.get(\"state_of_charge\");\nvar properties = flow.get(\"algorithms.summer\");\nvar fridge_temp = 20; // need to be modified\n\n// turn on fridge if upper threshold temperature exeeded or battery is fully charged\nif((soc == 100) || (fridge_temp > properties.on_threshold)) {\n    // if fridge already on\n    if(fridge_state) {\n        return;\n    }\n    msg.payload = true;\n    msg.switch_to_lfp = true;\n}\n\n// turn off fridge if temperature is lower than lower threshold \nelse if(fridge_temp < properties.off_threshold) {\n    // if fridge already off\n    if(!fridge_state) {\n        return;\n    }\n    msg.payload = false;\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1990,7 +1994,7 @@
             },
             {
                 "t": "eq",
-                "v": "winter",
+                "v": "no_sensor",
                 "vt": "str"
             },
             {
@@ -2355,7 +2359,7 @@
         "y": 780,
         "wires": [
             [
-                "62906c83cf10458c"
+                "cdfe4e7906432fc7"
             ]
         ]
     },
@@ -2723,9 +2727,9 @@
         "id": "edc2567c3c6ea10c",
         "type": "comment",
         "z": "78b28997a4d07be2",
-        "name": "",
-        "info": "# to do:\n- algorithms\n- update inverter and fridge val done\n- implement temperature\n- implement low batt done",
-        "x": 120,
+        "name": "To Do",
+        "info": "# to do:\n- implement algorithms:\n    - winter\n    - battery life\n- implement temperature sensor\n- update descriptions\n",
+        "x": 110,
         "y": 140,
         "wires": []
     },
@@ -2762,7 +2766,7 @@
         "wires": [
             [
                 "3c8b09578758d60a",
-                "6bdaa473a64227ef"
+                "1850446ee06bddc3"
             ],
             [
                 "59f6bbaa386ef7db"
@@ -2828,15 +2832,15 @@
         "position": "dialog",
         "displayTime": "3",
         "highlight": "",
-        "sendall": true,
+        "sendall": false,
         "outputs": 1,
         "ok": "OK",
         "cancel": "",
         "raw": false,
         "className": "",
         "topic": "",
-        "name": "",
-        "x": 1470,
+        "name": "Low Battery Dialog",
+        "x": 1490,
         "y": 440,
         "wires": [
             []
@@ -2993,6 +2997,58 @@
                 "1935f47f3671086f"
             ]
         ]
+    },
+    {
+        "id": "1850446ee06bddc3",
+        "type": "change",
+        "z": "78b28997a4d07be2",
+        "g": "1f214a35ca4b4bfc",
+        "name": "set dialog message",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Battery too low. Fridge disabled. Charge the battery to reactivate the fridge",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Battery Low",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1250,
+        "y": 440,
+        "wires": [
+            [
+                "6bdaa473a64227ef"
+            ]
+        ]
+    },
+    {
+        "id": "cfe8e847f31cdac1",
+        "type": "debug",
+        "z": "78b28997a4d07be2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1450,
+        "y": 700,
+        "wires": []
     },
     {
         "id": "3c1ffe73b922b48d",
@@ -4303,7 +4359,7 @@
         "type": "function",
         "z": "493e4b0fcbc7484f",
         "name": "SOC calculator",
-        "func": "const data = msg.payload;\nconst max_capacity = 384; //Wh (12.5V * 30Ah)\nconst energy_yield = data.energy_yield*10; //Wh\nconst energy_consumed = data.energy_consumed*10;   //Wh\nvar offset_energy = context.get(\"offset_energy\") || max_capacity;\nvar today_number = flow.get(\"today_number\") || data.day_sequence_number;\n\n// if its a new day\nif(today_number+1 == data.day_sequence_number){\n    today_number = data.day_sequence_number;\n    context.set(\"offset_energy\", (context.get(\"tomorrow_offset_energy\") || offset_energy));\n}\n\n// if battery fully charged (float mode)\nif(flow.get(\"mppt_broadcast\").CS == '5'){\n    context.set(\"offset_energy\", (max_capacity - energy_yield + energy_consumed));\n}\n\nvar left_energy = offset_energy + energy_yield - energy_consumed;\n\n// adjust offset if error detected (SOC > 100%)\nif(left_energy > max_capacity){\n    offset_energy = max_capacity - energy_yield + energy_consumed;\n    context.set(\"offset_energy\", offset_energy);\n    left_energy = offset_energy + energy_yield - energy_consumed;\n}\n// SOC < 0%\nelse if(left_energy < 0){\n    context.set(\"offset_energy\", (0 - energy_yield + energy_consumed));\n    left_energy = 0;\n}\n\ncontext.set(\"tomorrow_offset_energy\", left_energy);\n\nvar soc = left_energy * 100 / max_capacity;\nmsg.payload = soc;\nreturn msg;\n",
+        "func": "const data = msg.payload;\nconst max_capacity = 384; //Wh (12.5V * 30Ah)\nconst energy_yield = data.energy_yield*10; //Wh\nconst energy_consumed = data.energy_consumed*10;   //Wh\nvar offset_energy = context.get(\"offset_energy\") || max_capacity;\nvar today_number = flow.get(\"today_number\") || data.day_sequence_number;\n\n// if its a new day\nif(today_number+1 == data.day_sequence_number){\n    today_number = data.day_sequence_number;\n    context.set(\"offset_energy\", (context.get(\"tomorrow_offset_energy\") || offset_energy));\n}\n\n// if battery fully charged (float mode)\nif(flow.get(\"mppt_broadcast\").CS == '5'){\n    context.set(\"offset_energy\", (max_capacity - energy_yield + energy_consumed));\n}\n\nvar left_energy = offset_energy + energy_yield - energy_consumed;\n\n// adjust offset if error detected (SOC > 100%)\nif(left_energy > max_capacity){\n    offset_energy = max_capacity - energy_yield + energy_consumed;\n    context.set(\"offset_energy\", offset_energy);\n    left_energy = offset_energy + energy_yield - energy_consumed;\n}\n// SOC < 0%\nelse if(left_energy < 0){\n    context.set(\"offset_energy\", (0 - energy_yield + energy_consumed));\n    left_energy = 0;\n}\n\ncontext.set(\"tomorrow_offset_energy\", left_energy);\n\nvar soc = Math.round(left_energy * 100 / max_capacity);\nmsg.payload = soc;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
