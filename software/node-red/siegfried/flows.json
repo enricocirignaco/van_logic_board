@@ -1080,10 +1080,10 @@
                 "753d5c95ab39943d"
             ],
             [
-                "9acc11c403c64e91"
+                "db52463adb57ca82"
             ],
             [
-                "18ed1d456a74c5db"
+                "f3553b998afc9739"
             ]
         ]
     },
@@ -1286,11 +1286,12 @@
             "85c17a3ba435832b",
             "4ce9f3303db235fb"
         ],
-        "x": 105,
+        "x": 95,
         "y": 400,
         "wires": [
             [
-                "b8e691216781847a"
+                "b8e691216781847a",
+                "e9f912577a5edc23"
             ]
         ]
     },
@@ -1320,8 +1321,8 @@
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 450,
-        "y": 680,
+        "x": 830,
+        "y": 700,
         "wires": []
     },
     {
@@ -1335,7 +1336,7 @@
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 430,
+        "x": 810,
         "y": 640,
         "wires": []
     },
@@ -1488,6 +1489,13 @@
                 "pt": "global",
                 "to": "payload",
                 "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "switch_kitchen",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -1515,6 +1523,13 @@
                 "pt": "global",
                 "to": "payload",
                 "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "switch_living_room",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -1526,7 +1541,8 @@
         "y": 900,
         "wires": [
             [
-                "7538c7f00b6939fb"
+                "7538c7f00b6939fb",
+                "974fa85352436662"
             ]
         ]
     },
@@ -1542,6 +1558,13 @@
                 "pt": "global",
                 "to": "payload",
                 "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "aux_input_1",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -1569,6 +1592,13 @@
                 "pt": "global",
                 "to": "payload",
                 "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "aux_input_2",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -1618,7 +1648,8 @@
         "y": 860,
         "wires": [
             [
-                "675526f4c5306cda"
+                "675526f4c5306cda",
+                "db52463adb57ca82"
             ]
         ]
     },
@@ -1745,7 +1776,9 @@
         "links": [
             "9caacc1da750c852",
             "0efd4833ca974c55",
-            "ae30eeae9c1a5c51"
+            "ae30eeae9c1a5c51",
+            "528f05d6f6054ab6",
+            "e5ceae0d0528eb0c"
         ],
         "x": 865,
         "y": 920,
@@ -1759,7 +1792,7 @@
         "func": "\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\n// init global object\nglobal.set(\"input_state\", {});\nglobal.set(\"output_state\", {});",
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n// init global object\nglobal.set(\"input_state\", {});\nglobal.set(\"output_state\", {charger:false, fridge:false, inverter:false, inverter_source: \"lfp_battery\", pump: false, aux_output:false});",
         "finalize": "",
         "libs": [],
         "x": 130,
@@ -1767,6 +1800,90 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "e9f912577a5edc23",
+        "type": "link out",
+        "z": "a7233230404c3289",
+        "name": "output_state_trigger",
+        "mode": "link",
+        "links": [
+            "ae30eeae9c1a5c51"
+        ],
+        "x": 175,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "db52463adb57ca82",
+        "type": "change",
+        "z": "a7233230404c3289",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "output_state.pump",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 640,
+        "wires": [
+            [
+                "9acc11c403c64e91"
+            ]
+        ]
+    },
+    {
+        "id": "f3553b998afc9739",
+        "type": "change",
+        "z": "a7233230404c3289",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "output_state.aux_output",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 700,
+        "wires": [
+            [
+                "18ed1d456a74c5db"
+            ]
+        ]
+    },
+    {
+        "id": "974fa85352436662",
+        "type": "debug",
+        "z": "a7233230404c3289",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "topic",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 1160,
+        "wires": []
     },
     {
         "id": "08c5c713b62ce9a6",
@@ -2292,7 +2409,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 750,
+        "x": 770,
         "y": 360,
         "wires": [
             [
@@ -2326,7 +2443,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 750,
+        "x": 770,
         "y": 320,
         "wires": [
             [
@@ -2444,7 +2561,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 760,
+        "x": 780,
         "y": 400,
         "wires": [
             [
@@ -3088,6 +3205,41 @@
         "wires": [
             [
                 "6bdaa473a64227ef"
+            ]
+        ]
+    },
+    {
+        "id": "e5ceae0d0528eb0c",
+        "type": "link in",
+        "z": "78b28997a4d07be2",
+        "name": "input_state_trigger",
+        "links": [
+            "7538c7f00b6939fb"
+        ],
+        "x": 55,
+        "y": 300,
+        "wires": [
+            [
+                "a915abf7b9d86c60"
+            ]
+        ]
+    },
+    {
+        "id": "a915abf7b9d86c60",
+        "type": "function",
+        "z": "78b28997a4d07be2",
+        "name": "",
+        "func": "if(msg.topic == \"switch_living_room\"){\n    if(msg.payload){\n        msg.payload = \"always on\";\n    }\n    else {\n        msg.payload = \"always off\";\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "b5c43be785249085"
             ]
         ]
     },
@@ -4109,8 +4261,8 @@
         "seg1": "",
         "seg2": "",
         "className": "",
-        "x": 2050,
-        "y": 100,
+        "x": 990,
+        "y": 460,
         "wires": []
     },
     {
@@ -4126,8 +4278,101 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 2080,
-        "y": 140,
+        "x": 1020,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "9dc117ecbb284fa6",
+        "type": "ui_led",
+        "z": "493e4b0fcbc7484f",
+        "order": 5,
+        "group": "7dbe224d7e5b35ba",
+        "width": 0,
+        "height": 0,
+        "label": "Low Battery",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "lead_low_soc",
+        "x": 1100,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "7def706d3548bbb5",
+        "type": "ui_led",
+        "z": "493e4b0fcbc7484f",
+        "order": 2,
+        "group": "7dbe224d7e5b35ba",
+        "width": 0,
+        "height": 0,
+        "label": "Low Battery",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "lfp_low_soc",
+        "x": 1090,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "ccb11c9479a74073",
+        "type": "ui_led",
+        "z": "493e4b0fcbc7484f",
+        "order": 6,
+        "group": "7dbe224d7e5b35ba",
+        "width": 0,
+        "height": 0,
+        "label": "Motor State",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "motor_state",
+        "x": 1090,
+        "y": 620,
         "wires": []
     },
     {
@@ -4579,7 +4824,7 @@
         "id": "08659534d13d7cff",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 4,
+        "order": 5,
         "group": "83e9ca27a8b9a1f0",
         "width": 0,
         "height": 0,
@@ -4601,16 +4846,16 @@
         "allowColorForValueInMessage": false,
         "shape": "circle",
         "showGlow": true,
-        "name": "aux 2",
-        "x": 470,
-        "y": 200,
+        "name": "aux_input_2",
+        "x": 510,
+        "y": 240,
         "wires": []
     },
     {
         "id": "5fd16529fc4eb401",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 1,
+        "order": 2,
         "group": "83e9ca27a8b9a1f0",
         "width": 0,
         "height": 0,
@@ -4633,15 +4878,15 @@
         "shape": "circle",
         "showGlow": true,
         "name": "switch kitchen",
-        "x": 500,
-        "y": 80,
+        "x": 520,
+        "y": 120,
         "wires": []
     },
     {
         "id": "0cbcdbd1ac597eca",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 2,
+        "order": 3,
         "group": "83e9ca27a8b9a1f0",
         "width": 0,
         "height": 0,
@@ -4664,15 +4909,15 @@
         "shape": "circle",
         "showGlow": true,
         "name": "switch living room",
-        "x": 510,
-        "y": 120,
+        "x": 530,
+        "y": 160,
         "wires": []
     },
     {
         "id": "a8da080804745988",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 3,
+        "order": 4,
         "group": "83e9ca27a8b9a1f0",
         "width": 0,
         "height": 0,
@@ -4694,9 +4939,9 @@
         "allowColorForValueInMessage": false,
         "shape": "circle",
         "showGlow": true,
-        "name": "aux 1",
-        "x": 470,
-        "y": 160,
+        "name": "aux_input_1",
+        "x": 510,
+        "y": 200,
         "wires": []
     },
     {
@@ -4718,8 +4963,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
-        "y": 80,
+        "x": 320,
+        "y": 120,
         "wires": [
             [
                 "5fd16529fc4eb401"
@@ -4745,8 +4990,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
-        "y": 120,
+        "x": 320,
+        "y": 160,
         "wires": [
             [
                 "0cbcdbd1ac597eca"
@@ -4772,8 +5017,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
-        "y": 160,
+        "x": 320,
+        "y": 200,
         "wires": [
             [
                 "a8da080804745988"
@@ -4799,8 +5044,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
-        "y": 200,
+        "x": 320,
+        "y": 240,
         "wires": [
             [
                 "08659534d13d7cff"
@@ -4811,18 +5056,25 @@
         "id": "ae30eeae9c1a5c51",
         "type": "link in",
         "z": "5a08a5132887b1a2",
-        "name": "",
+        "name": "hardware_state_trigger",
         "links": [
-            "7538c7f00b6939fb"
+            "7538c7f00b6939fb",
+            "e9f912577a5edc23"
         ],
         "x": 135,
-        "y": 160,
+        "y": 320,
         "wires": [
             [
                 "a7d9b630678598e3",
                 "cc15c8228fe17767",
                 "dc76faea581ad60c",
-                "364cb03437be9174"
+                "364cb03437be9174",
+                "fdbd215e4bc9c104",
+                "6fff653fc1e25899",
+                "ca5c3ac7c791e200",
+                "32e01273210f2b19",
+                "380ef7d99db96484",
+                "28ab2773dbc21908"
             ]
         ]
     },
@@ -4831,23 +5083,23 @@
         "type": "ui_text",
         "z": "5a08a5132887b1a2",
         "group": "83e9ca27a8b9a1f0",
-        "order": 7,
+        "order": 10,
         "width": "0",
         "height": "0",
         "name": "",
-        "label": "inverter source select: ",
+        "label": "Inverter source: ",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "x": 520,
-        "y": 380,
+        "y": 440,
         "wires": []
     },
     {
         "id": "698cf6beb964a2d6",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 9,
+        "order": 11,
         "group": "83e9ca27a8b9a1f0",
         "width": "0",
         "height": "0",
@@ -4869,16 +5121,16 @@
         "allowColorForValueInMessage": false,
         "shape": "circle",
         "showGlow": true,
-        "name": "led pump",
-        "x": 480,
-        "y": 420,
+        "name": "pump",
+        "x": 490,
+        "y": 480,
         "wires": []
     },
     {
         "id": "9a0374ae760e462f",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 11,
+        "order": 12,
         "group": "83e9ca27a8b9a1f0",
         "width": "0",
         "height": "0",
@@ -4900,20 +5152,20 @@
         "allowColorForValueInMessage": false,
         "shape": "circle",
         "showGlow": true,
-        "name": "led aux output",
-        "x": 500,
-        "y": 460,
+        "name": "aux_output",
+        "x": 510,
+        "y": 520,
         "wires": []
     },
     {
         "id": "d0b9be9f8c67349c",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 5,
+        "order": 7,
         "group": "83e9ca27a8b9a1f0",
         "width": "0",
         "height": "0",
-        "label": "charger relay: ",
+        "label": "Charger: ",
         "labelPlacement": "left",
         "labelAlignment": "left",
         "colorForValue": [
@@ -4931,20 +5183,20 @@
         "allowColorForValueInMessage": false,
         "shape": "circle",
         "showGlow": true,
-        "name": "led charger",
-        "x": 490,
-        "y": 260,
+        "name": "charger",
+        "x": 500,
+        "y": 320,
         "wires": []
     },
     {
         "id": "2fa69b7dd4301751",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 6,
+        "order": 8,
         "group": "83e9ca27a8b9a1f0",
         "width": "0",
         "height": "0",
-        "label": "fridge relay: ",
+        "label": "Fridge:",
         "labelPlacement": "left",
         "labelAlignment": "left",
         "colorForValue": [
@@ -4962,20 +5214,20 @@
         "allowColorForValueInMessage": false,
         "shape": "circle",
         "showGlow": true,
-        "name": "led fridge",
-        "x": 480,
-        "y": 300,
+        "name": "fridge",
+        "x": 490,
+        "y": 360,
         "wires": []
     },
     {
         "id": "01a67cb1f234e5fa",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 7,
+        "order": 9,
         "group": "83e9ca27a8b9a1f0",
         "width": "0",
         "height": "0",
-        "label": "inverter relay: ",
+        "label": "Inverter:",
         "labelPlacement": "left",
         "labelAlignment": "left",
         "colorForValue": [
@@ -4993,9 +5245,213 @@
         "allowColorForValueInMessage": false,
         "shape": "circle",
         "showGlow": true,
-        "name": "led inverter",
-        "x": 490,
-        "y": 340,
+        "name": "inverter",
+        "x": 500,
+        "y": 400,
         "wires": []
+    },
+    {
+        "id": "fdbd215e4bc9c104",
+        "type": "change",
+        "z": "5a08a5132887b1a2",
+        "name": "store global var",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "output_state.charger",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 320,
+        "wires": [
+            [
+                "d0b9be9f8c67349c"
+            ]
+        ]
+    },
+    {
+        "id": "6fff653fc1e25899",
+        "type": "change",
+        "z": "5a08a5132887b1a2",
+        "name": "store global var",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "output_state.fridge",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 360,
+        "wires": [
+            [
+                "2fa69b7dd4301751"
+            ]
+        ]
+    },
+    {
+        "id": "ca5c3ac7c791e200",
+        "type": "change",
+        "z": "5a08a5132887b1a2",
+        "name": "store global var",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "output_state.inverter",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 400,
+        "wires": [
+            [
+                "01a67cb1f234e5fa"
+            ]
+        ]
+    },
+    {
+        "id": "32e01273210f2b19",
+        "type": "change",
+        "z": "5a08a5132887b1a2",
+        "name": "store global var",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "output_state.inverter_source",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 440,
+        "wires": [
+            [
+                "10df0a86627a0322"
+            ]
+        ]
+    },
+    {
+        "id": "380ef7d99db96484",
+        "type": "change",
+        "z": "5a08a5132887b1a2",
+        "name": "store global var",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "output_state.pump",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 480,
+        "wires": [
+            [
+                "698cf6beb964a2d6"
+            ]
+        ]
+    },
+    {
+        "id": "28ab2773dbc21908",
+        "type": "change",
+        "z": "5a08a5132887b1a2",
+        "name": "store global var",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "output_state.aux_output",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 520,
+        "wires": [
+            [
+                "9a0374ae760e462f"
+            ]
+        ]
+    },
+    {
+        "id": "709e964ef4245f63",
+        "type": "ui_template",
+        "z": "5a08a5132887b1a2",
+        "group": "83e9ca27a8b9a1f0",
+        "name": "",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "format": "<div style=\"font-weight: bold;\"><br>Outputs</div></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 500,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2316b72c05d61a49",
+        "type": "ui_template",
+        "z": "5a08a5132887b1a2",
+        "group": "83e9ca27a8b9a1f0",
+        "name": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<div style=\"font-weight: bold;\"><br>Inputs</div></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 500,
+        "y": 80,
+        "wires": [
+            []
+        ]
     }
 ]
