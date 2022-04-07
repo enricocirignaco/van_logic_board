@@ -216,7 +216,9 @@
             "7ee5db236074879f"
         ],
         "x": 34,
-        "y": 59
+        "y": 59,
+        "w": 1062,
+        "h": 142
     },
     {
         "id": "89fde2b35b7808f9",
@@ -244,10 +246,34 @@
             "f5f9bfed5aa3fbcd"
         ],
         "x": 34,
-        "y": 279
+        "y": 279,
+        "w": 1012,
+        "h": 162
     },
     {
-        "id": "6bcebf5dd0870a48",
+        "id": "82e7dfd030bb8d2f",
+        "type": "group",
+        "z": "493e4b0fcbc7484f",
+        "name": "MPPT Broadcast",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "bf2fda8594cf902e",
+            "e24b696b89968d8e",
+            "e171066b96771584",
+            "c7393f8c922a362c",
+            "7de9060fb16a3dc2",
+            "f24e3ce3c78010f2",
+            "cd7be1f40dda90df"
+        ],
+        "x": 14,
+        "y": 19,
+        "w": 1132,
+        "h": 162
+    },
+    {
+        "id": "232f2c028585f7b9",
         "type": "group",
         "z": "493e4b0fcbc7484f",
         "name": "Dashboard",
@@ -256,29 +282,25 @@
         },
         "nodes": [
             "5b49d8929650b679",
-            "0edbb76a8ca9403e",
-            "abdd1b2ffe351f01",
-            "822c5c1034a49698",
-            "2f5f8a859cc0f999",
-            "8f06e31ecef78c32",
             "fe1234361f9f4bde",
-            "abc414352291a655",
-            "8374343ecff96fa1",
-            "2376b9679517e7c0",
-            "6a7247bcc37d9bca",
             "1874703f19edaf5a",
             "503c12d16819e9da",
-            "1d18e0d4fa25afdb",
-            "804d9160d5379cef",
-            "3eaa17a3417f5b8b",
-            "1e62d72933ef2bcd",
-            "19e263f10f550181",
             "e7286d0da156bdcf",
             "928b3a38f03c176e",
-            "a4d932bcecd17514"
+            "a4d932bcecd17514",
+            "be41a7f828962f8c",
+            "2ec5374cc7d45626",
+            "bde5457bae4472d5",
+            "3b63ad5a137efd38",
+            "27dff5e8f07846b1",
+            "a408cdad7701296b",
+            "c2df51ef9125b574",
+            "68c85cf9d66453b2"
         ],
-        "x": 1394,
-        "y": 19
+        "x": 1314,
+        "y": 19,
+        "w": 412,
+        "h": 282
     },
     {
         "id": "a74bb25de5c78e26",
@@ -296,7 +318,7 @@
                 "default": "#097479",
                 "baseColor": "#097479",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false,
+                "edited": true,
                 "reset": false
             },
             "customTheme": {
@@ -424,7 +446,7 @@
         "cts": "none",
         "dsr": "none",
         "newline": "\\n",
-        "bin": "false",
+        "bin": "bin",
         "out": "char",
         "addchar": "",
         "responsetimeout": "10000"
@@ -2692,7 +2714,7 @@
         "tooltip": "",
         "place": "always off",
         "group": "6c304982dc7231d9",
-        "order": 7,
+        "order": 6,
         "width": 0,
         "height": 0,
         "passthru": true,
@@ -3443,7 +3465,7 @@
         "label": "",
         "tooltip": "",
         "group": "6c304982dc7231d9",
-        "order": 9,
+        "order": 8,
         "width": 1,
         "height": 4,
         "passthru": true,
@@ -3470,7 +3492,7 @@
         "d": true,
         "name": "donut on",
         "group": "6c304982dc7231d9",
-        "order": 10,
+        "order": 9,
         "width": 6,
         "height": 4,
         "gtype": "donut",
@@ -3500,7 +3522,7 @@
         "label": "",
         "tooltip": "",
         "group": "6c304982dc7231d9",
-        "order": 12,
+        "order": 11,
         "width": 1,
         "height": 4,
         "passthru": true,
@@ -3527,7 +3549,7 @@
         "d": true,
         "name": "donut off",
         "group": "6c304982dc7231d9",
-        "order": 13,
+        "order": 12,
         "width": 6,
         "height": 4,
         "gtype": "donut",
@@ -3571,9 +3593,9 @@
         "z": "78b28997a4d07be2",
         "group": "6c304982dc7231d9",
         "name": "description",
-        "order": 14,
-        "width": "7",
-        "height": "3",
+        "order": 13,
+        "width": 7,
+        "height": 3,
         "format": "\n<div style=\"font-weight: bold\">Description:<br></div>\n<div ng-bind-html=\"msg.payload\"></div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
@@ -3593,7 +3615,7 @@
         "d": true,
         "group": "6c304982dc7231d9",
         "name": "donut on title",
-        "order": 8,
+        "order": 7,
         "width": 0,
         "height": 0,
         "format": "<div style=\"text-align: center\">Turn On Temperature</div>",
@@ -3615,7 +3637,7 @@
         "d": true,
         "group": "6c304982dc7231d9",
         "name": "donut off title",
-        "order": 11,
+        "order": 10,
         "width": 0,
         "height": 0,
         "format": "<div style=\"text-align: center\">Turn Off Temperature</div>",
@@ -3666,7 +3688,7 @@
         "type": "ui_text",
         "z": "78b28997a4d07be2",
         "group": "6c304982dc7231d9",
-        "order": 5,
+        "order": 4,
         "width": 0,
         "height": 0,
         "name": "power_source",
@@ -3684,8 +3706,8 @@
         "z": "78b28997a4d07be2",
         "group": "6c304982dc7231d9",
         "name": "settings",
-        "order": 6,
-        "width": "7",
+        "order": 5,
+        "width": 7,
         "height": 1,
         "format": "<p>Settings</p>\n",
         "storeOutMessages": true,
@@ -3822,9 +3844,12 @@
         "name": "MPPT request",
         "serial": "594a8a527370c352",
         "x": 600,
-        "y": 300,
+        "y": 420,
         "wires": [
-            []
+            [
+                "de36f2d1d965bb8e",
+                "86530ebeb268998c"
+            ]
         ]
     },
     {
@@ -3839,7 +3864,7 @@
         "finalize": "",
         "libs": [],
         "x": 390,
-        "y": 300,
+        "y": 420,
         "wires": [
             [
                 "522a28de03c194b1"
@@ -3858,11 +3883,15 @@
         "finalize": "",
         "libs": [],
         "x": 810,
-        "y": 300,
+        "y": 420,
         "wires": [
             [],
-            [],
-            []
+            [
+                "e114afa58ebbb8c1"
+            ],
+            [
+                "8365957b68f97775"
+            ]
         ]
     },
     {
@@ -3887,7 +3916,7 @@
         "payload": "7501000",
         "payloadType": "str",
         "x": 160,
-        "y": 300,
+        "y": 420,
         "wires": [
             [
                 "b60a37816360662b"
@@ -3916,7 +3945,7 @@
         "payload": "7511000",
         "payloadType": "str",
         "x": 170,
-        "y": 240,
+        "y": 360,
         "wires": [
             [
                 "b60a37816360662b"
@@ -3927,10 +3956,11 @@
         "id": "bf2fda8594cf902e",
         "type": "serial in",
         "z": "493e4b0fcbc7484f",
+        "g": "82e7dfd030bb8d2f",
         "name": "MPPT broadcast",
         "serial": "594a8a527370c352",
-        "x": 100,
-        "y": 60,
+        "x": 120,
+        "y": 100,
         "wires": [
             [
                 "c7393f8c922a362c"
@@ -3941,6 +3971,7 @@
         "id": "e24b696b89968d8e",
         "type": "function",
         "z": "493e4b0fcbc7484f",
+        "g": "82e7dfd030bb8d2f",
         "name": "broadcast parser",
         "func": "// 1. output --> data object only if data is not corrupted\n// 2. output --> error msg if data is corrupted\n// 3. output --> formatted msg object for database injection\n\nconst db_injection_msg = \"insert into mppt (v_batt, i_batt, v_panel, p_panel, op_state, mppt_mode, off_reason, error_msg, load_state, i_load) values (?,?,?,?,?,?,?,?,?,?);\"\nvar bit_stream = msg.payload;\nvar data = {};\n\n// reorder and standardize checksum string\nconst pid_index = bit_stream.indexOf(\"PID\");\nbit_stream = bit_stream.slice(pid_index-2, bit_stream.indexOf(\"Checksum\", pid_index+1)+10);\n\n//calculate checksum for data integrity\nvar checksum = 0;\nfor(const element of bit_stream) {\n   checksum = (checksum + element) & 255; /* Take modulo 256 in account */\n}\n\n// if data is not corrupted\nif(checksum == 0){\n\n    // convert bitstream to string\n    var string = bit_stream.toString();\n    // remove checksum, lf and cr\n    string = string.substring(2, string.indexOf(\"Checksum\")-1);\n    // convert string to array\n    var array = string.split('\\n');\n    // convert array of string into data object\n    for(const element of array){\n        var property_name = element.substring(0, element.indexOf('\\t'));\n        var property_value = element.substring(element.indexOf('\\t')+1, element.length-1);\n        data[property_name] = property_value;\n    }\n    \n    // check data object for integrity before saving it\n    if(Object.keys(data).length == 19){\n        // update flow object with new data\n        global.set(\"mppt_broadcast\", data);\n        \n        // format data to be injected into database\n        var db_data = Object.values(data);\n        // remove static data\n        db_data = db_data.splice(3,10);\n        msg.payload = db_data;\n        msg.topic = db_injection_msg;\n        return [{payload: data}, null, msg];\n    }\n}\n\n// if data is corrupted\nelse {\n    // data corrucped flag\n    return [null, {payload: \"mppt message corrupted\"}, null];\n}\n",
         "outputs": 3,
@@ -3948,8 +3979,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 490,
-        "y": 60,
+        "x": 510,
+        "y": 100,
         "wires": [
             [
                 "cd7be1f40dda90df"
@@ -3966,6 +3997,7 @@
         "id": "e171066b96771584",
         "type": "debug",
         "z": "493e4b0fcbc7484f",
+        "g": "82e7dfd030bb8d2f",
         "name": "data corrupted",
         "active": true,
         "tosidebar": true,
@@ -3975,8 +4007,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 800,
-        "y": 60,
+        "x": 820,
+        "y": 100,
         "wires": []
     },
     {
@@ -3999,7 +4031,7 @@
         "to": "",
         "reg": false,
         "x": 240,
-        "y": 360,
+        "y": 480,
         "wires": [
             [
                 "b60a37816360662b"
@@ -4010,6 +4042,7 @@
         "id": "c7393f8c922a362c",
         "type": "join",
         "z": "493e4b0fcbc7484f",
+        "g": "82e7dfd030bb8d2f",
         "name": "",
         "mode": "custom",
         "build": "buffer",
@@ -4026,8 +4059,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 290,
-        "y": 60,
+        "x": 310,
+        "y": 100,
         "wires": [
             [
                 "e24b696b89968d8e"
@@ -4038,10 +4071,11 @@
         "id": "7de9060fb16a3dc2",
         "type": "mysql",
         "z": "493e4b0fcbc7484f",
+        "g": "82e7dfd030bb8d2f",
         "mydb": "9accbd4c3bdcd845",
         "name": "broadcast injection",
-        "x": 1010,
-        "y": 100,
+        "x": 1030,
+        "y": 140,
         "wires": [
             []
         ]
@@ -4053,7 +4087,7 @@
         "name": "",
         "events": "connect",
         "x": 80,
-        "y": 360,
+        "y": 480,
         "wires": [
             [
                 "faab1e33cd83d2ce"
@@ -4064,6 +4098,7 @@
         "id": "f24e3ce3c78010f2",
         "type": "delay",
         "z": "493e4b0fcbc7484f",
+        "g": "82e7dfd030bb8d2f",
         "name": "",
         "pauseType": "rate",
         "timeout": "5",
@@ -4077,8 +4112,8 @@
         "drop": true,
         "allowrate": false,
         "outputs": 1,
-        "x": 800,
-        "y": 100,
+        "x": 820,
+        "y": 140,
         "wires": [
             [
                 "7de9060fb16a3dc2"
@@ -4089,6 +4124,7 @@
         "id": "cd7be1f40dda90df",
         "type": "link out",
         "z": "493e4b0fcbc7484f",
+        "g": "82e7dfd030bb8d2f",
         "name": "broadcast_data",
         "mode": "link",
         "links": [
@@ -4110,401 +4146,21 @@
             "e538c1f7d61d4772",
             "f3f7558a608089a3",
             "922227ec3aad9f6d",
-            "d267ecf420261df1"
+            "d267ecf420261df1",
+            "e75caaeb484e35dd",
+            "c82a9209d50b9495",
+            "11cc5bc2508e0b49",
+            "6c74cf4b52583377",
+            "7903acae81de3fd8",
+            "1e2cd0481d654584",
+            "27f798f29dcff875",
+            "b1e32e51141fe749",
+            "c85d48e227ee6bfd",
+            "bde5457bae4472d5"
         ],
-        "x": 735,
-        "y": 20,
-        "wires": []
-    },
-    {
-        "id": "5b49d8929650b679",
-        "type": "ui_gauge",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "name": "Solar Power",
-        "group": "72a8d1b89999131f",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "gtype": "gage",
-        "title": "Power",
-        "label": "W",
-        "format": "{{msg.payload.PPV}}",
-        "min": 0,
-        "max": "200",
-        "colors": [
-            "#0433ff",
-            "#0433ff",
-            "#0433ff"
-        ],
-        "seg1": "",
-        "seg2": "",
-        "className": "",
-        "x": 1690,
+        "x": 755,
         "y": 60,
         "wires": []
-    },
-    {
-        "id": "0edbb76a8ca9403e",
-        "type": "ui_text",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "group": "72a8d1b89999131f",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "name": "solar voltage",
-        "label": "Voltage: ",
-        "format": "{{(msg.payload.VPV/1000).toFixed(2) +\" V\"}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 1690,
-        "y": 100,
-        "wires": []
-    },
-    {
-        "id": "abdd1b2ffe351f01",
-        "type": "ui_text",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "group": "72a8d1b89999131f",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "name": "solar current",
-        "label": "Current:",
-        "format": "{{(msg.payload.PPV/(msg.payload.VPV/1000)).toFixed(2)+\" A\"}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 1690,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "822c5c1034a49698",
-        "type": "ui_template",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "group": "72a8d1b89999131f",
-        "name": "",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "format": "<div style=\"font-weight: bold;\"><br>Battery</div></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 1680,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "2f5f8a859cc0f999",
-        "type": "ui_text",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "group": "72a8d1b89999131f",
-        "order": 5,
-        "width": 0,
-        "height": 0,
-        "name": "battery voltage",
-        "label": "Voltage: ",
-        "format": "{{(msg.payload.V/1000).toFixed(2)+\" V\"}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 1700,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "8f06e31ecef78c32",
-        "type": "ui_text",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "group": "72a8d1b89999131f",
-        "order": 6,
-        "width": 0,
-        "height": 0,
-        "name": "battery current",
-        "label": "Current:",
-        "format": "{{(msg.payload.I/1000).toFixed(2)+\" A\"}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 1700,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "fe1234361f9f4bde",
-        "type": "ui_text",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "group": "72a8d1b89999131f",
-        "order": 7,
-        "width": 0,
-        "height": 0,
-        "name": "mppt state",
-        "label": "State:",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 1690,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "abc414352291a655",
-        "type": "ui_template",
-        "z": "493e4b0fcbc7484f",
-        "d": true,
-        "g": "6bcebf5dd0870a48",
-        "group": "72a8d1b89999131f",
-        "name": "",
-        "order": 8,
-        "width": 0,
-        "height": 0,
-        "format": "<div style=\"font-weight: bold\"><br>Load</div></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 1680,
-        "y": 340,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "8374343ecff96fa1",
-        "type": "ui_text",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "group": "72a8d1b89999131f",
-        "order": 11,
-        "width": 0,
-        "height": 0,
-        "name": "load power",
-        "label": "Power: ",
-        "format": "{{((msg.payload.V*msg.payload.IL)/1000000).toFixed(0) +\" W\"}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 1690,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "2376b9679517e7c0",
-        "type": "ui_text",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "group": "72a8d1b89999131f",
-        "order": 10,
-        "width": 0,
-        "height": 0,
-        "name": "load current",
-        "label": "Current:",
-        "format": "{{(msg.payload.IL/1000).toFixed(2)+\" A\"}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 1690,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "6a7247bcc37d9bca",
-        "type": "ui_text",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "group": "72a8d1b89999131f",
-        "order": 9,
-        "width": 0,
-        "height": 0,
-        "name": "load state",
-        "label": "State:",
-        "format": "{{msg.payload.LOAD}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 1680,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "1874703f19edaf5a",
-        "type": "link in",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "name": "broadcast_data",
-        "links": [
-            "cd7be1f40dda90df"
-        ],
-        "x": 1505,
-        "y": 60,
-        "wires": [
-            [
-                "5b49d8929650b679"
-            ]
-        ]
-    },
-    {
-        "id": "503c12d16819e9da",
-        "type": "link in",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "name": "broadcast_data",
-        "links": [
-            "cd7be1f40dda90df"
-        ],
-        "x": 1505,
-        "y": 100,
-        "wires": [
-            [
-                "0edbb76a8ca9403e"
-            ]
-        ]
-    },
-    {
-        "id": "1d18e0d4fa25afdb",
-        "type": "link in",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "name": "broadcast_data",
-        "links": [
-            "cd7be1f40dda90df"
-        ],
-        "x": 1505,
-        "y": 140,
-        "wires": [
-            [
-                "abdd1b2ffe351f01"
-            ]
-        ]
-    },
-    {
-        "id": "804d9160d5379cef",
-        "type": "link in",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "name": "broadcast_data",
-        "links": [
-            "cd7be1f40dda90df"
-        ],
-        "x": 1505,
-        "y": 220,
-        "wires": [
-            [
-                "2f5f8a859cc0f999"
-            ]
-        ]
-    },
-    {
-        "id": "3eaa17a3417f5b8b",
-        "type": "link in",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "name": "broadcast_data",
-        "links": [
-            "cd7be1f40dda90df"
-        ],
-        "x": 1505,
-        "y": 260,
-        "wires": [
-            [
-                "8f06e31ecef78c32"
-            ]
-        ]
-    },
-    {
-        "id": "1e62d72933ef2bcd",
-        "type": "link in",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "name": "broadcast_data",
-        "links": [
-            "cd7be1f40dda90df"
-        ],
-        "x": 1505,
-        "y": 420,
-        "wires": [
-            [
-                "2376b9679517e7c0"
-            ]
-        ]
-    },
-    {
-        "id": "19e263f10f550181",
-        "type": "link in",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "name": "broadcast_data",
-        "links": [
-            "cd7be1f40dda90df"
-        ],
-        "x": 1505,
-        "y": 460,
-        "wires": [
-            [
-                "8374343ecff96fa1"
-            ]
-        ]
-    },
-    {
-        "id": "e7286d0da156bdcf",
-        "type": "link in",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "name": "broadcast_data",
-        "links": [
-            "cd7be1f40dda90df"
-        ],
-        "x": 1505,
-        "y": 380,
-        "wires": [
-            [
-                "6a7247bcc37d9bca"
-            ]
-        ]
-    },
-    {
-        "id": "928b3a38f03c176e",
-        "type": "link in",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "name": "broadcast_data",
-        "links": [
-            "cd7be1f40dda90df"
-        ],
-        "x": 1435,
-        "y": 300,
-        "wires": [
-            [
-                "a4d932bcecd17514"
-            ]
-        ]
-    },
-    {
-        "id": "a4d932bcecd17514",
-        "type": "function",
-        "z": "493e4b0fcbc7484f",
-        "g": "6bcebf5dd0870a48",
-        "name": "Parser",
-        "func": "switch(msg.payload.CS){\n    case \"0\":\n        return {payload:\"Off\"};\n    case \"2\":\n        return {payload:\"Fault\"};\n    case\"3\":\n        return {payload:\"Bulk\"};\n    case \"4\":\n        return {payload:\"Absorption\"};\n    case \"5\":\n        return {payload:\"Float\"};\n    default:\n        return {payload:\"Other\"};\n}",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1530,
-        "y": 300,
-        "wires": [
-            [
-                "fe1234361f9f4bde"
-            ]
-        ]
     },
     {
         "id": "e114afa58ebbb8c1",
@@ -4518,10 +4174,380 @@
         "finalize": "",
         "libs": [],
         "x": 1010,
-        "y": 300,
+        "y": 420,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "8365957b68f97775",
+        "type": "debug",
+        "z": "493e4b0fcbc7484f",
+        "name": "data corrupted",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "86530ebeb268998c",
+        "type": "debug",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "5b49d8929650b679",
+        "type": "ui_gauge",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "Solar Power",
+        "group": "72a8d1b89999131f",
+        "order": 1,
+        "width": 7,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Solar",
+        "label": "W",
+        "format": "{{msg.payload.PPV}}",
+        "min": 0,
+        "max": "200",
+        "colors": [
+            "#0433ff",
+            "#0433ff",
+            "#0433ff"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1610,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "fe1234361f9f4bde",
+        "type": "ui_text",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "group": "72a8d1b89999131f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "mppt state",
+        "label": "MPPT State:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1610,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "1874703f19edaf5a",
+        "type": "link in",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "broadcast_data",
+        "links": [
+            "cd7be1f40dda90df"
+        ],
+        "x": 1355,
+        "y": 60,
+        "wires": [
+            [
+                "5b49d8929650b679"
+            ]
+        ]
+    },
+    {
+        "id": "503c12d16819e9da",
+        "type": "link in",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "broadcast_data",
+        "links": [
+            "cd7be1f40dda90df"
+        ],
+        "x": 1355,
+        "y": 140,
+        "wires": [
+            [
+                "2ec5374cc7d45626"
+            ]
+        ]
+    },
+    {
+        "id": "e7286d0da156bdcf",
+        "type": "link in",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "broadcast_data",
+        "links": [
+            "cd7be1f40dda90df"
+        ],
+        "x": 1355,
+        "y": 260,
+        "wires": [
+            [
+                "68c85cf9d66453b2"
+            ]
+        ]
+    },
+    {
+        "id": "928b3a38f03c176e",
+        "type": "link in",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "broadcast_data",
+        "links": [
+            "cd7be1f40dda90df"
+        ],
+        "x": 1355,
+        "y": 100,
+        "wires": [
+            [
+                "a4d932bcecd17514"
+            ]
+        ]
+    },
+    {
+        "id": "a4d932bcecd17514",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "Parser",
+        "func": "switch(msg.payload.CS){\n    case \"0\":\n        return {payload:\"Off\"};\n    case \"2\":\n        return {payload:\"Fault\"};\n    case\"3\":\n        return {payload:\"Bulk\"};\n    case \"4\":\n        return {payload:\"Absorption\"};\n    case \"5\":\n        return {payload:\"Float\"};\n    default:\n        return {payload:\"Other\"};\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 100,
+        "wires": [
+            [
+                "fe1234361f9f4bde"
+            ]
+        ]
+    },
+    {
+        "id": "be41a7f828962f8c",
+        "type": "ui_gauge",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "Battery Power",
+        "group": "72a8d1b89999131f",
+        "order": 3,
+        "width": 7,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Battery",
+        "label": "W",
+        "format": "{{value}}",
+        "min": "-200",
+        "max": "200",
+        "colors": [
+            "#ff9300",
+            "#ffffff",
+            "#00f900"
+        ],
+        "seg1": "0",
+        "seg2": "0",
+        "className": "",
+        "x": 1620,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "2ec5374cc7d45626",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "Parser",
+        "func": "\n\nmsg.payload = Math.round((msg.payload.I/1000) * (msg.payload.V/1000));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 140,
+        "wires": [
+            [
+                "be41a7f828962f8c"
+            ]
+        ]
+    },
+    {
+        "id": "bde5457bae4472d5",
+        "type": "link in",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "broadcast_data",
+        "links": [
+            "cd7be1f40dda90df"
+        ],
+        "x": 1355,
+        "y": 180,
+        "wires": [
+            [
+                "27dff5e8f07846b1"
+            ]
+        ]
+    },
+    {
+        "id": "3b63ad5a137efd38",
+        "type": "ui_gauge",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "Load Power",
+        "group": "72a8d1b89999131f",
+        "order": 4,
+        "width": 7,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Load",
+        "label": "W",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "200",
+        "colors": [
+            "#00f900",
+            "#ff9300",
+            "#ff2600"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1610,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "27dff5e8f07846b1",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "Parser",
+        "func": "\n\nmsg.payload = Math.round((msg.payload.IL/1000) * (msg.payload.V/1000));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 180,
+        "wires": [
+            [
+                "3b63ad5a137efd38"
+            ]
+        ]
+    },
+    {
+        "id": "a408cdad7701296b",
+        "type": "ui_led",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "order": 6,
+        "group": "72a8d1b89999131f",
+        "width": 3,
+        "height": 1,
+        "label": " ",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "ON",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "load_led",
+        "x": 1600,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "c2df51ef9125b574",
+        "type": "ui_switch",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "",
+        "label": "Load Enable",
+        "tooltip": "",
+        "group": "72a8d1b89999131f",
+        "order": 5,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 1610,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "68c85cf9d66453b2",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "Parser",
+        "func": "msg.payload = msg.payload.LOAD;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 260,
+        "wires": [
+            [
+                "a408cdad7701296b"
+            ]
+        ]
+    },
+    {
+        "id": "1fa466e25aaa5c0c",
+        "type": "comment",
+        "z": "493e4b0fcbc7484f",
+        "name": "ToDo",
+        "info": "retrieve hex data;\nimplement load disable with hex com",
+        "x": 90,
+        "y": 300,
+        "wires": []
     },
     {
         "id": "9e4194fd2b51392f",
@@ -4546,7 +4572,7 @@
         "seg1": "12",
         "seg2": "12.6",
         "className": "",
-        "x": 1290,
+        "x": 810,
         "y": 180,
         "wires": []
     },
@@ -4572,7 +4598,7 @@
         "shape": "circle",
         "showGlow": true,
         "name": "lead_low_soc",
-        "x": 1300,
+        "x": 820,
         "y": 240,
         "wires": []
     },
@@ -4598,7 +4624,7 @@
         "shape": "circle",
         "showGlow": true,
         "name": "lfp_low_soc",
-        "x": 1290,
+        "x": 810,
         "y": 120,
         "wires": []
     },
@@ -4624,7 +4650,7 @@
         "shape": "circle",
         "showGlow": true,
         "name": "motor_state",
-        "x": 1290,
+        "x": 810,
         "y": 320,
         "wires": []
     },
@@ -4636,7 +4662,7 @@
         "links": [
             "7ee5db236074879f"
         ],
-        "x": 625,
+        "x": 145,
         "y": 180,
         "wires": [
             [
@@ -4677,7 +4703,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 4,
-        "x": 730,
+        "x": 250,
         "y": 280,
         "wires": [
             [
@@ -4722,7 +4748,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
+        "x": 430,
         "y": 340,
         "wires": [
             [
@@ -4756,7 +4782,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
+        "x": 430,
         "y": 300,
         "wires": [
             [
@@ -4770,8 +4796,8 @@
         "z": "5a08a5132887b1a2",
         "mydb": "9accbd4c3bdcd845",
         "name": "broadcast injection",
-        "x": 770,
-        "y": 620,
+        "x": 790,
+        "y": 680,
         "wires": [
             []
         ]
@@ -4799,7 +4825,7 @@
         "seg1": "20",
         "seg2": "50",
         "className": "",
-        "x": 1290,
+        "x": 810,
         "y": 60,
         "wires": []
     },
@@ -4812,7 +4838,7 @@
         "tooltip": "",
         "group": "7dbe224d7e5b35ba",
         "order": 6,
-        "width": "4",
+        "width": 4,
         "height": 1,
         "passthru": true,
         "decouple": "false",
@@ -4829,7 +4855,7 @@
         "offcolor": "",
         "animate": false,
         "className": "",
-        "x": 1290,
+        "x": 810,
         "y": 400,
         "wires": [
             [
@@ -4844,7 +4870,7 @@
         "z": "5a08a5132887b1a2",
         "order": 7,
         "group": "7dbe224d7e5b35ba",
-        "width": "3",
+        "width": 3,
         "height": 1,
         "label": " ",
         "labelPlacement": "left",
@@ -4860,7 +4886,7 @@
         "shape": "circle",
         "showGlow": true,
         "name": "charger_led",
-        "x": 1690,
+        "x": 1210,
         "y": 340,
         "wires": []
     },
@@ -4869,7 +4895,7 @@
         "type": "subflow:85860d2069ad95cd",
         "z": "5a08a5132887b1a2",
         "name": "",
-        "x": 1920,
+        "x": 1440,
         "y": 380,
         "wires": [
             [
@@ -4903,7 +4929,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
+        "x": 430,
         "y": 220,
         "wires": [
             [
@@ -4937,7 +4963,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
+        "x": 430,
         "y": 260,
         "wires": [
             [
@@ -4964,7 +4990,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
+        "x": 430,
         "y": 380,
         "wires": [
             [
@@ -4998,7 +5024,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
+        "x": 430,
         "y": 420,
         "wires": [
             [
@@ -5017,7 +5043,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1490,
+        "x": 1010,
         "y": 380,
         "wires": [
             [
@@ -5038,7 +5064,7 @@
                 "type": "num"
             }
         ],
-        "x": 1680,
+        "x": 1200,
         "y": 380,
         "wires": [
             [
@@ -5052,7 +5078,7 @@
         "z": "5a08a5132887b1a2",
         "mydb": "9accbd4c3bdcd845",
         "name": "",
-        "x": 1900,
+        "x": 1420,
         "y": 420,
         "wires": [
             []
@@ -5070,7 +5096,7 @@
         "septopics": false,
         "property": "payload",
         "topi": "topic",
-        "x": 1450,
+        "x": 970,
         "y": 420,
         "wires": [
             [
@@ -5104,7 +5130,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1710,
+        "x": 1230,
         "y": 420,
         "wires": [
             [
@@ -5129,7 +5155,7 @@
         "topic": "",
         "payload": "charger_enable",
         "payloadType": "str",
-        "x": 930,
+        "x": 450,
         "y": 460,
         "wires": [
             [
@@ -5142,7 +5168,7 @@
         "type": "subflow:d8f3724deb76e0db",
         "z": "5a08a5132887b1a2",
         "name": "",
-        "x": 1090,
+        "x": 610,
         "y": 440,
         "wires": [
             [
@@ -5172,7 +5198,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 730,
+        "x": 250,
         "y": 120,
         "wires": [
             [
@@ -5209,7 +5235,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
+        "x": 430,
         "y": 100,
         "wires": [
             [
@@ -5243,7 +5269,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
+        "x": 430,
         "y": 140,
         "wires": [
             [
@@ -5260,8 +5286,8 @@
         "links": [
             "2bccd8f8d14553e3"
         ],
-        "x": 355,
-        "y": 660,
+        "x": 375,
+        "y": 720,
         "wires": []
     },
     {
@@ -5275,8 +5301,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 180,
-        "y": 620,
+        "x": 200,
+        "y": 680,
         "wires": [
             []
         ]
@@ -5298,8 +5324,8 @@
         "topic": "",
         "payload": "50",
         "payloadType": "num",
-        "x": 210,
-        "y": 580,
+        "x": 230,
+        "y": 640,
         "wires": [
             [
                 "9d77d144fcc69357",
@@ -5315,7 +5341,7 @@
         "links": [
             "9d77d144fcc69357"
         ],
-        "x": 625,
+        "x": 145,
         "y": 80,
         "wires": [
             [
@@ -5335,8 +5361,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 580,
-        "y": 620,
+        "x": 600,
+        "y": 680,
         "wires": [
             [
                 "6197874495896d87"
@@ -5362,7 +5388,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 920,
+        "x": 440,
         "y": 180,
         "wires": [
             [
@@ -5387,8 +5413,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 410,
-        "y": 620,
+        "x": 430,
+        "y": 680,
         "wires": [
             [
                 "efd9a1136f98bdbb"
@@ -5414,7 +5440,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 920,
+        "x": 440,
         "y": 60,
         "wires": [
             [
@@ -5428,8 +5454,8 @@
         "z": "5a08a5132887b1a2",
         "name": "mppt daily trigger",
         "links": [],
-        "x": 35,
-        "y": 620,
+        "x": 55,
+        "y": 680,
         "wires": [
             [
                 "9e608659c75398c5"
@@ -5447,8 +5473,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 190,
-        "y": 540,
+        "x": 210,
+        "y": 600,
         "wires": [
             []
         ]
@@ -5462,7 +5488,7 @@
         "links": [
             "3c41044470a0259c"
         ],
-        "x": 2065,
+        "x": 1585,
         "y": 380,
         "wires": []
     },
@@ -5968,6 +5994,7 @@
         "id": "090a14c595fe261a",
         "type": "serial request",
         "z": "162cea04a51a0717",
+        "d": true,
         "name": "",
         "serial": "594a8a527370c352",
         "x": 510,
