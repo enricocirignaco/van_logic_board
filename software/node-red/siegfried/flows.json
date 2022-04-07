@@ -229,36 +229,6 @@
         "h": 142
     },
     {
-        "id": "89fde2b35b7808f9",
-        "type": "group",
-        "z": "162cea04a51a0717",
-        "name": "Read temperarute Sensors over 1-Wire",
-        "style": {
-            "label": true
-        },
-        "nodes": [
-            "af0b15bc328342de",
-            "246f9284dfd1ad8d",
-            "46dc15df4d9a5c02",
-            "7ea715a1a228e19a",
-            "bdbb7a73a45acc1c",
-            "c180da56bb6e9ad8",
-            "363958c7eec04849",
-            "3e673c5e24ef0a0b",
-            "d5118342f3420f54",
-            "0ff4e0486b9844cb",
-            "a9e006439192e826",
-            "60fe06549654d7a9",
-            "a61d76de1277b5b9",
-            "91a6e4a881bc9e5e",
-            "f5f9bfed5aa3fbcd"
-        ],
-        "x": 34,
-        "y": 279,
-        "w": 1012,
-        "h": 162
-    },
-    {
         "id": "82e7dfd030bb8d2f",
         "type": "group",
         "z": "493e4b0fcbc7484f",
@@ -276,9 +246,7 @@
             "cd7be1f40dda90df"
         ],
         "x": 14,
-        "y": 19,
-        "w": 1132,
-        "h": 162
+        "y": 19
     },
     {
         "id": "232f2c028585f7b9",
@@ -306,9 +274,35 @@
             "68c85cf9d66453b2"
         ],
         "x": 1314,
-        "y": 19,
-        "w": 412,
-        "h": 282
+        "y": 19
+    },
+    {
+        "id": "fb118a00f83d2ac1",
+        "type": "group",
+        "z": "162cea04a51a0717",
+        "name": "Get Temperatures from sensors over 1 Wire",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "6275902ccf376599",
+            "02db7e5af911d066",
+            "363958c7eec04849",
+            "0ff4e0486b9844cb",
+            "a9e006439192e826",
+            "60fe06549654d7a9",
+            "19186997b762ef97",
+            "fea0b1178fad25be",
+            "fca99a58b9c4c24f",
+            "418ff663f82ca364",
+            "f67247b653618bc1",
+            "6863da5e118a8098",
+            "038a632ad9286bdf"
+        ],
+        "x": 34,
+        "y": 219,
+        "w": 1062,
+        "h": 229.5
     },
     {
         "id": "a74bb25de5c78e26",
@@ -3286,7 +3280,9 @@
         "z": "78b28997a4d07be2",
         "name": "",
         "links": [
-            "0ff4e0486b9844cb"
+            "0ff4e0486b9844cb",
+            "5d61caaae57aa6c7",
+            "e6441c2c3626269a"
         ],
         "x": 1005,
         "y": 720,
@@ -3725,7 +3721,9 @@
         "name": "temp_in",
         "links": [
             "0ff4e0486b9844cb",
-            "56b19a046b403ecb"
+            "56b19a046b403ecb",
+            "5d61caaae57aa6c7",
+            "e6441c2c3626269a"
         ],
         "x": 1345,
         "y": 40,
@@ -4054,60 +4052,34 @@
         ]
     },
     {
-        "id": "4a2056f3963a0e1e",
-        "type": "inject",
+        "id": "081542ce9d9322a0",
+        "type": "link in",
         "z": "274cb03b3db2d71a",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
+        "name": "temp_in",
+        "links": [
+            "60fe06549654d7a9"
         ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "19",
-        "payloadType": "num",
-        "x": 250,
-        "y": 180,
+        "x": 125,
+        "y": 100,
         "wires": [
             [
-                "e550af8caa271bec"
+                "0ade02986402d041"
             ]
         ]
     },
     {
-        "id": "9802df4faa3c9722",
-        "type": "inject",
+        "id": "37b90db2973a2911",
+        "type": "link in",
         "z": "274cb03b3db2d71a",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
+        "name": "temp_in",
+        "links": [
+            "a9e006439192e826"
         ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "5",
-        "payloadType": "num",
-        "x": 250,
-        "y": 120,
+        "x": 125,
+        "y": 180,
         "wires": [
             [
-                "0ade02986402d041"
+                "e550af8caa271bec"
             ]
         ]
     },
@@ -5762,52 +5734,6 @@
         "wires": []
     },
     {
-        "id": "af0b15bc328342de",
-        "type": "inject",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "1",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 320,
-        "wires": [
-            [
-                "246f9284dfd1ad8d"
-            ]
-        ]
-    },
-    {
-        "id": "246f9284dfd1ad8d",
-        "type": "1-Wire",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "identifier": "28-00000015081d",
-        "name": "fridge temp",
-        "format": "1",
-        "x": 330,
-        "y": 320,
-        "wires": [
-            [
-                "363958c7eec04849"
-            ]
-        ]
-    },
-    {
         "id": "e8ee218f560979f9",
         "type": "inject",
         "z": "162cea04a51a0717",
@@ -5930,8 +5856,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "start mysql container",
-        "x": 400,
-        "y": 580,
+        "x": 420,
+        "y": 520,
         "wires": [
             [],
             [],
@@ -5959,8 +5885,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 580,
+        "x": 170,
+        "y": 520,
         "wires": [
             [
                 "7d8c9172021d2374"
@@ -6004,318 +5930,18 @@
         "wires": []
     },
     {
-        "id": "46dc15df4d9a5c02",
-        "type": "1-Wire",
-        "z": "162cea04a51a0717",
-        "d": true,
-        "g": "89fde2b35b7808f9",
-        "identifier": "28-0000001538b5",
-        "name": "indoor temp",
-        "format": "1",
-        "x": 330,
-        "y": 360,
-        "wires": [
-            [
-                "3e673c5e24ef0a0b"
-            ]
-        ]
-    },
-    {
-        "id": "7ea715a1a228e19a",
-        "type": "1-Wire",
-        "z": "162cea04a51a0717",
-        "d": true,
-        "g": "89fde2b35b7808f9",
-        "identifier": "28-000000152b52",
-        "name": "outdoor temp",
-        "format": "1",
-        "x": 340,
-        "y": 400,
-        "wires": [
-            [
-                "d5118342f3420f54"
-            ]
-        ]
-    },
-    {
-        "id": "bdbb7a73a45acc1c",
-        "type": "inject",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "1",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.3",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 360,
-        "wires": [
-            [
-                "46dc15df4d9a5c02"
-            ]
-        ]
-    },
-    {
-        "id": "c180da56bb6e9ad8",
-        "type": "inject",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "1",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 400,
-        "wires": [
-            [
-                "7ea715a1a228e19a"
-            ]
-        ]
-    },
-    {
-        "id": "363958c7eec04849",
-        "type": "rbe",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "name": "on change filter",
-        "func": "rbei",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "septopics": true,
-        "property": "payload",
-        "topi": "topic",
-        "x": 540,
-        "y": 320,
-        "wires": [
-            [
-                "a61d76de1277b5b9"
-            ]
-        ]
-    },
-    {
-        "id": "3e673c5e24ef0a0b",
-        "type": "rbe",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "name": "on change filter",
-        "func": "rbei",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "septopics": true,
-        "property": "payload",
-        "topi": "topic",
-        "x": 540,
-        "y": 360,
-        "wires": [
-            [
-                "91a6e4a881bc9e5e"
-            ]
-        ]
-    },
-    {
-        "id": "d5118342f3420f54",
-        "type": "rbe",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "name": "on change filter",
-        "func": "rbei",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "septopics": true,
-        "property": "payload",
-        "topi": "topic",
-        "x": 540,
-        "y": 400,
-        "wires": [
-            [
-                "f5f9bfed5aa3fbcd"
-            ]
-        ]
-    },
-    {
-        "id": "0ff4e0486b9844cb",
-        "type": "link out",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "name": "fridge_temp_trigger",
-        "mode": "link",
-        "links": [
-            "fa59361f2834c145",
-            "df6f4d601096e352",
-            "05fd13f55ce8e67b",
-            "e8b2d5bc2e0ac5a1",
-            "42a66365bf30cff4"
-        ],
-        "x": 1005,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "a9e006439192e826",
-        "type": "link out",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "name": "indoor_temp_trigger",
-        "mode": "link",
-        "links": [],
-        "x": 1005,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "60fe06549654d7a9",
-        "type": "link out",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "name": "outdoor_temp_trigger",
-        "mode": "link",
-        "links": [],
-        "x": 1005,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "a61d76de1277b5b9",
-        "type": "function",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "name": "round temp and store in global value",
-        "func": "var val = msg.payload;\n\n// check for bug (sometimes a huge number come instead of temp)\nif(val < 60){\n    // round to 2 decimal\n    val = Math.round(val*10)/10;\n    \n    global.set(\"sensors.fridge_temp\", val);\n    msg.payload = val;\n    return msg;\n}",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 810,
-        "y": 320,
-        "wires": [
-            [
-                "0ff4e0486b9844cb"
-            ]
-        ]
-    },
-    {
-        "id": "91a6e4a881bc9e5e",
-        "type": "function",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "name": "round temp and store in global value",
-        "func": "var val = msg.payload;\n// round to 2 decimal\nval = Math.round(val*10)/10;\n\nglobal.set(\"sensors.indoor_temp\", val);\nmsg.payload = val;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 810,
-        "y": 360,
-        "wires": [
-            [
-                "a9e006439192e826"
-            ]
-        ]
-    },
-    {
-        "id": "f5f9bfed5aa3fbcd",
-        "type": "function",
-        "z": "162cea04a51a0717",
-        "g": "89fde2b35b7808f9",
-        "name": "round temp and store in global value",
-        "func": "var val = msg.payload;\n// round to 2 decimal\nval = Math.round(val*10)/10;\n\nglobal.set(\"sensors.fridge_outdoor\", val);\nmsg.payload = val;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 810,
-        "y": 400,
-        "wires": [
-            [
-                "60fe06549654d7a9"
-            ]
-        ]
-    },
-    {
         "id": "090a14c595fe261a",
         "type": "serial request",
         "z": "162cea04a51a0717",
         "name": "",
         "serial": "594a8a527370c352",
-        "x": 510,
-        "y": 700,
+        "x": 530,
+        "y": 640,
         "wires": [
             [
                 "ef312b3e26e5315d"
             ]
         ]
-    },
-    {
-        "id": "5b44f077d097ff85",
-        "type": "ui_text_input",
-        "z": "162cea04a51a0717",
-        "name": "",
-        "label": "enter HEX",
-        "tooltip": "",
-        "group": "7ac90561cb0ad481",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "mode": "text",
-        "delay": "0",
-        "topic": "topic",
-        "sendOnBlur": false,
-        "className": "",
-        "topicType": "msg",
-        "x": 120,
-        "y": 700,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "957ed9a806325267",
-        "type": "ui_text",
-        "z": "162cea04a51a0717",
-        "group": "7ac90561cb0ad481",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Command:",
-        "format": "{{msg.payload}}",
-        "layout": "col-center",
-        "className": "",
-        "x": 910,
-        "y": 660,
-        "wires": []
     },
     {
         "id": "f5cf9afd99b223d1",
@@ -6328,8 +5954,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 330,
-        "y": 700,
+        "x": 350,
+        "y": 640,
         "wires": [
             [
                 "090a14c595fe261a"
@@ -6347,62 +5973,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 710,
-        "y": 700,
+        "x": 730,
+        "y": 640,
         "wires": [
-            [
-                "957ed9a806325267"
-            ],
-            [
-                "4e0be048789abefa"
-            ],
-            [
-                "6b4b1cfdb2fa8af8"
-            ]
+            [],
+            [],
+            []
         ]
-    },
-    {
-        "id": "4e0be048789abefa",
-        "type": "ui_text",
-        "z": "162cea04a51a0717",
-        "group": "7ac90561cb0ad481",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Data:",
-        "format": "{{msg.payload}}",
-        "layout": "col-center",
-        "className": "",
-        "x": 890,
-        "y": 700,
-        "wires": []
-    },
-    {
-        "id": "6b4b1cfdb2fa8af8",
-        "type": "ui_led",
-        "z": "162cea04a51a0717",
-        "order": 2,
-        "group": "7ac90561cb0ad481",
-        "width": 0,
-        "height": 0,
-        "label": "Data corrupted",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "true",
-                "valueType": "bool"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": false,
-        "name": "",
-        "x": 890,
-        "y": 740,
-        "wires": []
     },
     {
         "id": "f6bd29ab49e7c134",
@@ -6410,8 +5987,8 @@
         "z": "162cea04a51a0717",
         "name": "Hex mode",
         "info": "",
-        "x": 120,
-        "y": 660,
+        "x": 140,
+        "y": 600,
         "wires": []
     },
     {
@@ -6435,8 +6012,8 @@
         "topic": "",
         "payload": "7501000",
         "payloadType": "str",
-        "x": 180,
-        "y": 760,
+        "x": 200,
+        "y": 700,
         "wires": [
             [
                 "f5cf9afd99b223d1"
@@ -6456,8 +6033,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 690,
-        "y": 780,
+        "x": 710,
+        "y": 720,
         "wires": []
     },
     {
@@ -6481,11 +6058,278 @@
         "topic": "",
         "payload": "7F0ED00",
         "payloadType": "str",
-        "x": 140,
-        "y": 800,
+        "x": 160,
+        "y": 740,
         "wires": [
             [
                 "f5cf9afd99b223d1"
+            ]
+        ]
+    },
+    {
+        "id": "6275902ccf376599",
+        "type": "exec",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "command": "cat /sys/bus/w1/devices/28-00000015081d/w1_slave",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Get fridge temp",
+        "x": 340,
+        "y": 280,
+        "wires": [
+            [
+                "363958c7eec04849",
+                "19186997b762ef97"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "02db7e5af911d066",
+        "type": "function",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "name": "parse temp and store into global var",
+        "func": "var temp = msg.payload;\n//extract temperature from string\ntemp = parseInt(temp.substring(temp.indexOf(\"=\", temp.indexOf(\"\\n\"))+1));\n// convert temperature to °C and round it with 1 decimal\ntemp = (Math.round(temp/100))/10;\nmsg.payload = temp;\n\nglobal.set(\"sensors.fridge_temp\", temp);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 260,
+        "wires": [
+            [
+                "0ff4e0486b9844cb"
+            ]
+        ]
+    },
+    {
+        "id": "363958c7eec04849",
+        "type": "rbe",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "name": "on change filter",
+        "func": "rbei",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 560,
+        "y": 260,
+        "wires": [
+            [
+                "02db7e5af911d066"
+            ]
+        ]
+    },
+    {
+        "id": "0ff4e0486b9844cb",
+        "type": "link out",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "name": "fridge_temp_trigger",
+        "mode": "link",
+        "links": [
+            "df6f4d601096e352",
+            "fa59361f2834c145"
+        ],
+        "x": 1055,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "a9e006439192e826",
+        "type": "link out",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "name": "indoor_temp_trigger",
+        "mode": "link",
+        "links": [
+            "37b90db2973a2911"
+        ],
+        "x": 1055,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "60fe06549654d7a9",
+        "type": "link out",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "name": "outdoor_temp_trigger",
+        "mode": "link",
+        "links": [
+            "081542ce9d9322a0"
+        ],
+        "x": 1055,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "19186997b762ef97",
+        "type": "exec",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "command": "cat /sys/bus/w1/devices/28-0000001538b5/w1_slave",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Get indoor temp",
+        "x": 340,
+        "y": 340,
+        "wires": [
+            [
+                "fea0b1178fad25be",
+                "fca99a58b9c4c24f"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "fea0b1178fad25be",
+        "type": "rbe",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "name": "on change filter",
+        "func": "rbei",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 560,
+        "y": 320,
+        "wires": [
+            [
+                "6863da5e118a8098"
+            ]
+        ]
+    },
+    {
+        "id": "fca99a58b9c4c24f",
+        "type": "exec",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "command": "cat /sys/bus/w1/devices/28-000000152b52/w1_slave",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Get outdoor temp",
+        "x": 350,
+        "y": 400,
+        "wires": [
+            [
+                "418ff663f82ca364"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "418ff663f82ca364",
+        "type": "rbe",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "name": "on change filter",
+        "func": "rbei",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 560,
+        "y": 380,
+        "wires": [
+            [
+                "038a632ad9286bdf"
+            ]
+        ]
+    },
+    {
+        "id": "f67247b653618bc1",
+        "type": "inject",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "6275902ccf376599"
+            ]
+        ]
+    },
+    {
+        "id": "6863da5e118a8098",
+        "type": "function",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "name": "parse temp and store into global var",
+        "func": "var temp = msg.payload;\n//extract temperature from string\ntemp = parseInt(temp.substring(temp.indexOf(\"=\", temp.indexOf(\"\\n\"))+1));\n// convert temperature to °C and round it with 1 decimal\ntemp = (Math.round(temp/100))/10;\nmsg.payload = temp;\n\nglobal.set(\"sensors.indoor_temp\", temp);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 320,
+        "wires": [
+            [
+                "a9e006439192e826"
+            ]
+        ]
+    },
+    {
+        "id": "038a632ad9286bdf",
+        "type": "function",
+        "z": "162cea04a51a0717",
+        "g": "fb118a00f83d2ac1",
+        "name": "parse temp and store into global var",
+        "func": "var temp = msg.payload;\n//extract temperature from string\ntemp = parseInt(temp.substring(temp.indexOf(\"=\", temp.indexOf(\"\\n\"))+1));\n// convert temperature to °C and round it with 1 decimal\ntemp = (Math.round(temp/100))/10;\nmsg.payload = temp;\n\nglobal.set(\"sensors.outdoor_temp\", temp);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 380,
+        "wires": [
+            [
+                "60fe06549654d7a9"
             ]
         ]
     },
@@ -7001,7 +6845,6 @@
         "id": "e742b038771c6432",
         "type": "link out",
         "z": "201ad97e962a1d7d",
-        "d": true,
         "name": "hw_out",
         "mode": "link",
         "links": [
