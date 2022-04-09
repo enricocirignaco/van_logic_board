@@ -207,6 +207,49 @@
         "color": "#DDAA99"
     },
     {
+        "id": "417a6a1d3a391809",
+        "type": "subflow",
+        "name": "MPPT Hex",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 20,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "b60a37816360662b"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 780,
+                "y": 40,
+                "wires": [
+                    {
+                        "id": "de36f2d1d965bb8e",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 780,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "de36f2d1d965bb8e",
+                        "port": 1
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
         "id": "82d2585d0faf6449",
         "type": "group",
         "z": "162cea04a51a0717",
@@ -246,7 +289,9 @@
             "cd7be1f40dda90df"
         ],
         "x": 14,
-        "y": 19
+        "y": 19,
+        "w": 1132,
+        "h": 162
     },
     {
         "id": "232f2c028585f7b9",
@@ -274,7 +319,9 @@
             "68c85cf9d66453b2"
         ],
         "x": 1314,
-        "y": 19
+        "y": 19,
+        "w": 412,
+        "h": 282
     },
     {
         "id": "fb118a00f83d2ac1",
@@ -1767,6 +1814,77 @@
         ]
     },
     {
+        "id": "522a28de03c194b1",
+        "type": "serial request",
+        "z": "417a6a1d3a391809",
+        "name": "MPPT request",
+        "serial": "594a8a527370c352",
+        "x": 400,
+        "y": 80,
+        "wires": [
+            [
+                "de36f2d1d965bb8e"
+            ]
+        ]
+    },
+    {
+        "id": "b60a37816360662b",
+        "type": "function",
+        "z": "417a6a1d3a391809",
+        "name": "checksum builder",
+        "func": "var string = msg.payload;\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string\nvar checksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n\nmsg.payload = ':' + string + checksum + '\\n';\n//msg.payload = Buffer.from(msg.payload, 'utf8');\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 80,
+        "wires": [
+            [
+                "522a28de03c194b1"
+            ]
+        ]
+    },
+    {
+        "id": "de36f2d1d965bb8e",
+        "type": "function",
+        "z": "417a6a1d3a391809",
+        "name": "checksum tester",
+        "func": "// first output: command value\n// second output: message\n// third output: true if data is corrupted\n\nvar string = msg.payload.toString();\n//msg.payload = string;\n//return[null, msg, null];\n\n// take out start and stop signs (: and \\n)\nstring = string.substring(string.indexOf(\":\")+1, string.length-1);\n// get checksum (last byte)\nvar checksum = string.substring(string.length-2);\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1, string.length-2).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string all caps\nvar myChecksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n// check data integrity\nvar isDataCorrupted;\nif(myChecksum == checksum){\n    // command\n    var msg1 = {payload: string.substring(0,1)};\n    // data\n    var msg2 = {payload: string.substring(1, string.length-2)};\n    return[msg1, msg2, null];\n}\nelse {\n    return[null, null, {payload: \"mppt hex message corrupted\"}];\n}\n",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 80,
+        "wires": [
+            [],
+            [],
+            [
+                "c9495acd114b2c47"
+            ]
+        ]
+    },
+    {
+        "id": "c9495acd114b2c47",
+        "type": "debug",
+        "z": "417a6a1d3a391809",
+        "name": "data corrupted",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 120,
+        "wires": []
+    },
+    {
         "id": "1a5737cf1628b322",
         "type": "function",
         "z": "a7233230404c3289",
@@ -2817,7 +2935,7 @@
         "type": "function",
         "z": "78b28997a4d07be2",
         "name": "summer algorithm",
-        "func": "var fridge_state = global.get(\"output_state.fridge\");\nvar soc = global.get(\"state_of_charge\");\nvar properties = flow.get(\"algorithms.summer\");\nvar fridge_temp = 20; // need to be modified\n\n// turn on fridge if upper threshold temperature exeeded or battery is fully charged\nif((soc == 100) || (fridge_temp > properties.on_threshold)) {\n    // if fridge already on\n    if(fridge_state) {\n        return;\n    }\n    msg.payload = true;\n    msg.switch_to_lfp = true;\n}\n\n// turn off fridge if temperature is lower than lower threshold \nelse if(fridge_temp < properties.off_threshold) {\n    // if fridge already off\n    if(!fridge_state) {\n        return;\n    }\n    msg.payload = false;\n}\n\nreturn msg;",
+        "func": "var fridge_state = global.get(\"output_state.fridge\");\nvar soc = global.get(\"state_of_charge\");\nvar properties = flow.get(\"algorithms.summer\");\nvar fridge_temp = 20; // need to be modified\nconst charger_state = global.get(\"mppt_broadcast.CS\");\n\n// turn on fridge if upper threshold temperature exeeded or battery charger is in absorption or float\nif((charger_state == 4 || charger_state == 5) || (fridge_temp > properties.on_threshold)) {\n    // if fridge already on or if charger is off (is night)\n    if(fridge_state || charger_state == 0) {\n        return;\n    }\n    msg.payload = true;\n    msg.switch_to_lfp = true;\n}\n\n// turn off fridge if temperature is lower than lower threshold \nelse if(fridge_temp < properties.off_threshold) {\n    // if fridge already off\n    if(!fridge_state) {\n        return;\n    }\n    msg.payload = false;\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2995,7 +3113,7 @@
         "func": "",
         "outputs": 1,
         "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\nvar algorithms = {\n    always_on: {\n        on_threshold: 6,\n        off_threshold: 0,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    always_on_lead: {\n        on_threshold: 10,\n        off_threshold: 2,\n        description: \n        \"Always onhalijdnifivnhaloooo\"\n    },\n    always_off: {\n        on_threshold: 0,\n        off_threshold: 0,\n        description: \n        \"Always ocnfuncer9ennhalihaloooo\"\n    },\n    summer: {\n        on_threshold: 8,\n        off_threshold: 2,\n        description: \n        \"Always on9ucnopaidjcihalihaloooo\"\n    },\n    winter: {\n        on_threshold: 10,\n        off_threshold: 5,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    battery_life: {\n        on_threshold: 15,\n        off_threshold: 7,\n        description: \n        \"Always onhalihaloooo\"\n    }\n};\nflow.set(\"algorithms\", algorithms);\n\nreturn;",
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\nvar algorithms = {\n    always_on: {\n        on_threshold: 6,\n        off_threshold: 0,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    always_on_lead: {\n        on_threshold: 10,\n        off_threshold: 2,\n        description: \n        \"Always onhalijdnifivnhaloooo\"\n    },\n    always_off: {\n        on_threshold: 0,\n        off_threshold: 0,\n        description: \n        \"Always ocnfuncer9ennhalihaloooo\"\n    },\n    summer: {\n        on_threshold: 10,\n        off_threshold: 0,\n        description: \n        \"Always on9ucnopaidjcihalihaloooo\"\n    },\n    winter: {\n        on_threshold: 10,\n        off_threshold: 5,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    battery_life: {\n        on_threshold: 15,\n        off_threshold: 7,\n        description: \n        \"Always onhalihaloooo\"\n    }\n};\nflow.set(\"algorithms\", algorithms);\n\nreturn;",
         "finalize": "",
         "libs": [],
         "x": 150,
@@ -3280,9 +3398,7 @@
         "z": "78b28997a4d07be2",
         "name": "",
         "links": [
-            "0ff4e0486b9844cb",
-            "5d61caaae57aa6c7",
-            "e6441c2c3626269a"
+            "0ff4e0486b9844cb"
         ],
         "x": 1005,
         "y": 720,
@@ -3446,203 +3562,6 @@
         "wires": []
     },
     {
-        "id": "cd4cceed0a32202e",
-        "type": "ui_slider",
-        "z": "78b28997a4d07be2",
-        "d": true,
-        "name": "slider on",
-        "label": "",
-        "tooltip": "",
-        "group": "",
-        "order": 9,
-        "width": 1,
-        "height": 4,
-        "passthru": true,
-        "outs": "all",
-        "topic": "topic",
-        "topicType": "msg",
-        "min": "-10",
-        "max": "20",
-        "step": 1,
-        "className": "",
-        "x": 1280,
-        "y": 280,
-        "wires": [
-            [
-                "f68bf2125f361c6d",
-                "6864dae823ed17bf"
-            ]
-        ]
-    },
-    {
-        "id": "f68bf2125f361c6d",
-        "type": "ui_gauge",
-        "z": "78b28997a4d07be2",
-        "d": true,
-        "name": "donut on",
-        "group": "",
-        "order": 10,
-        "width": 6,
-        "height": 4,
-        "gtype": "donut",
-        "title": "",
-        "label": "°C",
-        "format": "{{value}}",
-        "min": "-10",
-        "max": "20",
-        "colors": [
-            "#53d5fd",
-            "#77bb41",
-            "#ca3838"
-        ],
-        "seg1": "",
-        "seg2": "",
-        "className": "",
-        "x": 1460,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "c1fc73b7982dad73",
-        "type": "ui_slider",
-        "z": "78b28997a4d07be2",
-        "d": true,
-        "name": "slider off",
-        "label": "",
-        "tooltip": "",
-        "group": "",
-        "order": 12,
-        "width": 1,
-        "height": 4,
-        "passthru": true,
-        "outs": "all",
-        "topic": "topic",
-        "topicType": "msg",
-        "min": "-10",
-        "max": "20",
-        "step": 1,
-        "className": "",
-        "x": 1280,
-        "y": 320,
-        "wires": [
-            [
-                "4679b57a12795705",
-                "6864dae823ed17bf"
-            ]
-        ]
-    },
-    {
-        "id": "4679b57a12795705",
-        "type": "ui_gauge",
-        "z": "78b28997a4d07be2",
-        "d": true,
-        "name": "donut off",
-        "group": "",
-        "order": 13,
-        "width": 6,
-        "height": 4,
-        "gtype": "donut",
-        "title": "",
-        "label": "°C",
-        "format": "{{value}}",
-        "min": "-10",
-        "max": "20",
-        "colors": [
-            "#53d5fd",
-            "#77bb41",
-            "#ca3838"
-        ],
-        "seg1": "",
-        "seg2": "",
-        "className": "",
-        "x": 1460,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "6864dae823ed17bf",
-        "type": "function",
-        "z": "78b28997a4d07be2",
-        "name": "update algorithms property",
-        "func": "var algorithm = msg.topic;\nvar algorithms = flow.get(\"algorithms\");\n\n// update algorithms property with new threshold values\nif(msg.topic == \"threshold_on\"){\n  algorithms[algorithm].on_threshold = msg.payload;\n  \n}\nelse if(msg.topic == \"threshold_off\") {\n    algorithms[algorithm].off_threshold = msg.payload;\n}\nflow.set(\"algorithms\", algorithms);\n\nreturn;\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1520,
-        "y": 240,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "69453e4b006bb3aa",
-        "type": "ui_template",
-        "z": "78b28997a4d07be2",
-        "d": true,
-        "group": "",
-        "name": "description",
-        "order": 4,
-        "width": 7,
-        "height": 3,
-        "format": "\n<div style=\"font-weight: bold\">Description:<br></div>\n<div ng-bind-html=\"msg.payload\"></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 1470,
-        "y": 360,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "360aa971f7f3e56e",
-        "type": "ui_template",
-        "z": "78b28997a4d07be2",
-        "d": true,
-        "group": "",
-        "name": "donut on title",
-        "order": 8,
-        "width": 0,
-        "height": 0,
-        "format": "<div style=\"text-align: center\">Turn On Temperature</div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 1610,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e1ef809bf9053ec0",
-        "type": "ui_template",
-        "z": "78b28997a4d07be2",
-        "d": true,
-        "group": "",
-        "name": "donut off title",
-        "order": 11,
-        "width": 0,
-        "height": 0,
-        "format": "<div style=\"text-align: center\">Turn Off Temperature</div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 1610,
-        "y": 320,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "5022643e36f772b8",
         "type": "ui_led",
         "z": "78b28997a4d07be2",
@@ -3693,28 +3612,6 @@
         "wires": []
     },
     {
-        "id": "d8d9d4ba8d5a073e",
-        "type": "ui_template",
-        "z": "78b28997a4d07be2",
-        "d": true,
-        "group": "",
-        "name": "settings",
-        "order": 7,
-        "width": 7,
-        "height": 1,
-        "format": "<p>Settings</p>\n",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 1460,
-        "y": 200,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "fa59361f2834c145",
         "type": "link in",
         "z": "78b28997a4d07be2",
@@ -3749,7 +3646,7 @@
         "topic": "",
         "name": "Low Battery Dialog",
         "x": 1490,
-        "y": 400,
+        "y": 200,
         "wires": [
             []
         ]
@@ -3781,7 +3678,7 @@
         "to": "",
         "reg": false,
         "x": 1250,
-        "y": 400,
+        "y": 200,
         "wires": [
             [
                 "6bdaa473a64227ef"
@@ -3803,7 +3700,7 @@
         ]
     },
     {
-        "id": "c75009375093c3d3",
+        "id": "197be4ea0e156d65",
         "type": "inject",
         "z": "78b28997a4d07be2",
         "name": "",
@@ -3818,16 +3715,51 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "thsrmrajnsrnaetheath<fb<fbs<fbvsfbd<fbd<fbdbdfbbsfbdfbfb<gbfdv",
-        "payloadType": "str",
-        "x": 1210,
-        "y": 360,
+        "payload": "",
+        "payloadType": "date",
+        "x": 920,
+        "y": 840,
         "wires": [
             [
-                "69453e4b006bb3aa"
+                "775d38e664ab0508"
+            ]
+        ]
+    },
+    {
+        "id": "02ed16a6ebcf5535",
+        "type": "debug",
+        "z": "78b28997a4d07be2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1210,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "775d38e664ab0508",
+        "type": "function",
+        "z": "78b28997a4d07be2",
+        "name": "",
+        "func": "msg.payload = new Date().getHours();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 840,
+        "wires": [
+            [
+                "02ed16a6ebcf5535"
             ]
         ]
     },
@@ -3854,8 +3786,8 @@
         "seg1": "5",
         "seg2": "25",
         "className": "",
-        "x": 470,
-        "y": 120,
+        "x": 450,
+        "y": 160,
         "wires": []
     },
     {
@@ -3871,18 +3803,18 @@
         "title": "",
         "label": "C°",
         "format": "{{value}}",
-        "min": "-5",
+        "min": "-15",
         "max": "45",
         "colors": [
             "#00fdff",
             "#00f900",
             "#ca3838"
         ],
-        "seg1": "10",
+        "seg1": "5",
         "seg2": "25",
         "className": "",
         "x": 450,
-        "y": 180,
+        "y": 100,
         "wires": []
     },
     {
@@ -4063,7 +3995,7 @@
         "y": 100,
         "wires": [
             [
-                "0ade02986402d041"
+                "e550af8caa271bec"
             ]
         ]
     },
@@ -4079,64 +4011,7 @@
         "y": 180,
         "wires": [
             [
-                "e550af8caa271bec"
-            ]
-        ]
-    },
-    {
-        "id": "522a28de03c194b1",
-        "type": "serial request",
-        "z": "493e4b0fcbc7484f",
-        "d": true,
-        "name": "MPPT request",
-        "serial": "594a8a527370c352",
-        "x": 600,
-        "y": 420,
-        "wires": [
-            [
-                "de36f2d1d965bb8e"
-            ]
-        ]
-    },
-    {
-        "id": "b60a37816360662b",
-        "type": "function",
-        "z": "493e4b0fcbc7484f",
-        "name": "checksum builder",
-        "func": "var string = msg.payload;\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string\nvar checksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n\nmsg.payload = ':' + string + checksum + '\\n';\n//msg.payload = Buffer.from(msg.payload, 'utf8');\n\nreturn msg;\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 390,
-        "y": 420,
-        "wires": [
-            [
-                "522a28de03c194b1"
-            ]
-        ]
-    },
-    {
-        "id": "de36f2d1d965bb8e",
-        "type": "function",
-        "z": "493e4b0fcbc7484f",
-        "name": "checksum tester",
-        "func": "// first output: command value\n// second output: message\n// third output: true if data is corrupted\n\nvar string = msg.payload.toString();\n//msg.payload = string;\n//return[null, msg, null];\n\n// take out start and stop signs (: and \\n)\nstring = string.substring(11, string.length-1);\n// get checksum (last byte)\nvar checksum = string.substring(string.length-2);\n\n// checksum calculation\n//split string in bytes array\nvar string_array = string.substring(1, string.length-2).match(/.{1,2}/g);\nstring_array.push(string.substring(0,1));\n// add every bytes togheter\nvar sum = 0;\nfor(var i=0; i < string_array.length; i++){\n    sum = sum + parseInt(string_array[i], 16);\n}\n// subtract sum from 0x55 and convert it to string all caps\nvar myChecksum = ((((85 - sum) % 256) + 256) % 256).toString(16).toUpperCase();\n\n// check data integrity\nvar isDataCorrupted;\nif(myChecksum == checksum){\n    // command\n    var msg1 = {payload: string.substring(0,1)};\n    // data\n    var msg2 = {payload: string.substring(1, string.length-2)};\n    return[msg1, msg2, null];\n}\nelse {\n    return[null, null, {payload: string}];\n}\n",
-        "outputs": 3,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 810,
-        "y": 420,
-        "wires": [
-            [],
-            [
-                "e114afa58ebbb8c1"
-            ],
-            [
-                "8365957b68f97775"
+                "0ade02986402d041"
             ]
         ]
     },
@@ -4161,40 +4036,11 @@
         "topic": "",
         "payload": "7501000",
         "payloadType": "str",
-        "x": 160,
-        "y": 420,
+        "x": 220,
+        "y": 400,
         "wires": [
             [
-                "b60a37816360662b"
-            ]
-        ]
-    },
-    {
-        "id": "d860b3b2bc4b6c26",
-        "type": "inject",
-        "z": "493e4b0fcbc7484f",
-        "name": "request yesterday  history",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "7511000",
-        "payloadType": "str",
-        "x": 170,
-        "y": 360,
-        "wires": [
-            [
-                "b60a37816360662b"
+                "39fe1cc690bb3a69"
             ]
         ]
     },
@@ -4219,7 +4065,7 @@
         "z": "493e4b0fcbc7484f",
         "g": "82e7dfd030bb8d2f",
         "name": "broadcast parser",
-        "func": "// 1. output --> data object only if data is not corrupted\n// 2. output --> error msg if data is corrupted\n// 3. output --> formatted msg object for database injection\n\nconst db_injection_msg = \"insert into mppt (v_batt, i_batt, v_panel, p_panel, op_state, mppt_mode, off_reason, error_msg, load_state, i_load) values (?,?,?,?,?,?,?,?,?,?);\"\nvar bit_stream = msg.payload;\nvar data = {};\n\n// reorder and standardize checksum string\nconst pid_index = bit_stream.indexOf(\"PID\");\nbit_stream = bit_stream.slice(pid_index-2, bit_stream.indexOf(\"Checksum\", pid_index+1)+10);\n\n//calculate checksum for data integrity\nvar checksum = 0;\nfor(const element of bit_stream) {\n   checksum = (checksum + element) & 255; /* Take modulo 256 in account */\n}\n\n// if data is not corrupted\nif(checksum == 0){\n\n    // convert bitstream to string\n    var string = bit_stream.toString();\n    // remove checksum, lf and cr\n    string = string.substring(2, string.indexOf(\"Checksum\")-1);\n    // convert string to array\n    var array = string.split('\\n');\n    // convert array of string into data object\n    for(const element of array){\n        var property_name = element.substring(0, element.indexOf('\\t'));\n        var property_value = element.substring(element.indexOf('\\t')+1, element.length-1);\n        data[property_name] = property_value;\n    }\n    \n    // check data object for integrity before saving it\n    if(Object.keys(data).length == 19){\n        // update flow object with new data\n        global.set(\"mppt_broadcast\", data);\n        \n        // format data to be injected into database\n        var db_data = Object.values(data);\n        // remove static data\n        db_data = db_data.splice(3,10);\n        msg.payload = db_data;\n        msg.topic = db_injection_msg;\n        return [{payload: data}, null, msg];\n    }\n}\n\n// if data is corrupted\nelse {\n    // data corrucped flag\n    return [null, {payload: \"mppt message corrupted\"}, null];\n}\n",
+        "func": "// 1. output --> data object only if data is not corrupted\n// 2. output --> error msg if data is corrupted\n// 3. output --> formatted msg object for database injection\n\nconst db_injection_msg = \"insert into mppt (v_batt, i_batt, v_panel, p_panel, op_state, mppt_mode, off_reason, error_msg, load_state, i_load) values (?,?,?,?,?,?,?,?,?,?);\"\nvar bit_stream = msg.payload;\nvar data = {};\n\n// reorder and standardize checksum string\nconst pid_index = bit_stream.indexOf(\"PID\");\nbit_stream = bit_stream.slice(pid_index-2, bit_stream.indexOf(\"Checksum\", pid_index+1)+10);\n\n//calculate checksum for data integrity\nvar checksum = 0;\nfor(const element of bit_stream) {\n   checksum = (checksum + element) & 255; /* Take modulo 256 in account */\n}\n\n// if data is not corrupted\nif(checksum == 0){\n\n    // convert bitstream to string\n    var string = bit_stream.toString();\n    // remove checksum, lf and cr\n    string = string.substring(2, string.indexOf(\"Checksum\")-1);\n    // convert string to array\n    var array = string.split('\\n');\n    // convert array of string into data object\n    for(const element of array){\n        var property_name = element.substring(0, element.indexOf('\\t'));\n        var property_value = element.substring(element.indexOf('\\t')+1, element.length-1);\n        data[property_name] = property_value;\n    }\n    \n    // check data object for integrity before saving it\n    if(Object.keys(data).length == 19){\n        // update flow object with new data\n        global.set(\"mppt_broadcast\", data);\n        \n        // format data to be injected into database\n        var db_data = Object.values(data);\n        // remove static data\n        db_data = db_data.splice(3,10);\n        msg.payload = db_data;\n        msg.topic = db_injection_msg;\n        return [{payload: data}, null, msg];\n    }\n}\n\n// if data is corrupted\nelse {\n    // data corrucped flag\n    return [null, {payload: \"mppt broadcast corrupted\"}, null];\n}\n",
         "outputs": 3,
         "noerr": 0,
         "initialize": "",
@@ -4277,10 +4123,10 @@
         "to": "",
         "reg": false,
         "x": 240,
-        "y": 480,
+        "y": 440,
         "wires": [
             [
-                "b60a37816360662b"
+                "39fe1cc690bb3a69"
             ]
         ]
     },
@@ -4333,7 +4179,7 @@
         "name": "",
         "events": "connect",
         "x": 80,
-        "y": 480,
+        "y": 440,
         "wires": [
             [
                 "faab1e33cd83d2ce"
@@ -4419,28 +4265,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1010,
-        "y": 420,
+        "x": 710,
+        "y": 440,
         "wires": [
-            []
+            [
+                "9bb22a41874fee19"
+            ]
         ]
-    },
-    {
-        "id": "8365957b68f97775",
-        "type": "debug",
-        "z": "493e4b0fcbc7484f",
-        "name": "data corrupted",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1020,
-        "y": 460,
-        "wires": []
     },
     {
         "id": "5b49d8929650b679",
@@ -4594,11 +4425,11 @@
         "max": "200",
         "colors": [
             "#ff9300",
-            "#ffffff",
+            "#595959",
             "#00f900"
         ],
-        "seg1": "0",
-        "seg2": "0",
+        "seg1": "-1",
+        "seg2": "1",
         "className": "",
         "x": 1620,
         "y": 140,
@@ -4610,7 +4441,7 @@
         "z": "493e4b0fcbc7484f",
         "g": "232f2c028585f7b9",
         "name": "Parser",
-        "func": "\n\nmsg.payload = Math.round((msg.payload.I/1000) * (msg.payload.V/1000));\nreturn msg;",
+        "func": "const charger_power = Math.round(4*msg.payload.V/1000);\n\n// calculate power\nmsg.payload = Math.round((msg.payload.I/1000) * (msg.payload.V/1000));\n\n// if charger is on and battery is not full (not absorption or float state)\nif(global.get(\"output_state.charger\") && msg.payload.CS !=4 && msg.payload.CS !=5){\n    msg.payload = msg.payload + charger_power;\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4777,6 +4608,287 @@
         "info": "retrieve hex data;\nimplement load disable with hex com",
         "x": 90,
         "y": 300,
+        "wires": []
+    },
+    {
+        "id": "9d1329ec32762a87",
+        "type": "rbe",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload.day_sequence_number",
+        "topi": "topic",
+        "x": 690,
+        "y": 400,
+        "wires": [
+            [
+                "dca58a8f09358d32"
+            ]
+        ]
+    },
+    {
+        "id": "39fe1cc690bb3a69",
+        "type": "subflow:417a6a1d3a391809",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "x": 470,
+        "y": 400,
+        "wires": [
+            [],
+            [
+                "9d1329ec32762a87",
+                "e114afa58ebbb8c1"
+            ]
+        ]
+    },
+    {
+        "id": "66efacfb5408ab3f",
+        "type": "subflow:417a6a1d3a391809",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "x": 1150,
+        "y": 400,
+        "wires": [
+            [],
+            [
+                "a8fa65c69d2ffed6"
+            ]
+        ]
+    },
+    {
+        "id": "dca58a8f09358d32",
+        "type": "change",
+        "z": "493e4b0fcbc7484f",
+        "name": "yesterday hisrory",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "7511000",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 970,
+        "y": 400,
+        "wires": [
+            [
+                "66efacfb5408ab3f"
+            ]
+        ]
+    },
+    {
+        "id": "6baa22f49e0726b6",
+        "type": "mysql",
+        "z": "493e4b0fcbc7484f",
+        "mydb": "9accbd4c3bdcd845",
+        "name": "broadcast injection",
+        "x": 1530,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a8fa65c69d2ffed6",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "name": "data parser",
+        "func": "const db_injection_msg = \"INSERT INTO mppt_daily_history (energy_yield, energy_consumed, battery_voltage_max, battery_voltage_min, error_database, error_0, error_1, error_2, error_3, time_bulk, time_absorpion, time_float, power_max, battery_current_max, panel_voltage_max, day_sequence_number, energy_offset) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);\";\nconst raw_data = msg.payload;\nvar data = {\n    energy_yield:           [8, 16],    //*10 to Wh\n    energy_consumed:        [16, 24],   //*10 to Wh\n    battery_voltage_max:    [24, 28],   //*10 to mV\n    battery_voltage_min:    [28, 32],   //*10 to mV\n    error_database:         [32, 34],\n    error_0:                [34, 36],\n    error_1:                [36, 38],\n    error_2:                [38, 40],\n    error_3:                [40, 42],\n    time_bulk:              [42, 46],   // minutes\n    time_absorpion:         [46, 50],   // minutes\n    time_float:             [50, 54],   // minutes\n    power_max:              [54, 62],   // in W\n    battery_current_max:    [62, 66],   //*100 in mA\n    panel_voltage_max:      [66, 70],   //*10 in mV\n    day_sequence_number:    [70, 74]\n};\n// decoding routine\nfor(const property in data){\n    // save substring of interest in array of bytes\n    var byte_arr = raw_data.substring(data[property][0], data[property][1]).match(/.{1,2}/g);\n    // invert low nibble with high nibble\n    var inverted_arr = [];\n    for(var i=byte_arr.length-1; i>=0; i--){\n        inverted_arr.push(byte_arr[i]);\n    }\n    // join array of bytes into string then parse string into dec value\n    data[property] = parseInt(inverted_arr.join(''), 16);\n}\n\n\n\n    \n// prepare data to be injected into database\nmsg.payload = [data.energy_yield*10, data.energy_consumed*10, data.battery_voltage_max*10, data.battery_voltage_min*10, data.error_database, data.error_0, data.error_1, data.error_2, data.error_3, data.time_bulk, data.time_absorpion, data.time_float, data.power_max, data.battery_current_max*100, data.panel_voltage_max*10, data.day_sequence_number, flow.get(\"energy_offset\")];\nmsg.topic = db_injection_msg;\n// update energy offset\nflow.set(\"energy_offset\", flow.get(\"energy_offset\") + data.energy_yield - data.energy_consumed);\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1330,
+        "y": 400,
+        "wires": [
+            [
+                "6baa22f49e0726b6"
+            ]
+        ]
+    },
+    {
+        "id": "cb757defaece93b1",
+        "type": "mysql",
+        "z": "493e4b0fcbc7484f",
+        "mydb": "9accbd4c3bdcd845",
+        "name": "broadcast injection",
+        "x": 610,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "049c62b5bdb00417",
+        "type": "link out",
+        "z": "493e4b0fcbc7484f",
+        "name": "lfp_soc",
+        "mode": "link",
+        "links": [
+            "2bccd8f8d14553e3"
+        ],
+        "x": 1105,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "9bb22a41874fee19",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "name": "SOC calculator",
+        "func": "const MAX_CAPACITY = 384; //Wh (12.5V * 30Ah)\nconst energy_yield = msg.payload.energy_yield*10; //Wh\nconst energy_consumed = msg.payload.energy_consumed*10;   //Wh\nconst offset_energy = flow.get(\"offset_energy\") || 272;\nvar left_energy = offset_energy + energy_yield - energy_consumed;\n\n// if battery fully charged (float mode)\n// or if error detected (SOC > 100%)\n// then adjust energy offset\nif(global.get(\"mppt_broadcast\").CS == '5' || left_energy > MAX_CAPACITY){\n    flow.set(\"offset_energy\", (MAX_CAPACITY - energy_yield + energy_consumed));\n}\n// SOC < 0%\nelse if(left_energy < 0){\n    flow.set(\"offset_energy\", (0 - energy_yield + energy_consumed));\n}\n\n// calculate soc in %\nleft_energy = offset_energy + energy_yield - energy_consumed;\nconst soc = Math.round(left_energy * 100 / MAX_CAPACITY);\nmsg.payload = soc;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 480,
+        "wires": [
+            [
+                "07d32bf7dd44d1d6",
+                "049c62b5bdb00417"
+            ]
+        ]
+    },
+    {
+        "id": "3079c38707dfe8b7",
+        "type": "inject",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "50",
+        "payloadType": "num",
+        "x": 50,
+        "y": 700,
+        "wires": [
+            [
+                "c16c5946c3ecbb38"
+            ]
+        ]
+    },
+    {
+        "id": "219a921d5ade6744",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "func": "const db_injection_msg = \"INSERT INTO soc (lfp_soc, lfp_low, lead_voltage, lead_low, lead_charging) VALUES (?,?,?,?,?);\";\nvar soc = global.get(\"soc\");\nmsg.payload = [soc.lfp_soc, soc.lfp_low, soc.lead_voltage, soc.lead_low, soc.lead_charging]\nmsg.topic = db_injection_msg;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 740,
+        "wires": [
+            [
+                "cb757defaece93b1"
+            ]
+        ]
+    },
+    {
+        "id": "c16c5946c3ecbb38",
+        "type": "delay",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 250,
+        "y": 740,
+        "wires": [
+            [
+                "219a921d5ade6744"
+            ]
+        ]
+    },
+    {
+        "id": "7f4c73a9fc331bdb",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "name": "count energy yield from charger",
+        "func": "const CHARGER_CURRENT = 4;\n\n// if the charger is enabled and the battery in not fully charged (bulk)\nif (global.get(\"output_state.charger\" && global.get(\"mppt_broadcast.CS\" == 3))){\n    // calculate energy yield from charger in one minute (currrent*voltage/60minutes)\n    var charger_energy = (CHARGER_CURRENT/60)* global.get(\"mppt_broadcast.V\");\n    // add energy to daily enrgy yield\n    global.set(\"today_energy_history.energy_yield.charger\", global.get(\"today_enrgy_history.energy_yield.charger\")+charger_energy);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3de494f22109a4e1",
+        "type": "comment",
+        "z": "493e4b0fcbc7484f",
+        "name": "ToDo",
+        "info": "implement SOC when hex data retrieved",
+        "x": 610,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "b0a716c6389c54cb",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "name": "SOC calculator",
+        "func": "const data = msg.payload;\nconst MAX_CAPACITY = 384; //Wh (12.5V * 30Ah)\nconst energy_yield = data.energy_yield*10; //Wh\nconst energy_consumed = data.energy_consumed*10;   //Wh\n\nvar offset_energy = context.get(\"offset_energy\") || 272;\nvar today_number = flow.get(\"today_number\") || data.day_sequence_number;\n\n// if its a new day\nif(today_number+1 == data.day_sequence_number){\n    today_number = data.day_sequence_number;\n    context.set(\"offset_energy\", (context.get(\"tomorrow_offset_energy\") || offset_energy));\n}\n\n// if battery fully charged (float mode)\nif(flow.get(\"mppt_broadcast\").CS == '5'){\n    context.set(\"offset_energy\", (max_capacity - energy_yield + energy_consumed));\n}\n\nvar left_energy = offset_energy + energy_yield - energy_consumed;\n\n// adjust offset if error detected (SOC > 100%)\nif(left_energy > max_capacity){\n    offset_energy = max_capacity - energy_yield + energy_consumed;\n    context.set(\"offset_energy\", offset_energy);\n    left_energy = offset_energy + energy_yield - energy_consumed;\n}\n// SOC < 0%\nelse if(left_energy < 0){\n    context.set(\"offset_energy\", (0 - energy_yield + energy_consumed));\n    left_energy = 0;\n}\n\ncontext.set(\"tomorrow_offset_energy\", left_energy);\n\nvar soc = Math.round(left_energy * 100 / max_capacity);\nmsg.payload = soc;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "07d32bf7dd44d1d6",
+        "type": "debug",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1250,
+        "y": 500,
         "wires": []
     },
     {
@@ -5018,18 +5130,6 @@
             [
                 "4517c637c76c72c7"
             ]
-        ]
-    },
-    {
-        "id": "6197874495896d87",
-        "type": "mysql",
-        "z": "5a08a5132887b1a2",
-        "mydb": "9accbd4c3bdcd845",
-        "name": "broadcast injection",
-        "x": 810,
-        "y": 760,
-        "wires": [
-            []
         ]
     },
     {
@@ -5508,68 +5608,12 @@
         ]
     },
     {
-        "id": "9d77d144fcc69357",
-        "type": "link out",
-        "z": "5a08a5132887b1a2",
-        "name": "lfp_soc",
-        "mode": "link",
-        "links": [
-            "2bccd8f8d14553e3"
-        ],
-        "x": 395,
-        "y": 800,
-        "wires": []
-    },
-    {
-        "id": "9e608659c75398c5",
-        "type": "function",
-        "z": "5a08a5132887b1a2",
-        "name": "SOC calculator",
-        "func": "const data = msg.payload;\nconst max_capacity = 384; //Wh (12.5V * 30Ah)\nconst energy_yield = data.energy_yield*10; //Wh\nconst energy_consumed = data.energy_consumed*10;   //Wh\nvar offset_energy = context.get(\"offset_energy\") || 272;\nvar today_number = flow.get(\"today_number\") || data.day_sequence_number;\n\n// if its a new day\nif(today_number+1 == data.day_sequence_number){\n    today_number = data.day_sequence_number;\n    context.set(\"offset_energy\", (context.get(\"tomorrow_offset_energy\") || offset_energy));\n}\n\n// if battery fully charged (float mode)\nif(flow.get(\"mppt_broadcast\").CS == '5'){\n    context.set(\"offset_energy\", (max_capacity - energy_yield + energy_consumed));\n}\n\nvar left_energy = offset_energy + energy_yield - energy_consumed;\n\n// adjust offset if error detected (SOC > 100%)\nif(left_energy > max_capacity){\n    offset_energy = max_capacity - energy_yield + energy_consumed;\n    context.set(\"offset_energy\", offset_energy);\n    left_energy = offset_energy + energy_yield - energy_consumed;\n}\n// SOC < 0%\nelse if(left_energy < 0){\n    context.set(\"offset_energy\", (0 - energy_yield + energy_consumed));\n    left_energy = 0;\n}\n\ncontext.set(\"tomorrow_offset_energy\", left_energy);\n\nvar soc = Math.round(left_energy * 100 / max_capacity);\nmsg.payload = soc;\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 220,
-        "y": 760,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "ca0698687e0f238a",
-        "type": "inject",
-        "z": "5a08a5132887b1a2",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "60",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "50",
-        "payloadType": "num",
-        "x": 250,
-        "y": 720,
-        "wires": [
-            [
-                "9d77d144fcc69357",
-                "448068782c0e232f"
-            ]
-        ]
-    },
-    {
         "id": "2bccd8f8d14553e3",
         "type": "link in",
         "z": "5a08a5132887b1a2",
         "name": "lfp_soc",
         "links": [
-            "9d77d144fcc69357"
+            "049c62b5bdb00417"
         ],
         "x": 145,
         "y": 80,
@@ -5577,25 +5621,6 @@
             [
                 "68a536fd892bb7d5",
                 "8c13a909770fcfad"
-            ]
-        ]
-    },
-    {
-        "id": "efd9a1136f98bdbb",
-        "type": "function",
-        "z": "5a08a5132887b1a2",
-        "name": "",
-        "func": "const db_injection_msg = \"INSERT INTO soc (lfp_soc, lfp_low, lead_voltage, lead_low, lead_charging) VALUES (?,?,?,?,?);\";\nvar soc = global.get(\"soc\");\nmsg.payload = [soc.lfp_soc, soc.lfp_low, soc.lead_voltage, soc.lead_low, soc.lead_charging]\nmsg.topic = db_injection_msg;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 620,
-        "y": 760,
-        "wires": [
-            [
-                "6197874495896d87"
             ]
         ]
     },
@@ -5627,31 +5652,6 @@
         ]
     },
     {
-        "id": "448068782c0e232f",
-        "type": "delay",
-        "z": "5a08a5132887b1a2",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "100",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 450,
-        "y": 760,
-        "wires": [
-            [
-                "efd9a1136f98bdbb"
-            ]
-        ]
-    },
-    {
         "id": "8c13a909770fcfad",
         "type": "change",
         "z": "5a08a5132887b1a2",
@@ -5679,41 +5679,9 @@
         ]
     },
     {
-        "id": "7f0eaba4cfec827f",
-        "type": "link in",
-        "z": "5a08a5132887b1a2",
-        "name": "mppt daily trigger",
-        "links": [],
-        "x": 75,
-        "y": 760,
-        "wires": [
-            [
-                "9e608659c75398c5"
-            ]
-        ]
-    },
-    {
-        "id": "205a6499d6c17ebf",
-        "type": "function",
-        "z": "5a08a5132887b1a2",
-        "name": "count energy yield from charger",
-        "func": "const charger_current = 4;\n\n// if the charger is enabled and the battery in not fully charged (bulk)\nif (global.get(\"output_state.charger\" && global.get(\"mppt_broadcast.CS\" == 3))){\n    // calculate energy yield from charger in one minute (currrent*voltage/60minutes)\n    var charger_energy = (4/60)* global.get(\"mppt_broadcast.V\");\n    // add energy to daily enrgy yield\n    global.set(\"today_enrgy_history.energy_yield.charger\", global.get(\"today_enrgy_history.energy_yield.charger\")+charger_energy);\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 230,
-        "y": 680,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "a169fe1c4522c408",
         "type": "link out",
         "z": "5a08a5132887b1a2",
-        "d": true,
         "name": "hw_out",
         "mode": "link",
         "links": [
@@ -5721,16 +5689,6 @@
         ],
         "x": 1585,
         "y": 380,
-        "wires": []
-    },
-    {
-        "id": "1815a152534d40f6",
-        "type": "comment",
-        "z": "5a08a5132887b1a2",
-        "name": "ToDo",
-        "info": "implement SOC when hex data retrieved",
-        "x": 170,
-        "y": 620,
         "wires": []
     },
     {
@@ -5933,6 +5891,7 @@
         "id": "090a14c595fe261a",
         "type": "serial request",
         "z": "162cea04a51a0717",
+        "d": true,
         "name": "",
         "serial": "594a8a527370c352",
         "x": 530,
@@ -6116,7 +6075,7 @@
         "z": "162cea04a51a0717",
         "g": "fb118a00f83d2ac1",
         "name": "on change filter",
-        "func": "rbei",
+        "func": "rbe",
         "gap": "",
         "start": "",
         "inout": "out",
@@ -6204,7 +6163,7 @@
         "z": "162cea04a51a0717",
         "g": "fb118a00f83d2ac1",
         "name": "on change filter",
-        "func": "rbei",
+        "func": "rbe",
         "gap": "",
         "start": "",
         "inout": "out",
@@ -6248,7 +6207,7 @@
         "z": "162cea04a51a0717",
         "g": "fb118a00f83d2ac1",
         "name": "on change filter",
-        "func": "rbei",
+        "func": "rbe",
         "gap": "",
         "start": "",
         "inout": "out",
