@@ -2342,7 +2342,7 @@
         "debounce": "25",
         "read": true,
         "bcm": true,
-        "x": 240,
+        "x": 280,
         "y": 860,
         "wires": [
             [
@@ -2360,7 +2360,7 @@
         "debounce": "25",
         "read": true,
         "bcm": true,
-        "x": 250,
+        "x": 290,
         "y": 900,
         "wires": [
             [
@@ -2378,7 +2378,7 @@
         "debounce": "25",
         "read": true,
         "bcm": true,
-        "x": 230,
+        "x": 270,
         "y": 940,
         "wires": [
             [
@@ -2396,7 +2396,7 @@
         "debounce": "25",
         "read": true,
         "bcm": true,
-        "x": 230,
+        "x": 270,
         "y": 980,
         "wires": [
             [
@@ -2450,11 +2450,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
+        "x": 720,
         "y": 860,
         "wires": [
             [
-                "7538c7f00b6939fb"
+                "7538c7f00b6939fb",
+                "db52463adb57ca82"
             ]
         ]
     },
@@ -2484,11 +2485,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
+        "x": 720,
         "y": 900,
         "wires": [
             [
-                "7538c7f00b6939fb"
+                "7538c7f00b6939fb",
+                "2b8c99297710e339"
             ]
         ]
     },
@@ -2518,7 +2520,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
+        "x": 720,
         "y": 940,
         "wires": [
             [
@@ -2552,7 +2554,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
+        "x": 720,
         "y": 980,
         "wires": [
             [
@@ -2590,12 +2592,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 460,
+        "x": 500,
         "y": 860,
         "wires": [
             [
-                "675526f4c5306cda",
-                "db52463adb57ca82"
+                "675526f4c5306cda"
             ]
         ]
     },
@@ -2629,7 +2630,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 460,
+        "x": 500,
         "y": 900,
         "wires": [
             [
@@ -2667,7 +2668,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 460,
+        "x": 500,
         "y": 940,
         "wires": [
             [
@@ -2705,7 +2706,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 460,
+        "x": 500,
         "y": 980,
         "wires": [
             [
@@ -2728,7 +2729,7 @@
             "69ca1224f189f87d",
             "3cb000ba3a4683df"
         ],
-        "x": 865,
+        "x": 905,
         "y": 920,
         "wires": []
     },
@@ -2847,6 +2848,66 @@
         ]
     },
     {
+        "id": "fb6cdd892e0b9bbc",
+        "type": "comment",
+        "z": "a7233230404c3289",
+        "name": "Inverter On/Off",
+        "info": "",
+        "x": 100,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "1e3d6dcbf46b7af6",
+        "type": "comment",
+        "z": "a7233230404c3289",
+        "name": "Pump On/Off",
+        "info": "",
+        "x": 90,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "db6405ab01538e53",
+        "type": "link out",
+        "z": "a7233230404c3289",
+        "name": "input_state_trigger",
+        "mode": "link",
+        "links": [
+            "36ef8234e5ee6087"
+        ],
+        "x": 1165,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "2b8c99297710e339",
+        "type": "change",
+        "z": "a7233230404c3289",
+        "name": "inverter enable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "inverter",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1040,
+        "y": 900,
+        "wires": [
+            [
+                "db6405ab01538e53"
+            ]
+        ]
+    },
+    {
         "id": "04e5bfda356179d6",
         "type": "change",
         "z": "24f18b1077451b8f",
@@ -2889,7 +2950,8 @@
             "cc77f9a3904f5b50",
             "9de2c1b1700d6284",
             "d79bcea1e9a923c6",
-            "a169fe1c4522c408"
+            "a169fe1c4522c408",
+            "db6405ab01538e53"
         ],
         "x": 45,
         "y": 440,
@@ -4229,7 +4291,7 @@
         "type": "function",
         "z": "78b28997a4d07be2",
         "name": "summer algorithm",
-        "func": "var fridge_state = global.get(\"output_state.fridge\");\nvar soc = global.get(\"state_of_charge\");\nvar properties = flow.get(\"algorithms.summer\");\nvar fridge_temp = 20; // need to be modified\nconst charger_state = global.get(\"mppt_broadcast.CS\");\n\n// turn on fridge if upper threshold temperature exeeded or battery charger is in absorption or float\nif((charger_state == 4 || charger_state == 5) || (fridge_temp > properties.on_threshold)) {\n    // if fridge already on or if charger is off (is night)\n    if(fridge_state || charger_state == 0) {\n        return;\n    }\n    msg.payload = true;\n    msg.switch_to_lfp = true;\n}\n\n// turn off fridge if temperature is lower than lower threshold \nelse if(fridge_temp < properties.off_threshold) {\n    // if fridge already off\n    if(!fridge_state) {\n        return;\n    }\n    msg.payload = false;\n}\n\nreturn msg;",
+        "func": "var fridge_state = global.get(\"output_state.fridge\");\nvar soc = global.get(\"state_of_charge\");\nvar properties = flow.get(\"algorithms.summer\");\nvar fridge_temp = global.get(\"sensors.fridge_temp\");\nconst charger_state = global.get(\"mppt_broadcast.CS\");\n\n// turn on fridge if upper threshold temperature exeeded or mppt is in float\nif(charger_state == 5 || (fridge_temp > properties.on_threshold)) {\n    // if fridge already on or if mppt is off (is night)\n    if(fridge_state || charger_state == 0) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = true;\n    msg.source = \"lfp_battery\";\n}\n\n// turn off fridge if temperature is lower than lower threshold \nelse if(fridge_temp < properties.off_threshold) {\n    // if fridge already off\n    if(!fridge_state) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = false;\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4238,7 +4300,9 @@
         "x": 1330,
         "y": 700,
         "wires": [
-            []
+            [
+                "d79bcea1e9a923c6"
+            ]
         ]
     },
     {
@@ -4631,41 +4695,6 @@
                 "e692ff3887d118ab",
                 "97683e1186617581",
                 "986e7a47ab9af213"
-            ]
-        ]
-    },
-    {
-        "id": "e5ceae0d0528eb0c",
-        "type": "link in",
-        "z": "78b28997a4d07be2",
-        "name": "input_state_trigger",
-        "links": [
-            "7538c7f00b6939fb"
-        ],
-        "x": 55,
-        "y": 300,
-        "wires": [
-            [
-                "a915abf7b9d86c60"
-            ]
-        ]
-    },
-    {
-        "id": "a915abf7b9d86c60",
-        "type": "function",
-        "z": "78b28997a4d07be2",
-        "name": "",
-        "func": "if(msg.topic == \"switch_living_room\"){\n    if(msg.payload){\n        msg.payload = \"always_on\";\n    }\n    else {\n        msg.payload = \"always_off\";\n    }\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 160,
-        "y": 300,
-        "wires": [
-            [
-                "b5c43be785249085"
             ]
         ]
     },
