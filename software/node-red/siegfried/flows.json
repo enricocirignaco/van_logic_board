@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "24f18b1077451b8f",
+        "type": "tab",
+        "label": "Broker",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "78b28997a4d07be2",
         "type": "tab",
         "label": "Fridge",
@@ -1586,7 +1594,14 @@
             "e7c6ee8b7d92b0ef",
             "c2dfc55fe818d2d3",
             "8727b486fc8278ab",
-            "5d78525fcec731ec"
+            "5d78525fcec731ec",
+            "dbb0ddc0efc5c418",
+            "c43928476bd19955",
+            "8e9f80a57ce216b7",
+            "0d17f75a6ec0ce30",
+            "bd63dd7cda17786d",
+            "43d6589324eeaee4",
+            "efef321098361e9c"
         ],
         "x": 1435,
         "y": 180,
@@ -2198,9 +2213,25 @@
         "z": "a7233230404c3289",
         "name": "update_output_state",
         "links": [
-            "a169fe1c4522c408",
-            "d79bcea1e9a923c6",
-            "e742b038771c6432"
+            "e742b038771c6432",
+            "d675c847c3955665",
+            "0a1f4a1f596b7edd",
+            "121012595ea04d50",
+            "3373185e6c41668b",
+            "a7c4377f92560125",
+            "2c2091616fef7ee1",
+            "025d0f7e6dfea871",
+            "8318a8a1e49c82ab",
+            "60cb5c5c44b3df9e",
+            "7203f8ca11bc2024",
+            "35a3c47acf12b252",
+            "03ab8ea00614c81b",
+            "a13085953f62349b",
+            "23e527eeaebaa017",
+            "6c03be4a93629411",
+            "a8a87f3512e410be",
+            "7b66b78c931a4f59",
+            "4ff73aca3817d96f"
         ],
         "x": 95,
         "y": 400,
@@ -2816,6 +2847,1271 @@
         ]
     },
     {
+        "id": "04e5bfda356179d6",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "turn on charger",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "charger",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1520,
+        "y": 160,
+        "wires": [
+            [
+                "121012595ea04d50"
+            ]
+        ]
+    },
+    {
+        "id": "36ef8234e5ee6087",
+        "type": "link in",
+        "z": "24f18b1077451b8f",
+        "name": "broker_input",
+        "links": [
+            "cc77f9a3904f5b50",
+            "9de2c1b1700d6284",
+            "d79bcea1e9a923c6",
+            "a169fe1c4522c408"
+        ],
+        "x": 45,
+        "y": 440,
+        "wires": [
+            [
+                "258356cbe57acc92"
+            ]
+        ]
+    },
+    {
+        "id": "44ff06845f59072b",
+        "type": "switch",
+        "z": "24f18b1077451b8f",
+        "name": "switch",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "charger",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "fridge",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "inverter",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 530,
+        "y": 280,
+        "wires": [
+            [
+                "b09da3342afd5d6b"
+            ],
+            [
+                "09f065597a63d456"
+            ],
+            [
+                "95b7e3e62b172313"
+            ]
+        ]
+    },
+    {
+        "id": "121012595ea04d50",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 1645,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "dd7fc6e2ac139332",
+        "type": "delay",
+        "z": "24f18b1077451b8f",
+        "name": "delay 500ms",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1050,
+        "y": 240,
+        "wires": [
+            [
+                "02bba63e4ca16e88",
+                "fb9d9ef14bebb675"
+            ]
+        ]
+    },
+    {
+        "id": "02bba63e4ca16e88",
+        "type": "delay",
+        "z": "24f18b1077451b8f",
+        "name": "1sec delay",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1250,
+        "y": 240,
+        "wires": [
+            [
+                "5404bdd93d2c8747",
+                "6552214d2f410fe3"
+            ]
+        ]
+    },
+    {
+        "id": "5404bdd93d2c8747",
+        "type": "delay",
+        "z": "24f18b1077451b8f",
+        "name": "10sec delay",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1510,
+        "y": 240,
+        "wires": [
+            [
+                "fa41a6f87d7ddafc"
+            ]
+        ]
+    },
+    {
+        "id": "09f065597a63d456",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "switch power source to Lead",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "lead_battery",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "battery_select",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 280,
+        "wires": [
+            [
+                "dd7fc6e2ac139332",
+                "3373185e6c41668b"
+            ]
+        ]
+    },
+    {
+        "id": "fb9d9ef14bebb675",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "turn on inverter",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "inverter",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1260,
+        "y": 280,
+        "wires": [
+            [
+                "a7c4377f92560125"
+            ]
+        ]
+    },
+    {
+        "id": "6552214d2f410fe3",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "turn on fridge",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "fridge",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1520,
+        "y": 280,
+        "wires": [
+            [
+                "025d0f7e6dfea871"
+            ]
+        ]
+    },
+    {
+        "id": "1a48ad23b3d266cf",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "switch power source to LFP",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "lfp_battery",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "battery_select",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2040,
+        "y": 200,
+        "wires": [
+            [
+                "8318a8a1e49c82ab"
+            ]
+        ]
+    },
+    {
+        "id": "fa41a6f87d7ddafc",
+        "type": "switch",
+        "z": "24f18b1077451b8f",
+        "name": "check source",
+        "property": "source",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "lfp_battery",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1800,
+        "y": 200,
+        "wires": [
+            [
+                "1a48ad23b3d266cf"
+            ]
+        ]
+    },
+    {
+        "id": "3373185e6c41668b",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 995,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a7c4377f92560125",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 1385,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "95b7e3e62b172313",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "turn on inverter",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "inverter",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 400,
+        "wires": [
+            [
+                "2c2091616fef7ee1"
+            ]
+        ]
+    },
+    {
+        "id": "2c2091616fef7ee1",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 905,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "9fda12100ca3fdfe",
+        "type": "delay",
+        "z": "24f18b1077451b8f",
+        "name": "delay 500ms",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1050,
+        "y": 120,
+        "wires": [
+            [
+                "b6dfe0ba67bd82eb",
+                "3a77d5307ff80954"
+            ]
+        ]
+    },
+    {
+        "id": "b6dfe0ba67bd82eb",
+        "type": "delay",
+        "z": "24f18b1077451b8f",
+        "name": "1sec delay",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1250,
+        "y": 120,
+        "wires": [
+            [
+                "04e5bfda356179d6",
+                "6050a94de8cabbe9"
+            ]
+        ]
+    },
+    {
+        "id": "b09da3342afd5d6b",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "switch power source to Lead",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "lead_battery",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "battery_select",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 160,
+        "wires": [
+            [
+                "9fda12100ca3fdfe",
+                "d675c847c3955665"
+            ]
+        ]
+    },
+    {
+        "id": "3a77d5307ff80954",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "turn on inverter",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "inverter",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1260,
+        "y": 160,
+        "wires": [
+            [
+                "0a1f4a1f596b7edd"
+            ]
+        ]
+    },
+    {
+        "id": "d675c847c3955665",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 995,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "0a1f4a1f596b7edd",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 1385,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "6050a94de8cabbe9",
+        "type": "delay",
+        "z": "24f18b1077451b8f",
+        "name": "1sec delay",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1510,
+        "y": 120,
+        "wires": [
+            [
+                "fa41a6f87d7ddafc"
+            ]
+        ]
+    },
+    {
+        "id": "025d0f7e6dfea871",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 1645,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "8318a8a1e49c82ab",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 2215,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ac0b798cfa74e430",
+        "type": "switch",
+        "z": "24f18b1077451b8f",
+        "name": "ON / OFF",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 360,
+        "y": 440,
+        "wires": [
+            [
+                "44ff06845f59072b"
+            ],
+            [
+                "8d68c468bd54c3c8"
+            ]
+        ]
+    },
+    {
+        "id": "258356cbe57acc92",
+        "type": "function",
+        "z": "24f18b1077451b8f",
+        "name": "",
+        "func": "switch(msg.topic) {\n    case \"charger\":\n        flow.set(\"state.charger\", msg.payload);\n        break;\n    case \"fridge\":\n        flow.set(\"state.fridge\", msg.payload);\n        break;\n    case \"inverter\":\n        flow.set(\"state.inverter\", msg.payload);\n        break;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 160,
+        "y": 440,
+        "wires": [
+            [
+                "ac0b798cfa74e430"
+            ]
+        ]
+    },
+    {
+        "id": "8d68c468bd54c3c8",
+        "type": "function",
+        "z": "24f18b1077451b8f",
+        "name": "",
+        "func": "const state = flow.get(\"state\");\nmsg.payload = false;\nif(msg.source == undefined){\n    msg.source = \"lfp_battery\";\n}\n\nswitch(msg.topic) {\n    //if fridge or inverter on turn only charger off\n    case \"charger\":\n        if(!state.fridge && !state.inverter){\n            return[null, msg];\n        }\n        msg.topic = \"charger\";\n        return[msg, null];\n        \n    //if charger or inverter on turn only fridge off\n    case \"fridge\":\n        if(!state.charger && !state.inverter){\n            return[null, msg];\n        }\n        msg.topic = \"fridge\";\n        return[msg, null];\n        \n        \n    // turn off inverter only if charger and fridge are off\n    case \"inverter\":\n        if(!state.charger && !state.fridge){\n            return[null, msg];\n        }\n}\n",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 600,
+        "wires": [
+            [
+                "7203f8ca11bc2024",
+                "0f729e1148fe2193"
+            ],
+            [
+                "7897d1d15f726e7b"
+            ]
+        ]
+    },
+    {
+        "id": "7203f8ca11bc2024",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 695,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "b874a31c734a2e3d",
+        "type": "delay",
+        "z": "24f18b1077451b8f",
+        "name": "500ms delay",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1030,
+        "y": 640,
+        "wires": [
+            [
+                "52756796ac7ce5c1",
+                "f4804505944ed025"
+            ]
+        ]
+    },
+    {
+        "id": "7897d1d15f726e7b",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "turn off charger",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "charger",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 680,
+        "wires": [
+            [
+                "b874a31c734a2e3d",
+                "a13085953f62349b"
+            ]
+        ]
+    },
+    {
+        "id": "e1d461a3d854cc07",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "turn off inverter",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "inverter",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1510,
+        "y": 680,
+        "wires": [
+            [
+                "6c03be4a93629411"
+            ]
+        ]
+    },
+    {
+        "id": "c8e0f126268272d4",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "switch power source to LFP",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "lfp_battery",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "battery_select",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1830,
+        "y": 680,
+        "wires": [
+            [
+                "a8a87f3512e410be"
+            ]
+        ]
+    },
+    {
+        "id": "45cdc25de793b8a7",
+        "type": "delay",
+        "z": "24f18b1077451b8f",
+        "name": "500ms delay",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1500,
+        "y": 640,
+        "wires": [
+            [
+                "c8e0f126268272d4"
+            ]
+        ]
+    },
+    {
+        "id": "f4804505944ed025",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "turn off fridge",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "fridge",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1250,
+        "y": 680,
+        "wires": [
+            [
+                "23e527eeaebaa017"
+            ]
+        ]
+    },
+    {
+        "id": "52756796ac7ce5c1",
+        "type": "delay",
+        "z": "24f18b1077451b8f",
+        "name": "500ms delay",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1240,
+        "y": 640,
+        "wires": [
+            [
+                "45cdc25de793b8a7",
+                "e1d461a3d854cc07"
+            ]
+        ]
+    },
+    {
+        "id": "a13085953f62349b",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 975,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "23e527eeaebaa017",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 1375,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "6c03be4a93629411",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 1635,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "a8a87f3512e410be",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 2005,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "4f759f3cff4757e7",
+        "type": "change",
+        "z": "24f18b1077451b8f",
+        "name": "switch power source to LFP",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "lfp_battery",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "battery_select",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1280,
+        "y": 560,
+        "wires": [
+            [
+                "4ff73aca3817d96f"
+            ]
+        ]
+    },
+    {
+        "id": "f62222e5f3eb48c8",
+        "type": "switch",
+        "z": "24f18b1077451b8f",
+        "name": "check source",
+        "property": "source",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "lfp_battery",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1040,
+        "y": 560,
+        "wires": [
+            [
+                "4f759f3cff4757e7"
+            ]
+        ]
+    },
+    {
+        "id": "4ff73aca3817d96f",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "update hardware",
+        "mode": "link",
+        "links": [
+            "3c41044470a0259c",
+            "967c1f84b7ad708b"
+        ],
+        "x": 1445,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "0f729e1148fe2193",
+        "type": "delay",
+        "z": "24f18b1077451b8f",
+        "name": "500ms delay",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 750,
+        "y": 520,
+        "wires": [
+            [
+                "f62222e5f3eb48c8"
+            ]
+        ]
+    },
+    {
+        "id": "9de2c1b1700d6284",
+        "type": "link out",
+        "z": "24f18b1077451b8f",
+        "name": "hw_out",
+        "mode": "link",
+        "links": [
+            "36ef8234e5ee6087"
+        ],
+        "x": 685,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "8d1e59901401abc0",
+        "type": "inject",
+        "z": "24f18b1077451b8f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "fridge",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 380,
+        "y": 840,
+        "wires": [
+            [
+                "9de2c1b1700d6284"
+            ]
+        ]
+    },
+    {
+        "id": "19d5cba0e074c24b",
+        "type": "inject",
+        "z": "24f18b1077451b8f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "inverter",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 390,
+        "y": 1020,
+        "wires": [
+            [
+                "9de2c1b1700d6284"
+            ]
+        ]
+    },
+    {
+        "id": "4a1e23d5db9e3d3e",
+        "type": "inject",
+        "z": "24f18b1077451b8f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "inverter",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 390,
+        "y": 980,
+        "wires": [
+            [
+                "9de2c1b1700d6284"
+            ]
+        ]
+    },
+    {
+        "id": "cb4d943b0a138048",
+        "type": "inject",
+        "z": "24f18b1077451b8f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "fridge",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 380,
+        "y": 880,
+        "wires": [
+            [
+                "9de2c1b1700d6284"
+            ]
+        ]
+    },
+    {
+        "id": "ae9f42dda4bedae0",
+        "type": "inject",
+        "z": "24f18b1077451b8f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "charger",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 150,
+        "y": 900,
+        "wires": [
+            [
+                "9de2c1b1700d6284"
+            ]
+        ]
+    },
+    {
+        "id": "de34cc473cdd37b3",
+        "type": "inject",
+        "z": "24f18b1077451b8f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "charger",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 150,
+        "y": 940,
+        "wires": [
+            [
+                "9de2c1b1700d6284"
+            ]
+        ]
+    },
+    {
         "id": "b5c43be785249085",
         "type": "ui_dropdown",
         "z": "78b28997a4d07be2",
@@ -2878,7 +4174,7 @@
         "type": "function",
         "z": "78b28997a4d07be2",
         "name": "always off",
-        "func": "var fridge_state = global.get(\"output_state.fridge\");\n\n// if fridge is on, turn it off\nif(fridge_state) {\n    return {payload:false};\n}\n\nreturn;",
+        "func": "var fridge_state = global.get(\"output_state.fridge\");\n\n// if fridge is on, turn it off\nif(fridge_state) {\n    msg.payload = false;\n    msg.topic = \"fridge\";\n    return msg;\n}\n\nreturn;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2888,7 +4184,7 @@
         "y": 540,
         "wires": [
             [
-                "a86f443541fb1ad9"
+                "d79bcea1e9a923c6"
             ]
         ]
     },
@@ -2897,7 +4193,7 @@
         "type": "function",
         "z": "78b28997a4d07be2",
         "name": "always on",
-        "func": "var fridge_state = global.get(\"output_state.fridge\");\n\n// if battery is too low abort and do nothing\nif(global.get(\"low_soc\")) {\n    return;\n}\n\n// check inverter source\nvar is_source_lfp = false;\nif(global.get(\"output_state.inverter_source\") == \"lfp_battery\") {\n    is_source_lfp = true;\n}\n\n// if fridge is off or source is not lfp, turn it on\nif(!fridge_state || !is_source_lfp) {\n    msg.payload = true;\n    msg.switch_to_lfp = true;\n    return msg;\n}\n\nreturn;",
+        "func": "var fridge_state = global.get(\"output_state.fridge\");\n\n// if battery is too low abort and do nothing\nif(global.get(\"low_soc\")) {\n    return;\n}\n\n// if fridge is off or source is not lfp, turn it on\nif(!fridge_state) {\n    msg.payload = true;\n    msg.topic = \"fridge\";\n    msg.source = \"lfp_battery\";\n    return msg;\n}\n\nreturn;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2907,7 +4203,7 @@
         "y": 580,
         "wires": [
             [
-                "a86f443541fb1ad9"
+                "d79bcea1e9a923c6"
             ]
         ]
     },
@@ -2925,9 +4221,7 @@
         "x": 1340,
         "y": 660,
         "wires": [
-            [
-                "a86f443541fb1ad9"
-            ]
+            []
         ]
     },
     {
@@ -2944,9 +4238,7 @@
         "x": 1330,
         "y": 700,
         "wires": [
-            [
-                "a86f443541fb1ad9"
-            ]
+            []
         ]
     },
     {
@@ -3059,31 +4351,16 @@
         ]
     },
     {
-        "id": "a86f443541fb1ad9",
-        "type": "subflow:b57434cd3c37a84c",
-        "z": "78b28997a4d07be2",
-        "name": "",
-        "x": 1620,
-        "y": 600,
-        "wires": [
-            [
-                "d79bcea1e9a923c6"
-            ]
-        ]
-    },
-    {
         "id": "d79bcea1e9a923c6",
         "type": "link out",
         "z": "78b28997a4d07be2",
         "name": "hw_out",
         "mode": "link",
         "links": [
-            "3c41044470a0259c",
-            "1f64a934a55cdb96",
-            "59186423723b03ca"
+            "36ef8234e5ee6087"
         ],
-        "x": 1765,
-        "y": 600,
+        "x": 1635,
+        "y": 580,
         "wires": []
     },
     {
@@ -3091,7 +4368,7 @@
         "type": "function",
         "z": "78b28997a4d07be2",
         "name": "always on lead",
-        "func": "var fridge_state = global.get(\"output_state.fridge\");\n\n// if battery is too low abort and do nothing\nif(global.get(\"low_soc\")) {\n    return;\n}\n\n// check inverter source\nvar is_source_lfp = false;\nif(global.get(\"output_state.inverter_source\") == \"lfp_battery\") {\n    is_source_lfp = true;\n}\n\n// if fridge is off or source is not lfp, turn it on\nif(!fridge_state || is_source_lfp) {\n    msg.payload = true;\n    msg.switch_to_lfp = false;\n    return msg;\n}\n\nreturn;",
+        "func": "var fridge_state = global.get(\"output_state.fridge\");\n\n// if battery is too low abort and do nothing\nif(global.get(\"low_soc\")) {\n    return;\n}\n\n\n\n// if fridge is off or source is not lfp, turn it on\nif(!fridge_state) {\n    msg.payload = true;\n    msg.topic = \"fridge\";\n    return msg;\n}\n\nreturn;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3101,7 +4378,7 @@
         "y": 620,
         "wires": [
             [
-                "a86f443541fb1ad9"
+                "d79bcea1e9a923c6"
             ]
         ]
     },
@@ -3414,7 +4691,6 @@
         "z": "78b28997a4d07be2",
         "name": "hardware_state_trigger",
         "links": [
-            "d79bcea1e9a923c6",
             "e9f912577a5edc23"
         ],
         "x": 1105,
@@ -5208,8 +6484,8 @@
         "colorForValue": [
             {
                 "color": "#008000",
-                "value": "1",
-                "valueType": "num"
+                "value": "true",
+                "valueType": "bool"
             }
         ],
         "allowColorForValueInMessage": false,
@@ -5219,19 +6495,6 @@
         "x": 1210,
         "y": 340,
         "wires": []
-    },
-    {
-        "id": "e868cde99b8cd0a9",
-        "type": "subflow:85860d2069ad95cd",
-        "z": "5a08a5132887b1a2",
-        "name": "",
-        "x": 1440,
-        "y": 380,
-        "wires": [
-            [
-                "a169fe1c4522c408"
-            ]
-        ]
     },
     {
         "id": "564e61d2af06e5f8",
@@ -5367,7 +6630,7 @@
         "type": "function",
         "z": "5a08a5132887b1a2",
         "name": "check motor state",
-        "func": "if(msg.enabled || msg.enabled == undefined){\n    return msg;\n}\nelse{\n    return {payload:0};\n}",
+        "func": "msg.topic = \"charger\";\nmsg.source = \"lead_battery\";\n\nif(msg.enabled || msg.enabled == undefined){\n    msg.payload = true;\n}\nelse{\n    msg.payload = false\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -5378,27 +6641,7 @@
         "wires": [
             [
                 "32344b011955cb1f",
-                "8ee1feb7fa74e323"
-            ]
-        ]
-    },
-    {
-        "id": "8ee1feb7fa74e323",
-        "type": "subflow:bec2118860bb84ba",
-        "z": "5a08a5132887b1a2",
-        "name": "",
-        "env": [
-            {
-                "name": "threshold",
-                "value": "5000",
-                "type": "num"
-            }
-        ],
-        "x": 1200,
-        "y": 380,
-        "wires": [
-            [
-                "e868cde99b8cd0a9"
+                "a169fe1c4522c408"
             ]
         ]
     },
@@ -5685,9 +6928,9 @@
         "name": "hw_out",
         "mode": "link",
         "links": [
-            "3c41044470a0259c"
+            "36ef8234e5ee6087"
         ],
-        "x": 1585,
+        "x": 1265,
         "y": 380,
         "wires": []
     },
