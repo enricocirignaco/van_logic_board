@@ -586,7 +586,7 @@
         "name": "test analytics",
         "tab": "4686ecb1bb0645fb",
         "order": 1,
-        "disp": true,
+        "disp": false,
         "width": "21",
         "collapse": false,
         "className": ""
@@ -4178,13 +4178,13 @@
         "type": "ui_dropdown",
         "z": "78b28997a4d07be2",
         "name": "dropdown menu",
-        "label": "Fridge Algorithm",
+        "label": "",
         "tooltip": "",
         "place": "always off",
         "group": "6c304982dc7231d9",
-        "order": 3,
-        "width": 0,
-        "height": 0,
+        "order": 2,
+        "width": 4,
+        "height": 1,
         "passthru": true,
         "multiple": false,
         "options": [
@@ -4291,7 +4291,7 @@
         "type": "function",
         "z": "78b28997a4d07be2",
         "name": "summer algorithm",
-        "func": "var fridge_state = global.get(\"output_state.fridge\");\nvar soc = global.get(\"state_of_charge\");\nvar properties = flow.get(\"algorithms.summer\");\nvar fridge_temp = global.get(\"sensors.fridge_temp\");\nconst charger_state = global.get(\"mppt_broadcast.CS\");\n\n// turn on fridge if upper threshold temperature exeeded or mppt is in float\nif(charger_state == 5 || (fridge_temp > properties.on_threshold)) {\n    // if fridge already on or if mppt is off (is night)\n    if(fridge_state || charger_state == 0) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = true;\n    msg.source = \"lfp_battery\";\n}\n\n// turn off fridge if temperature is lower than lower threshold \nelse if(fridge_temp < properties.off_threshold) {\n    // if fridge already off\n    if(!fridge_state) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = false;\n}\n\nreturn msg;",
+        "func": "var fridge_state = global.get(\"output_state.fridge\");\nvar soc = global.get(\"state_of_charge\");\nvar properties = flow.get(\"algorithms.summer\");\nvar fridge_temp = global.get(\"sensors.fridge_temp\");\nconst charger_state = global.get(\"mppt_broadcast.CS\");\n\n// turn on fridge if upper threshold temperature exeeded or mppt is in float\nif((charger_state == 5 && fridge_temp > 5) || (fridge_temp > properties.on_threshold)) {\n    // if fridge already on or if mppt is off (is night)\n    if(fridge_state || charger_state == 0) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = true;\n    msg.source = \"lfp_battery\";\n}\n\n// turn off fridge if temperature is lower than lower threshold \nelse if(fridge_temp < properties.off_threshold) {\n    // if fridge already off\n    if(!fridge_state) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = false;\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4726,9 +4726,7 @@
         "y": 120,
         "wires": [
             [
-                "cf6a3bc3f772aa9e",
-                "ac852fb46fdfd4ac",
-                "5406287627a4d420"
+                "cf6a3bc3f772aa9e"
             ]
         ]
     },
@@ -4752,64 +4750,10 @@
         "to": "",
         "reg": false,
         "x": 1280,
-        "y": 80,
+        "y": 100,
         "wires": [
             [
                 "2a87cc921872582f"
-            ]
-        ]
-    },
-    {
-        "id": "ac852fb46fdfd4ac",
-        "type": "change",
-        "z": "78b28997a4d07be2",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "output_state.inverter",
-                "tot": "global"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1280,
-        "y": 120,
-        "wires": [
-            [
-                "5022643e36f772b8"
-            ]
-        ]
-    },
-    {
-        "id": "5406287627a4d420",
-        "type": "change",
-        "z": "78b28997a4d07be2",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "output_state.inverter_source",
-                "tot": "global"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1280,
-        "y": 160,
-        "wires": [
-            [
-                "1935f47f3671086f"
             ]
         ]
     },
@@ -4844,11 +4788,11 @@
         "id": "2a87cc921872582f",
         "type": "ui_led",
         "z": "78b28997a4d07be2",
-        "order": 2,
+        "order": 3,
         "group": "6c304982dc7231d9",
-        "width": 0,
-        "height": 0,
-        "label": "Fridge State",
+        "width": 3,
+        "height": 1,
+        "label": "Fridge",
         "labelPlacement": "left",
         "labelAlignment": "left",
         "colorForValue": [
@@ -4861,59 +4805,9 @@
         "allowColorForValueInMessage": false,
         "shape": "circle",
         "showGlow": true,
-        "name": "Fridge Compressor Status",
-        "x": 1520,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "5022643e36f772b8",
-        "type": "ui_led",
-        "z": "78b28997a4d07be2",
-        "d": true,
-        "order": 5,
-        "group": "",
-        "width": 0,
-        "height": 0,
-        "label": "Inverter Status",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#008000",
-                "value": "true",
-                "valueType": "bool"
-            },
-            {
-                "color": "#ff0000",
-                "value": "false",
-                "valueType": "bool"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "inverter Status",
-        "x": 1480,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "1935f47f3671086f",
-        "type": "ui_text",
-        "z": "78b28997a4d07be2",
-        "d": true,
-        "group": "",
-        "order": 6,
-        "width": 0,
-        "height": 0,
-        "name": "power_source",
-        "label": "Power Source:   ",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 1480,
-        "y": 160,
+        "name": "Fridge state",
+        "x": 1470,
+        "y": 100,
         "wires": []
     },
     {
@@ -4951,7 +4845,7 @@
         "topic": "",
         "name": "Low Battery Dialog",
         "x": 1490,
-        "y": 200,
+        "y": 240,
         "wires": [
             []
         ]
@@ -5065,6 +4959,66 @@
         "wires": [
             [
                 "02ed16a6ebcf5535"
+            ]
+        ]
+    },
+    {
+        "id": "2f70c818528ce1ff",
+        "type": "ui_led",
+        "z": "78b28997a4d07be2",
+        "order": 5,
+        "group": "6c304982dc7231d9",
+        "width": 3,
+        "height": 1,
+        "label": " ",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "charger_led",
+        "x": 1650,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a8259e3b58a3a18e",
+        "type": "ui_switch",
+        "z": "78b28997a4d07be2",
+        "name": "",
+        "label": "While Driving",
+        "tooltip": "",
+        "group": "6c304982dc7231d9",
+        "order": 4,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 1470,
+        "y": 140,
+        "wires": [
+            [
+                "2f70c818528ce1ff"
             ]
         ]
     },
@@ -8453,7 +8407,7 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1030,
+        "x": 1110,
         "y": 240,
         "wires": [
             []
@@ -8465,7 +8419,7 @@
         "z": "d36037ce242039a2",
         "mydb": "9accbd4c3bdcd845",
         "name": "",
-        "x": 520,
+        "x": 600,
         "y": 240,
         "wires": [
             [
@@ -8489,29 +8443,13 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "SELECT p_panel, timestamp FROM mppt WHERE timestamp > now() - interval 1 day AND p_panel != 0;",
-        "x": 350,
+        "x": 430,
         "y": 240,
         "wires": [
             [
                 "853bfdc5756964e4"
             ]
         ]
-    },
-    {
-        "id": "ab1ff86af99705c8",
-        "type": "debug",
-        "z": "d36037ce242039a2",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 930,
-        "y": 420,
-        "wires": []
     },
     {
         "id": "16d70efb38ae487f",
@@ -8530,8 +8468,8 @@
         "topic": "",
         "payload": "[]",
         "payloadType": "jsonata",
-        "x": 550,
-        "y": 160,
+        "x": 730,
+        "y": 80,
         "wires": [
             [
                 "e7c6b0ccf31f425d"
@@ -8571,13 +8509,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 840,
+        "x": 920,
         "y": 240,
         "wires": [
             [
-                "ab1ff86af99705c8",
-                "e7c6b0ccf31f425d",
-                "23f65999d387eaa2"
+                "e7c6b0ccf31f425d"
             ]
         ]
     },
@@ -8592,7 +8528,7 @@
         "arraySpltType": "len",
         "stream": false,
         "addname": "",
-        "x": 670,
+        "x": 750,
         "y": 240,
         "wires": [
             [
@@ -8601,20 +8537,84 @@
         ]
     },
     {
-        "id": "23f65999d387eaa2",
-        "type": "debug",
+        "id": "045c9e1aea3202cc",
+        "type": "ui_button",
         "z": "d36037ce242039a2",
         "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 890,
-        "y": 500,
-        "wires": []
+        "group": "80e6c085ce995358",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "update",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "SELECT p_panel, timestamp FROM mppt WHERE timestamp > now() - interval 1 day AND p_panel != 0;",
+        "topicType": "str",
+        "x": 260,
+        "y": 120,
+        "wires": [
+            [
+                "698c59df3031ab78",
+                "543eebe024444096"
+            ]
+        ]
+    },
+    {
+        "id": "698c59df3031ab78",
+        "type": "change",
+        "z": "d36037ce242039a2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 120,
+        "wires": [
+            [
+                "e7c6b0ccf31f425d"
+            ]
+        ]
+    },
+    {
+        "id": "543eebe024444096",
+        "type": "delay",
+        "z": "d36037ce242039a2",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 200,
+        "wires": [
+            [
+                "853bfdc5756964e4"
+            ]
+        ]
     }
 ]
