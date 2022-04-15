@@ -275,9 +275,7 @@
             "7ee5db236074879f"
         ],
         "x": 34,
-        "y": 59,
-        "w": 1062,
-        "h": 142
+        "y": 59
     },
     {
         "id": "82e7dfd030bb8d2f",
@@ -297,9 +295,7 @@
             "cd7be1f40dda90df"
         ],
         "x": 14,
-        "y": 19,
-        "w": 1132,
-        "h": 162
+        "y": 19
     },
     {
         "id": "232f2c028585f7b9",
@@ -327,9 +323,7 @@
             "68c85cf9d66453b2"
         ],
         "x": 1314,
-        "y": 19,
-        "w": 412,
-        "h": 282
+        "y": 19
     },
     {
         "id": "fb118a00f83d2ac1",
@@ -355,9 +349,7 @@
             "038a632ad9286bdf"
         ],
         "x": 34,
-        "y": 219,
-        "w": 1062,
-        "h": 229.5
+        "y": 219
     },
     {
         "id": "a74bb25de5c78e26",
@@ -3089,7 +3081,7 @@
         "y": 240,
         "wires": [
             [
-                "fa41a6f87d7ddafc"
+                "a619bc89a4c234a7"
             ]
         ]
     },
@@ -3193,65 +3185,6 @@
         "wires": [
             [
                 "025d0f7e6dfea871"
-            ]
-        ]
-    },
-    {
-        "id": "1a48ad23b3d266cf",
-        "type": "change",
-        "z": "24f18b1077451b8f",
-        "name": "switch power source to LFP",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "lfp_battery",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "battery_select",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2040,
-        "y": 200,
-        "wires": [
-            [
-                "8318a8a1e49c82ab"
-            ]
-        ]
-    },
-    {
-        "id": "fa41a6f87d7ddafc",
-        "type": "switch",
-        "z": "24f18b1077451b8f",
-        "name": "check source",
-        "property": "source",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "lfp_battery",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 1800,
-        "y": 200,
-        "wires": [
-            [
-                "1a48ad23b3d266cf"
             ]
         ]
     },
@@ -3500,9 +3433,7 @@
         "x": 1510,
         "y": 120,
         "wires": [
-            [
-                "fa41a6f87d7ddafc"
-            ]
+            []
         ]
     },
     {
@@ -3529,8 +3460,8 @@
             "3c41044470a0259c",
             "967c1f84b7ad708b"
         ],
-        "x": 2215,
-        "y": 200,
+        "x": 1995,
+        "y": 240,
         "wires": []
     },
     {
@@ -4170,6 +4101,25 @@
         "wires": [
             [
                 "9de2c1b1700d6284"
+            ]
+        ]
+    },
+    {
+        "id": "a619bc89a4c234a7",
+        "type": "function",
+        "z": "24f18b1077451b8f",
+        "name": "switch power source to LFP",
+        "func": "\n// if charger ON don't allow source to be lfp\nif(!flow.get(\"state.charger\")) {\n    // change source according to source flag\n    if(msg.source == \"lfp_battery\") {\n        msg.payload = \"lfp_battery\";\n        msg.topic = \"battery_select\";\n        return msg;\n    }\n}\nreturn;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1800,
+        "y": 240,
+        "wires": [
+            [
+                "8318a8a1e49c82ab"
             ]
         ]
     },
@@ -6850,7 +6800,6 @@
         "id": "a169fe1c4522c408",
         "type": "link out",
         "z": "5a08a5132887b1a2",
-        "d": true,
         "name": "hw_out",
         "mode": "link",
         "links": [
@@ -8375,8 +8324,8 @@
         "name": "",
         "group": "80e6c085ce995358",
         "order": 1,
-        "width": "21",
-        "height": "14",
+        "width": 21,
+        "height": 14,
         "label": "chart",
         "chartType": "line",
         "legend": "false",
@@ -8406,8 +8355,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1110,
-        "y": 240,
+        "x": 750,
+        "y": 160,
         "wires": [
             []
         ]
@@ -8418,101 +8367,11 @@
         "z": "d36037ce242039a2",
         "mydb": "9accbd4c3bdcd845",
         "name": "",
-        "x": 600,
-        "y": 240,
+        "x": 240,
+        "y": 180,
         "wires": [
             [
                 "52ad688b28d3a0f7"
-            ]
-        ]
-    },
-    {
-        "id": "35f5f1d0493f8f2e",
-        "type": "inject",
-        "z": "d36037ce242039a2",
-        "name": "",
-        "props": [
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "SELECT p_panel, timestamp FROM mppt WHERE timestamp > now() - interval 1 day AND p_panel != 0;",
-        "x": 430,
-        "y": 240,
-        "wires": [
-            [
-                "853bfdc5756964e4"
-            ]
-        ]
-    },
-    {
-        "id": "16d70efb38ae487f",
-        "type": "inject",
-        "z": "d36037ce242039a2",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "[]",
-        "payloadType": "jsonata",
-        "x": 730,
-        "y": 80,
-        "wires": [
-            [
-                "e7c6b0ccf31f425d"
-            ]
-        ]
-    },
-    {
-        "id": "08bf1c1e2b203060",
-        "type": "change",
-        "z": "d36037ce242039a2",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "timestamp",
-                "pt": "msg",
-                "to": "msg.payload.timestamp",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "msg.payload.p_panel",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "msg.payload.p_panel",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 920,
-        "y": 240,
-        "wires": [
-            [
-                "e7c6b0ccf31f425d"
             ]
         ]
     },
@@ -8527,11 +8386,11 @@
         "arraySpltType": "len",
         "stream": false,
         "addname": "",
-        "x": 750,
-        "y": 240,
+        "x": 410,
+        "y": 180,
         "wires": [
             [
-                "08bf1c1e2b203060"
+                "fdbee394abcc92bc"
             ]
         ]
     },
@@ -8541,9 +8400,9 @@
         "z": "d36037ce242039a2",
         "name": "",
         "group": "80e6c085ce995358",
-        "order": 1,
-        "width": 0,
-        "height": 0,
+        "order": 5,
+        "width": 8,
+        "height": 1,
         "passthru": false,
         "label": "update",
         "tooltip": "",
@@ -8551,40 +8410,145 @@
         "bgcolor": "",
         "className": "",
         "icon": "",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "SELECT p_panel, timestamp FROM mppt WHERE timestamp > now() - interval 1 day AND p_panel != 0;",
-        "topicType": "str",
-        "x": 260,
-        "y": 120,
+        "payload": "[]",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 840,
+        "y": 320,
         "wires": [
             [
-                "698c59df3031ab78",
-                "543eebe024444096"
+                "853bfdc5756964e4"
             ]
         ]
     },
     {
-        "id": "698c59df3031ab78",
-        "type": "change",
+        "id": "802b779c41bb8635",
+        "type": "ui_dropdown",
         "z": "d36037ce242039a2",
         "name": "",
-        "rules": [
+        "label": "Table",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "80e6c085ce995358",
+        "order": 2,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "multiple": false,
+        "options": [
             {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "[]",
-                "tot": "jsonata"
+                "label": "mppt",
+                "value": "mppt",
+                "type": "str"
+            },
+            {
+                "label": "soc",
+                "value": "soc",
+                "type": "str"
+            },
+            {
+                "label": "mppt_daily_history",
+                "value": "mppt_daily_history",
+                "type": "str"
             }
         ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 700,
-        "y": 120,
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 150,
+        "y": 320,
+        "wires": [
+            [
+                "887e6590cff98146"
+            ]
+        ]
+    },
+    {
+        "id": "be96d88d86cc46ef",
+        "type": "ui_dropdown",
+        "z": "d36037ce242039a2",
+        "name": "",
+        "label": "Row",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "80e6c085ce995358",
+        "order": 3,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "multiple": true,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 490,
+        "y": 320,
+        "wires": [
+            [
+                "c1677b942ec9aaa1"
+            ]
+        ]
+    },
+    {
+        "id": "887e6590cff98146",
+        "type": "function",
+        "z": "d36037ce242039a2",
+        "name": "",
+        "func": "const table = msg.payload;\nconst mppt = [\"entry_id\", \"v_batt\", \"i_bat\" ,\"v_panel\", \"p_panel\", \"op_state\", \"mppt_mode\", \"off_reason\", \"error_msg\", \"load_state\", \"i_load\", \"yield_total\", \"yield_today\", \"maximum_power_today\", \"yield_yesterday\", \"maximum_power_yesterday\", \"day_sequence_number\"];\nconst soc = [\"id\", \"lfp_soc\", \"lfp_low\", \"lead_voltage\", \"lead_low bool\", \"lead_charging\"];\nconst mppt_daily_history = [\"id\", \"energy_yield\", \"energy_consumed\", \"battery_voltage_max\", \"battery_voltage_min\", \"error_database\", \"error_0\", \"error_1\", \"error_2\", \"error_3\", \"time_bulk\", \"time_absorpion\", \"time_float\", \"power_max\", \"battery_current_max\", \"panel_voltage_max\", \"day_sequence_number\", \"energy_offset\", \"energy_charger\"];\n\nswitch(table){\n    case \"mppt\":\n        msg.options = mppt;\n        break;\n    case \"soc\":\n        msg.options = soc;\n        break;\n    case \"mppt_daily_history\":\n        msg.options = mppt_daily_history\n        break;\n}\nmsg.topic = msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 320,
+        "wires": [
+            [
+                "be96d88d86cc46ef"
+            ]
+        ]
+    },
+    {
+        "id": "c1677b942ec9aaa1",
+        "type": "function",
+        "z": "d36037ce242039a2",
+        "name": "",
+        "func": "var string = \"\";\nfor(const element of msg.payload){\n    string = string.concat(element);\n    string = string.concat(\", \");\n}\n\nif(msg.topic == \"mppt_daily_history\"){\n    query = \"SELECT \" + string + \"timestamp FROM mppt_daily_history WHERE timestamp > now() - interval 1 week\";\n}\nelse {\n    query = \"SELECT \" + string + \"timestamp FROM \" + msg.topic + \" WHERE timestamp > now() - interval 1 day\";\n}\nmsg.topic = query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 320,
+        "wires": [
+            [
+                "045c9e1aea3202cc"
+            ]
+        ]
+    },
+    {
+        "id": "fdbee394abcc92bc",
+        "type": "function",
+        "z": "d36037ce242039a2",
+        "name": "",
+        "func": "const obj = msg.payload;\nmsg.payload = obj[Object.keys(obj) [0]];\nmsg.timestamp = obj.timestamp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 180,
         "wires": [
             [
                 "e7c6b0ccf31f425d"
@@ -8592,27 +8556,30 @@
         ]
     },
     {
-        "id": "543eebe024444096",
-        "type": "delay",
+        "id": "49f2244fed208573",
+        "type": "ui_button",
         "z": "d36037ce242039a2",
         "name": "",
-        "pauseType": "delay",
-        "timeout": "50",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 430,
-        "y": 200,
+        "group": "80e6c085ce995358",
+        "order": 4,
+        "width": 5,
+        "height": 1,
+        "passthru": false,
+        "label": "clear",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "[]",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 550,
+        "y": 140,
         "wires": [
             [
-                "853bfdc5756964e4"
+                "e7c6b0ccf31f425d"
             ]
         ]
     }
