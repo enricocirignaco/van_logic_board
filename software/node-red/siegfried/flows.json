@@ -30,14 +30,6 @@
         ]
     },
     {
-        "id": "274cb03b3db2d71a",
-        "type": "tab",
-        "label": "Temperature",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "493e4b0fcbc7484f",
         "type": "tab",
         "label": "MPPT",
@@ -51,6 +43,14 @@
         "label": "SOC",
         "disabled": false,
         "info": ""
+    },
+    {
+        "id": "274cb03b3db2d71a",
+        "type": "tab",
+        "label": "Temp/water",
+        "disabled": false,
+        "info": "",
+        "env": []
     },
     {
         "id": "162cea04a51a0717",
@@ -356,6 +356,51 @@
         "y": 219
     },
     {
+        "id": "5a408ef9d6e94ab1",
+        "type": "group",
+        "z": "274cb03b3db2d71a",
+        "name": "Temperature Dashboard",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "0ade02986402d041",
+            "e550af8caa271bec",
+            "081542ce9d9322a0",
+            "37b90db2973a2911"
+        ],
+        "x": 534,
+        "y": 119,
+        "w": 252,
+        "h": 122
+    },
+    {
+        "id": "eb3edd6bd3a0106e",
+        "type": "group",
+        "z": "274cb03b3db2d71a",
+        "name": "Water Dashboard",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "73791fc295d7901c",
+            "1b014b67048a60c9",
+            "6c4df644e96fd00d",
+            "98c966e11d3753b1",
+            "20c3aecd272b3f13",
+            "68cdeea5f9e1043c",
+            "af31835423d85d88",
+            "7672b8fee1fa2861",
+            "9759d9469a52886d",
+            "55529fed57d67761",
+            "5e0c9205af213c28"
+        ],
+        "x": 34,
+        "y": 379,
+        "w": 752,
+        "h": 282
+    },
+    {
         "id": "a74bb25de5c78e26",
         "type": "ui_base",
         "theme": {
@@ -428,11 +473,11 @@
                 }
             },
             "angularTheme": {
-                "primary": "purple",
+                "primary": "indigo",
                 "accents": "blue",
                 "warn": "red",
                 "background": "grey",
-                "palette": "dark"
+                "palette": "light"
             }
         },
         "site": {
@@ -444,9 +489,9 @@
             "dateFormat": "DD/MM/YYYY",
             "sizes": {
                 "sx": 44,
-                "sy": 46,
+                "sy": 47,
                 "gx": 6,
-                "gy": 4,
+                "gy": 1,
                 "cx": 6,
                 "cy": 0,
                 "px": 0,
@@ -477,10 +522,10 @@
     {
         "id": "72a8d1b89999131f",
         "type": "ui_group",
-        "name": "MPPT",
+        "name": "MPPT ",
         "tab": "8d207109f202f502",
         "order": 2,
-        "disp": true,
+        "disp": false,
         "width": "7",
         "collapse": false,
         "className": ""
@@ -531,7 +576,7 @@
         "name": "SOC",
         "tab": "8d207109f202f502",
         "order": 3,
-        "disp": true,
+        "disp": false,
         "width": "7",
         "collapse": false,
         "className": ""
@@ -608,6 +653,36 @@
         "width": "7",
         "collapse": false,
         "className": ""
+    },
+    {
+        "id": "f3749d9970c588fd",
+        "type": "ui_spacer",
+        "z": "493e4b0fcbc7484f",
+        "name": "spacer",
+        "group": "72a8d1b89999131f",
+        "order": 1,
+        "width": "7",
+        "height": "1"
+    },
+    {
+        "id": "33af76207c9004be",
+        "type": "ui_spacer",
+        "z": "5a08a5132887b1a2",
+        "name": "spacer",
+        "group": "7dbe224d7e5b35ba",
+        "order": 1,
+        "width": "7",
+        "height": "1"
+    },
+    {
+        "id": "fa83906756e5dddb",
+        "type": "ui_spacer",
+        "z": "274cb03b3db2d71a",
+        "name": "spacer",
+        "group": "8ccf1fb7e0607deb",
+        "order": 3,
+        "width": "3",
+        "height": "1"
     },
     {
         "id": "2a0e25e8b5c0b682",
@@ -2723,7 +2798,8 @@
             "528f05d6f6054ab6",
             "e5ceae0d0528eb0c",
             "69ca1224f189f87d",
-            "3cb000ba3a4683df"
+            "3cb000ba3a4683df",
+            "55529fed57d67761"
         ],
         "x": 905,
         "y": 920,
@@ -4408,7 +4484,7 @@
         "func": "",
         "outputs": 1,
         "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\nvar algorithms = {\n    always_on: {\n        on_threshold: 6,\n        off_threshold: 0,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    always_on_lead: {\n        on_threshold: 10,\n        off_threshold: 2,\n        description: \n        \"Always onhalijdnifivnhaloooo\"\n    },\n    always_off: {\n        on_threshold: 0,\n        off_threshold: 0,\n        description: \n        \"Always ocnfuncer9ennhalihaloooo\"\n    },\n    summer: {\n        on_threshold: 10,\n        off_threshold: 0,\n        description: \n        \"Always on9ucnopaidjcihalihaloooo\"\n    },\n    winter: {\n        on_threshold: 10,\n        off_threshold: 5,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    battery_life: {\n        on_threshold: 15,\n        off_threshold: 7,\n        description: \n        \"Always onhalihaloooo\"\n    }\n};\nflow.set(\"algorithms\", algorithms);\n\nreturn;",
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\nvar algorithms = {\n    always_on: {\n        on_threshold: 6,\n        off_threshold: 0,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    always_on_lead: {\n        on_threshold: 10,\n        off_threshold: 2,\n        description: \n        \"Always onhalijdnifivnhaloooo\"\n    },\n    always_off: {\n        on_threshold: 0,\n        off_threshold: 0,\n        description: \n        \"Always ocnfuncer9ennhalihaloooo\"\n    },\n    summer: {\n        on_threshold: 10,\n        off_threshold: 2,\n        description: \n        \"Always on9ucnopaidjcihalihaloooo\"\n    },\n    winter: {\n        on_threshold: 10,\n        off_threshold: 5,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    battery_life: {\n        on_threshold: 15,\n        off_threshold: 7,\n        description: \n        \"Always onhalihaloooo\"\n    }\n};\nflow.set(\"algorithms\", algorithms);\n\nreturn;",
         "finalize": "",
         "libs": [],
         "x": 150,
@@ -4529,7 +4605,7 @@
         "type": "comment",
         "z": "78b28997a4d07be2",
         "name": "To Do",
-        "info": "# to do:\n- implement algorithms:\n    - winter\n    - battery life\n- implement temperature sensor\n- update descriptions\n",
+        "info": "# to do:\n- implement algorithms:\n    - winter\n    - battery life\n- update descriptions\n",
         "x": 110,
         "y": 140,
         "wires": []
@@ -4676,8 +4752,8 @@
         "links": [
             "e9f912577a5edc23"
         ],
-        "x": 1105,
-        "y": 120,
+        "x": 1155,
+        "y": 200,
         "wires": [
             [
                 "cf6a3bc3f772aa9e"
@@ -4703,11 +4779,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1280,
-        "y": 100,
+        "x": 1290,
+        "y": 200,
         "wires": [
             [
-                "2a87cc921872582f"
+                "6ce40a9b23ef15f0"
             ]
         ]
     },
@@ -4715,7 +4791,7 @@
         "id": "08c5c713b62ce9a6",
         "type": "ui_gauge",
         "z": "78b28997a4d07be2",
-        "name": "",
+        "name": "fridge temp",
         "group": "6c304982dc7231d9",
         "order": 1,
         "width": 7,
@@ -4731,37 +4807,11 @@
             "#00f900",
             "#ca3838"
         ],
-        "seg1": "",
-        "seg2": "",
+        "seg1": "0",
+        "seg2": "10",
         "className": "",
-        "x": 1450,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "2a87cc921872582f",
-        "type": "ui_led",
-        "z": "78b28997a4d07be2",
-        "order": 4,
-        "group": "6c304982dc7231d9",
-        "width": 2,
-        "height": 1,
-        "label": "",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#008000",
-                "value": "true",
-                "valueType": "bool"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "Fridge state",
-        "x": 1470,
-        "y": 100,
+        "x": 1480,
+        "y": 120,
         "wires": []
     },
     {
@@ -4775,8 +4825,8 @@
             "5d61caaae57aa6c7",
             "e6441c2c3626269a"
         ],
-        "x": 1345,
-        "y": 40,
+        "x": 1355,
+        "y": 120,
         "wires": [
             [
                 "08c5c713b62ce9a6"
@@ -4798,8 +4848,8 @@
         "className": "",
         "topic": "",
         "name": "Low Battery Dialog",
-        "x": 1490,
-        "y": 240,
+        "x": 1500,
+        "y": 280,
         "wires": [
             []
         ]
@@ -4830,8 +4880,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1250,
-        "y": 200,
+        "x": 1260,
+        "y": 280,
         "wires": [
             [
                 "6bdaa473a64227ef"
@@ -4942,136 +4992,24 @@
         "offcolor": "",
         "animate": false,
         "className": "",
-        "x": 1400,
-        "y": 140,
+        "x": 1510,
+        "y": 160,
         "wires": [
             []
         ]
     },
     {
-        "id": "0ade02986402d041",
-        "type": "ui_gauge",
-        "z": "274cb03b3db2d71a",
-        "name": "",
-        "group": "4c88ce79aeb1c97e",
-        "order": 1,
-        "width": 4,
-        "height": 5,
-        "gtype": "donut",
-        "title": "",
-        "label": "C°",
-        "format": "{{value}}",
-        "min": "-15",
-        "max": "45",
-        "colors": [
-            "#00fdff",
-            "#00f900",
-            "#ca3838"
-        ],
-        "seg1": "5",
-        "seg2": "25",
-        "className": "",
-        "x": 450,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "e550af8caa271bec",
-        "type": "ui_gauge",
-        "z": "274cb03b3db2d71a",
-        "name": "",
-        "group": "4c88ce79aeb1c97e",
-        "order": 2,
-        "width": 3,
-        "height": 5,
-        "gtype": "donut",
-        "title": "",
-        "label": "C°",
-        "format": "{{value}}",
-        "min": "-15",
-        "max": "45",
-        "colors": [
-            "#00fdff",
-            "#00f900",
-            "#ca3838"
-        ],
-        "seg1": "5",
-        "seg2": "25",
-        "className": "",
-        "x": 450,
-        "y": 100,
-        "wires": []
-    },
-    {
-        "id": "73791fc295d7901c",
-        "type": "ui_gauge",
-        "z": "274cb03b3db2d71a",
-        "name": "",
-        "group": "8ccf1fb7e0607deb",
-        "order": 1,
-        "width": 4,
-        "height": 5,
-        "gtype": "wave",
-        "title": "",
-        "label": "/3",
-        "format": "{{value}}",
-        "min": "0",
-        "max": "3",
-        "colors": [
-            "#00fdff",
-            "#00f900",
-            "#ca3838"
-        ],
-        "seg1": "",
-        "seg2": "",
-        "className": "",
-        "x": 410,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "1b014b67048a60c9",
+        "id": "6ce40a9b23ef15f0",
         "type": "ui_led",
-        "z": "274cb03b3db2d71a",
-        "order": 3,
-        "group": "8ccf1fb7e0607deb",
-        "width": 3,
-        "height": 1,
-        "label": "Pump",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "false",
-                "valueType": "bool"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "",
-        "x": 650,
-        "y": 620,
-        "wires": []
-    },
-    {
-        "id": "6c4df644e96fd00d",
-        "type": "ui_led",
-        "z": "274cb03b3db2d71a",
+        "z": "78b28997a4d07be2",
         "order": 4,
-        "group": "8ccf1fb7e0607deb",
-        "width": 3,
-        "height": 1,
-        "label": "Valve",
+        "group": "6c304982dc7231d9",
+        "width": "2",
+        "height": "1",
+        "label": "",
         "labelPlacement": "left",
         "labelAlignment": "left",
         "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "false",
-                "valueType": "bool"
-            },
             {
                 "color": "#008000",
                 "value": "true",
@@ -5081,201 +5019,10 @@
         "allowColorForValueInMessage": false,
         "shape": "circle",
         "showGlow": true,
-        "name": "",
-        "x": 430,
-        "y": 420,
+        "name": "fridge",
+        "x": 1470,
+        "y": 200,
         "wires": []
-    },
-    {
-        "id": "29a20aa394fd3080",
-        "type": "ui_text",
-        "z": "274cb03b3db2d71a",
-        "group": "8ccf1fb7e0607deb",
-        "order": 2,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "Water",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 410,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "98c966e11d3753b1",
-        "type": "ui_led",
-        "z": "274cb03b3db2d71a",
-        "order": 5,
-        "group": "8ccf1fb7e0607deb",
-        "width": 3,
-        "height": 1,
-        "label": "Valve 2",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "false",
-                "valueType": "bool"
-            },
-            {
-                "color": "#008000",
-                "value": "true",
-                "valueType": "bool"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "",
-        "x": 430,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "20c3aecd272b3f13",
-        "type": "inject",
-        "z": "274cb03b3db2d71a",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "2",
-        "payloadType": "num",
-        "x": 210,
-        "y": 320,
-        "wires": [
-            [
-                "73791fc295d7901c"
-            ]
-        ]
-    },
-    {
-        "id": "081542ce9d9322a0",
-        "type": "link in",
-        "z": "274cb03b3db2d71a",
-        "name": "temp_in",
-        "links": [
-            "60fe06549654d7a9"
-        ],
-        "x": 125,
-        "y": 100,
-        "wires": [
-            [
-                "e550af8caa271bec"
-            ]
-        ]
-    },
-    {
-        "id": "37b90db2973a2911",
-        "type": "link in",
-        "z": "274cb03b3db2d71a",
-        "name": "temp_in",
-        "links": [
-            "a9e006439192e826"
-        ],
-        "x": 125,
-        "y": 180,
-        "wires": [
-            [
-                "0ade02986402d041"
-            ]
-        ]
-    },
-    {
-        "id": "68cdeea5f9e1043c",
-        "type": "inject",
-        "z": "274cb03b3db2d71a",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "2",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.5",
-        "topic": "",
-        "payload": "false",
-        "payloadType": "bool",
-        "x": 110,
-        "y": 620,
-        "wires": [
-            [
-                "1b014b67048a60c9",
-                "7672b8fee1fa2861"
-            ]
-        ]
-    },
-    {
-        "id": "af31835423d85d88",
-        "type": "change",
-        "z": "274cb03b3db2d71a",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 460,
-        "y": 580,
-        "wires": [
-            [
-                "1b014b67048a60c9"
-            ]
-        ]
-    },
-    {
-        "id": "7672b8fee1fa2861",
-        "type": "delay",
-        "z": "274cb03b3db2d71a",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "500",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 270,
-        "y": 580,
-        "wires": [
-            [
-                "af31835423d85d88"
-            ]
-        ]
     },
     {
         "id": "4ba88c3a7bf4d7cf",
@@ -5543,7 +5290,7 @@
         "g": "232f2c028585f7b9",
         "name": "Solar Power",
         "group": "72a8d1b89999131f",
-        "order": 1,
+        "order": 2,
         "width": 7,
         "height": 4,
         "gtype": "gage",
@@ -5570,7 +5317,7 @@
         "z": "493e4b0fcbc7484f",
         "g": "232f2c028585f7b9",
         "group": "72a8d1b89999131f",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "mppt state",
@@ -5677,7 +5424,7 @@
         "g": "232f2c028585f7b9",
         "name": "Battery Power",
         "group": "72a8d1b89999131f",
-        "order": 3,
+        "order": 4,
         "width": 7,
         "height": 4,
         "gtype": "gage",
@@ -5742,7 +5489,7 @@
         "g": "232f2c028585f7b9",
         "name": "Load Power",
         "group": "72a8d1b89999131f",
-        "order": 4,
+        "order": 5,
         "width": 7,
         "height": 4,
         "gtype": "gage",
@@ -5788,7 +5535,7 @@
         "type": "ui_led",
         "z": "493e4b0fcbc7484f",
         "g": "232f2c028585f7b9",
-        "order": 6,
+        "order": 7,
         "group": "72a8d1b89999131f",
         "width": 3,
         "height": 1,
@@ -5819,9 +5566,9 @@
         "label": "Load Enable",
         "tooltip": "",
         "group": "72a8d1b89999131f",
-        "order": 5,
+        "order": 6,
         "width": 4,
-        "height": 1,
+        "height": "1",
         "passthru": true,
         "decouple": "false",
         "topic": "topic",
@@ -6069,7 +5816,7 @@
         "z": "5a08a5132887b1a2",
         "name": "",
         "group": "7dbe224d7e5b35ba",
-        "order": 3,
+        "order": 4,
         "width": 0,
         "height": 0,
         "gtype": "gage",
@@ -6094,7 +5841,7 @@
         "id": "cab10ae6d1e2d312",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 4,
+        "order": 5,
         "group": "7dbe224d7e5b35ba",
         "width": 0,
         "height": 0,
@@ -6120,7 +5867,7 @@
         "id": "2be90e317e4475cc",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 2,
+        "order": 3,
         "group": "7dbe224d7e5b35ba",
         "width": 0,
         "height": 0,
@@ -6146,7 +5893,7 @@
         "id": "4517c637c76c72c7",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 5,
+        "order": 6,
         "group": "7dbe224d7e5b35ba",
         "width": 0,
         "height": 0,
@@ -6310,7 +6057,7 @@
         "z": "5a08a5132887b1a2",
         "name": "",
         "group": "7dbe224d7e5b35ba",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "gtype": "gage",
@@ -6339,7 +6086,7 @@
         "label": "LFP Charger",
         "tooltip": "",
         "group": "7dbe224d7e5b35ba",
-        "order": 6,
+        "order": 7,
         "width": 4,
         "height": 1,
         "passthru": true,
@@ -6370,7 +6117,7 @@
         "id": "32344b011955cb1f",
         "type": "ui_led",
         "z": "5a08a5132887b1a2",
-        "order": 7,
+        "order": 8,
         "group": "7dbe224d7e5b35ba",
         "width": 3,
         "height": 1,
@@ -6887,6 +6634,402 @@
         ]
     },
     {
+        "id": "0ade02986402d041",
+        "type": "ui_gauge",
+        "z": "274cb03b3db2d71a",
+        "g": "5a408ef9d6e94ab1",
+        "name": "temp_out",
+        "group": "4c88ce79aeb1c97e",
+        "order": 1,
+        "width": 4,
+        "height": 5,
+        "gtype": "donut",
+        "title": "",
+        "label": "C°",
+        "format": "{{value}}",
+        "min": "-15",
+        "max": "45",
+        "colors": [
+            "#00f900",
+            "#00f900",
+            "#00f900"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 700,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e550af8caa271bec",
+        "type": "ui_gauge",
+        "z": "274cb03b3db2d71a",
+        "g": "5a408ef9d6e94ab1",
+        "name": "temp_in",
+        "group": "4c88ce79aeb1c97e",
+        "order": 2,
+        "width": 3,
+        "height": 5,
+        "gtype": "donut",
+        "title": "",
+        "label": "C°",
+        "format": "{{value}}",
+        "min": "-15",
+        "max": "45",
+        "colors": [
+            "#00f900",
+            "#00f900",
+            "#00f900"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 700,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "73791fc295d7901c",
+        "type": "ui_gauge",
+        "z": "274cb03b3db2d71a",
+        "g": "eb3edd6bd3a0106e",
+        "name": "",
+        "group": "8ccf1fb7e0607deb",
+        "order": 1,
+        "width": 4,
+        "height": 5,
+        "gtype": "wave",
+        "title": "",
+        "label": "/3",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "3",
+        "colors": [
+            "#00fdff",
+            "#00f900",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 670,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "1b014b67048a60c9",
+        "type": "ui_led",
+        "z": "274cb03b3db2d71a",
+        "g": "eb3edd6bd3a0106e",
+        "order": 2,
+        "group": "8ccf1fb7e0607deb",
+        "width": 3,
+        "height": "1",
+        "label": "Heartbeat:",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "heartbeat led",
+        "x": 690,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "6c4df644e96fd00d",
+        "type": "ui_led",
+        "z": "274cb03b3db2d71a",
+        "g": "eb3edd6bd3a0106e",
+        "order": 5,
+        "group": "8ccf1fb7e0607deb",
+        "width": 3,
+        "height": 1,
+        "label": "Valve",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "led valve 1",
+        "x": 690,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "98c966e11d3753b1",
+        "type": "ui_led",
+        "z": "274cb03b3db2d71a",
+        "g": "eb3edd6bd3a0106e",
+        "order": 6,
+        "group": "8ccf1fb7e0607deb",
+        "width": 3,
+        "height": 1,
+        "label": "Valve 2",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "led valve 2",
+        "x": 690,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "20c3aecd272b3f13",
+        "type": "inject",
+        "z": "274cb03b3db2d71a",
+        "g": "eb3edd6bd3a0106e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "2",
+        "payloadType": "num",
+        "x": 510,
+        "y": 420,
+        "wires": [
+            [
+                "73791fc295d7901c"
+            ]
+        ]
+    },
+    {
+        "id": "081542ce9d9322a0",
+        "type": "link in",
+        "z": "274cb03b3db2d71a",
+        "g": "5a408ef9d6e94ab1",
+        "name": "temp_in",
+        "links": [
+            "60fe06549654d7a9"
+        ],
+        "x": 575,
+        "y": 160,
+        "wires": [
+            [
+                "e550af8caa271bec"
+            ]
+        ]
+    },
+    {
+        "id": "37b90db2973a2911",
+        "type": "link in",
+        "z": "274cb03b3db2d71a",
+        "g": "5a408ef9d6e94ab1",
+        "name": "temp_in",
+        "links": [
+            "a9e006439192e826"
+        ],
+        "x": 575,
+        "y": 200,
+        "wires": [
+            [
+                "0ade02986402d041"
+            ]
+        ]
+    },
+    {
+        "id": "68cdeea5f9e1043c",
+        "type": "inject",
+        "z": "274cb03b3db2d71a",
+        "g": "eb3edd6bd3a0106e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 130,
+        "y": 520,
+        "wires": [
+            [
+                "1b014b67048a60c9",
+                "7672b8fee1fa2861"
+            ]
+        ]
+    },
+    {
+        "id": "af31835423d85d88",
+        "type": "change",
+        "z": "274cb03b3db2d71a",
+        "g": "eb3edd6bd3a0106e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 480,
+        "wires": [
+            [
+                "1b014b67048a60c9"
+            ]
+        ]
+    },
+    {
+        "id": "7672b8fee1fa2861",
+        "type": "delay",
+        "z": "274cb03b3db2d71a",
+        "g": "eb3edd6bd3a0106e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 290,
+        "y": 480,
+        "wires": [
+            [
+                "af31835423d85d88"
+            ]
+        ]
+    },
+    {
+        "id": "9759d9469a52886d",
+        "type": "ui_led",
+        "z": "274cb03b3db2d71a",
+        "g": "eb3edd6bd3a0106e",
+        "order": 4,
+        "group": "8ccf1fb7e0607deb",
+        "width": 3,
+        "height": 1,
+        "label": "Pump:",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "pump",
+        "x": 670,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "55529fed57d67761",
+        "type": "link in",
+        "z": "274cb03b3db2d71a",
+        "g": "eb3edd6bd3a0106e",
+        "name": "",
+        "links": [
+            "7538c7f00b6939fb"
+        ],
+        "x": 345,
+        "y": 540,
+        "wires": [
+            [
+                "5e0c9205af213c28"
+            ]
+        ]
+    },
+    {
+        "id": "5e0c9205af213c28",
+        "type": "change",
+        "z": "274cb03b3db2d71a",
+        "g": "eb3edd6bd3a0106e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "output_state.pump",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 540,
+        "wires": [
+            [
+                "9759d9469a52886d"
+            ]
+        ]
+    },
+    {
         "id": "e8ee218f560979f9",
         "type": "inject",
         "z": "162cea04a51a0717",
@@ -7308,7 +7451,8 @@
         "name": "indoor_temp_trigger",
         "mode": "link",
         "links": [
-            "37b90db2973a2911"
+            "37b90db2973a2911",
+            "02869ffd1e71cf2e"
         ],
         "x": 1055,
         "y": 320,
@@ -7322,7 +7466,8 @@
         "name": "outdoor_temp_trigger",
         "mode": "link",
         "links": [
-            "081542ce9d9322a0"
+            "081542ce9d9322a0",
+            "b80ae4a8e1197d16"
         ],
         "x": 1055,
         "y": 380,
