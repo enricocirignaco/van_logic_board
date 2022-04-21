@@ -295,7 +295,9 @@
             "cd7be1f40dda90df"
         ],
         "x": 14,
-        "y": 19
+        "y": 19,
+        "w": 1132,
+        "h": 162
     },
     {
         "id": "232f2c028585f7b9",
@@ -323,7 +325,9 @@
             "68c85cf9d66453b2"
         ],
         "x": 1314,
-        "y": 19
+        "y": 19,
+        "w": 412,
+        "h": 282
     },
     {
         "id": "fb118a00f83d2ac1",
@@ -424,11 +428,11 @@
                 }
             },
             "angularTheme": {
-                "primary": "indigo",
+                "primary": "purple",
                 "accents": "blue",
                 "warn": "red",
                 "background": "grey",
-                "palette": "light"
+                "palette": "dark"
             }
         },
         "site": {
@@ -5381,7 +5385,7 @@
         "to": "",
         "reg": false,
         "x": 240,
-        "y": 440,
+        "y": 460,
         "wires": [
             [
                 "39fe1cc690bb3a69"
@@ -5700,7 +5704,7 @@
         "z": "493e4b0fcbc7484f",
         "g": "232f2c028585f7b9",
         "name": "Parser",
-        "func": "const charger_power = Math.round(4*msg.payload.V/1000);\n\n// calculate power\nmsg.payload = Math.round((msg.payload.I/1000) * (msg.payload.V/1000));\n\n// if charger is on and battery is not full (not absorption or float state)\nif(global.get(\"output_state.charger\") && msg.payload.CS !=4 && msg.payload.CS !=5){\n    msg.payload = msg.payload + charger_power;\n}\nreturn msg;",
+        "func": "\n// calculate power\nmsg.payload = Math.round((msg.payload.I/1000) * (msg.payload.V/1000));\n\n// if charger is on and battery is not full (not absorption nor float state)\nif(global.get(\"output_state.charger\") && msg.payload.CS !=4 && msg.payload.CS !=5){\n    const charger_power = Math.round(4*msg.payload.V/1000);\n    msg.payload = msg.payload + charger_power;\n}\n\n// ui stuff --> change gage color if is charging or discharging\nif(msg.payload > 0 && context.get(\"color\") != \"green\" ){\n    context.set(\"color\", \"green\");\n}\nelse if(msg.payload <= 0 && context.get(\"color\") != \"red\") {\n    context.set(\"color\", \"red\");\n}\nelse {\n    //msg.payload = Math.abs(msg.payload);\n    return msg;\n}\n\n// remove sign\nmsg.payload = Math.abs(msg.payload);\nmsg.ui_control = \n{\n    \"gtype\": \"gage\",\n\n    \"options\":\n    {\n        \"min\": -200,\n        \"max\": 200,\n        \"colors\": [context.get(\"color\"), context.get(\"color\"), context.get(\"color\")]\n    }\n};\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -5994,7 +5998,7 @@
         "type": "function",
         "z": "493e4b0fcbc7484f",
         "name": "SOC calculator",
-        "func": "const MAX_CAPACITY = 384; //Wh (12.5V * 30Ah)\nconst energy_yield = msg.payload.energy_yield*10; //Wh\nconst energy_consumed = msg.payload.energy_consumed*10;   //Wh\nconst energy_offset = flow.get(\"energy_offset\") || 344;\nconst energy_charger = flow.get(\"energy_charger\");\nvar left_energy = energy_offset + energy_yield - energy_consumed + energy_charger;\n\n// if battery fully charged (float mode)\n// or if error detected (SOC > 100%)\n// then adjust energy offset\nif(global.get(\"mppt_broadcast\").CS == '5' || left_energy > MAX_CAPACITY){\n    flow.set(\"energy_offset\", (MAX_CAPACITY - energy_yield + energy_consumed - energy_charger));\n}\n// SOC < 0%\nelse if(left_energy < 0){\n    flow.set(\"energy_offset\", (0 - energy_yield + energy_consumed - energy_charger));\n}\n\n// calculate soc in %\nleft_energy = energy_offset + energy_yield - energy_consumed + energy_charger;\nconst soc = Math.round(left_energy * 100 / MAX_CAPACITY);\nmsg.payload = soc;\nreturn msg;\n",
+        "func": "const MAX_CAPACITY = 364; //Wh (12.5V * 30Ah)\nconst energy_yield = msg.payload.energy_yield*10; //Wh\nconst energy_consumed = msg.payload.energy_consumed*10;   //Wh\nconst energy_offset = flow.get(\"energy_offset\") || 344;\nconst energy_charger = flow.get(\"energy_charger\") || 0;\nvar left_energy = energy_offset + energy_yield - energy_consumed + energy_charger;\n\n// if battery fully charged (float mode)\n// or if error detected (SOC > 100%)\n// then adjust energy offset\nif(global.get(\"mppt_broadcast\").CS == '5' || left_energy > MAX_CAPACITY){\n    flow.set(\"energy_offset\", (MAX_CAPACITY - energy_yield + energy_consumed - energy_charger));\n}\n// SOC < 0%\nelse if(left_energy < 0){\n    flow.set(\"energy_offset\", (0 - energy_yield + energy_consumed - energy_charger));\n}\n\n// calculate soc in %\nleft_energy = flow.get(\"energy_offset\") + energy_yield - energy_consumed + energy_charger;\nconst soc = Math.round(left_energy * 100 / MAX_CAPACITY);\nmsg.payload = soc;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -6013,7 +6017,7 @@
         "type": "function",
         "z": "493e4b0fcbc7484f",
         "name": "count energy yield from charger",
-        "func": "const CHARGER_CURRENT = 4;\n\n// if the charger is enabled and the battery in not fully charged (bulk)\nif (global.get(\"output_state.charger\" && global.get(\"mppt_broadcast.CS\" == 3))){\n    // calculate energy yield from charger in one minute (currrent*voltage/60minutes)\n    var charger_energy = (CHARGER_CURRENT/60)* global.get(\"mppt_broadcast.V\");\n    // store charger energy counter in a flow variable\n    flow.set(\"energy_charger\", flow.get(\"energy_charger\") + charger_energy);\n}\nreturn msg;",
+        "func": "const CHARGER_CURRENT = 4;\nconst mppt_broadcast = global.get(\"mppt_broadcast\");\n\n// if charger is on and battery is not full (not absorption nor float state)\nif(global.get(\"output_state.charger\") && mppt_broadcast.CS !=4 && mppt_broadcast.CS !=5){\n    // calculate energy yield from charger in one minute (currrent*voltage/60minutes)\n    const charger_energy = (CHARGER_CURRENT/60)* mppt_broadcast.V;\n    // store charger energy counter in a flow variable\n    flow.set(\"energy_charger\", (flow.get(\"energy_charger\")||0) + charger_energy);\n}\nreturn;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -6039,6 +6043,23 @@
         "wires": [
             [
                 "dca58a8f09358d32"
+            ]
+        ]
+    },
+    {
+        "id": "288714c1f00e46d7",
+        "type": "catch",
+        "z": "493e4b0fcbc7484f",
+        "name": "",
+        "scope": [
+            "e114afa58ebbb8c1"
+        ],
+        "uncaught": false,
+        "x": 90,
+        "y": 480,
+        "wires": [
+            [
+                "faab1e33cd83d2ce"
             ]
         ]
     },
