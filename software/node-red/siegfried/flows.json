@@ -370,9 +370,7 @@
             "37b90db2973a2911"
         ],
         "x": 534,
-        "y": 119,
-        "w": 252,
-        "h": 122
+        "y": 119
     },
     {
         "id": "eb3edd6bd3a0106e",
@@ -396,9 +394,7 @@
             "5e0c9205af213c28"
         ],
         "x": 34,
-        "y": 379,
-        "w": 752,
-        "h": 282
+        "y": 379
     },
     {
         "id": "a74bb25de5c78e26",
@@ -2943,7 +2939,7 @@
         "id": "db6405ab01538e53",
         "type": "link out",
         "z": "a7233230404c3289",
-        "name": "input_state_trigger",
+        "name": "hw_out",
         "mode": "link",
         "links": [
             "36ef8234e5ee6087"
@@ -3019,10 +3015,9 @@
         "z": "24f18b1077451b8f",
         "name": "broker_input",
         "links": [
-            "cc77f9a3904f5b50",
             "9de2c1b1700d6284",
-            "d79bcea1e9a923c6",
             "a169fe1c4522c408",
+            "d79bcea1e9a923c6",
             "db6405ab01538e53"
         ],
         "x": 45,
@@ -6135,7 +6130,7 @@
         "shape": "circle",
         "showGlow": true,
         "name": "charger_led",
-        "x": 1210,
+        "x": 1230,
         "y": 340,
         "wires": []
     },
@@ -6273,7 +6268,7 @@
         "type": "function",
         "z": "5a08a5132887b1a2",
         "name": "check motor state",
-        "func": "msg.topic = \"charger\";\nmsg.source = \"lead_battery\";\n\nif(msg.enabled || msg.enabled == undefined){\n    msg.payload = true;\n}\nelse{\n    msg.payload = false\n}\nreturn msg;",
+        "func": "msg.topic = \"charger\";\nmsg.source = \"lead_battery\";\n\n// if motor is running\nif(msg.enabled || msg.enabled == undefined){\n    \n    // if switch enabled\n    if(msg.payload == 1){\n        msg.payload = true;\n    }\n    // if switch disabled\n    else {\n        msg.payload = false;\n    }\n}\n// if motor is not running\nelse{\n    msg.payload = false\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -6573,7 +6568,7 @@
         "links": [
             "36ef8234e5ee6087"
         ],
-        "x": 1265,
+        "x": 1175,
         "y": 380,
         "wires": []
     },
