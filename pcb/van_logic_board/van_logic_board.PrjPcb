@@ -28,7 +28,7 @@ DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
 FSMCodingStyle=eFMSDropDownList_OneProcess
 FSMEncodingStyle=eFMSDropDownList_OneHot
-OutputPath=Project Outputs for van_logic_board
+OutputPath=
 LogFolderPath=
 ManagedProjectGUID=
 IncludeDesignInRelease=0
@@ -123,24 +123,7 @@ GenerateClassCluster=0
 DocumentUniqueId=GUUVSWHF
 
 [Document6]
-DocumentPath=fridge_module.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=PGUIUJWP
-
-[Document7]
-DocumentPath=inverter_module.SchDoc
+DocumentPath=relay_module.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -156,7 +139,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=SFKXXCWZ
 
-[Document8]
+[Document7]
 DocumentPath=control_module.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -173,7 +156,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=LGLSBEGU
 
-[Document9]
+[Document8]
 DocumentPath=water_system_module.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -190,7 +173,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=CXQXDGZB
 
-[Document10]
+[Document9]
 DocumentPath=interfaces_module.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -207,24 +190,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=UOACEGQM
 
-[Document11]
-DocumentPath=charger_module.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=6
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=OXYAZLRG
-
-[Document12]
+[Document10]
 DocumentPath=Job1.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -241,9 +207,39 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[GeneratedDocument1]
-DocumentPath=Project Outputs for van_logic_board\Design Rule Check - logic_board.html
+[Document11]
+DocumentPath=input_module.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
 DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=XKHSOENE
+
+[Document12]
+DocumentPath=output_module.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=KNORMMSS
 
 [Configuration1]
 Name=Sources
@@ -256,7 +252,7 @@ ContentTypeGUID=CB6F2064-E317-11DF-B822-12313F0024A2
 ConfigurationType=Source
 
 [Generic_EDE]
-OutputDir=Project Outputs for van_logic_board
+OutputDir=
 
 [OutputGroup1]
 Name=Netlist Outputs
@@ -1154,10 +1150,16 @@ NetClassManualEnabled=1
 NetClassSeparateForBusSections=0
 
 [LibraryUpdateOptions]
-SelectedOnly=0
+SelectedOnly=1
 UpdateVariants=1
 UpdateToLatestRevision=1
 PartTypes=0
+ComponentLibIdentifierKind0=Library Name Only
+ComponentLibraryIdentifier0=Altium Content Vault
+ComponentDesignItemID0=CMP-1684-00017-1
+ComponentSymbolReference0=CN-1P-F-TB2
+ComponentUpdate0=1
+ComponentIsDeviceSheet0=0
 FullReplace=1
 UpdateDesignatorLock=1
 UpdatePartIDLock=1
@@ -1171,6 +1173,85 @@ RemoveParameters=0
 AddModels=1
 RemoveModels=1
 UpdateCurrentModels=1
+ParameterName0=3D Model
+ParameterUpdate0=1
+ParameterName1=Category
+ParameterUpdate1=1
+ParameterName2=Clamp Material - Plating
+ParameterUpdate2=1
+ParameterName3=Color
+ParameterUpdate3=1
+ParameterName4=Comment
+ParameterUpdate4=1
+ParameterName5=Component Kind
+ParameterUpdate5=1
+ParameterName6=Contact Material - Plating
+ParameterUpdate6=1
+ParameterName7=Current
+ParameterUpdate7=1
+ParameterName8=Datasheet URL
+ParameterUpdate8=1
+ParameterName9=Description
+ParameterUpdate9=1
+ParameterName10=Dynamic Catalog
+ParameterUpdate10=1
+ParameterName11=Family
+ParameterUpdate11=1
+ParameterName12=Featured Product
+ParameterUpdate12=1
+ParameterName13=Features
+ParameterUpdate13=1
+ParameterName14=Housing Material
+ParameterUpdate14=1
+ParameterName15=Library Reference
+ParameterUpdate15=1
+ParameterName16=Manufacturer
+ParameterUpdate16=1
+ParameterName17=Manufacturer URL
+ParameterUpdate17=1
+ParameterName18=Mating Orientation
+ParameterUpdate18=1
+ParameterName19=Mounting Type
+ParameterUpdate19=1
+ParameterName20=Number of Levels
+ParameterUpdate20=1
+ParameterName21=Other Names
+ParameterUpdate21=1
+ParameterName22=Package Description
+ParameterUpdate22=1
+ParameterName23=Package Reference
+ParameterUpdate23=1
+ParameterName24=Packaging
+ParameterUpdate24=1
+ParameterName25=Pitch
+ParameterUpdate25=1
+ParameterName26=Positions Per Level
+ParameterUpdate26=1
+ParameterName27=Product Training Modules
+ParameterUpdate27=1
+ParameterName28=RoHS Information
+ParameterUpdate28=1
+ParameterName29=Screw Material - Plating
+ParameterUpdate29=1
+ParameterName30=Screw Thread
+ParameterUpdate30=1
+ParameterName31=Series
+ParameterUpdate31=1
+ParameterName32=Standard Package
+ParameterUpdate32=1
+ParameterName33=Torque - Screw
+ParameterUpdate33=1
+ParameterName34=Voltage
+ParameterUpdate34=1
+ParameterName35=Wire Gauge
+ParameterUpdate35=1
+ParameterName36=Wire Termination
+ParameterUpdate36=1
+ModelTypeGroup0=PCBLIB
+ModelTypeUpdate0=1
+ModelType0=PCBLIB
+ModelName0=TECO-282836-2_V
+ModelUpdate0=1
 
 [DatabaseUpdateOptions]
 SelectedOnly=0
