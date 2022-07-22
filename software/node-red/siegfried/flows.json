@@ -4242,6 +4242,11 @@
                 "label": "battery life",
                 "value": "battery_life",
                 "type": "str"
+            },
+            {
+                "label": "spring",
+                "value": "spring",
+                "type": "str"
             }
         ],
         "payload": "",
@@ -4280,7 +4285,7 @@
         "type": "function",
         "z": "78b28997a4d07be2",
         "name": "always on",
-        "func": "var fridge_state = global.get(\"output_state.fridge\");\n\n// if battery is too low abort and do nothing\nif(global.get(\"low_soc\")) {\n    return;\n}\n\n// if fridge is off or source is not lfp, turn it on\nif(!fridge_state) {\n    msg.payload = true;\n    msg.topic = \"fridge\";\n    msg.source = \"lfp_battery\";\n    return msg;\n}\n\nreturn;",
+        "func": "const fridge_state = global.get(\"output_state.fridge\");\nconst source = global.get(\"output_state.inverter_source\");\nconst low_battery = global.get(\"soc.lfp_low\");\n\n\n// if fridge is off or source is not lfp, and battery is not low turn it on\nif((!fridge_state || (source == \"lead_battery\")) && !low_battery) {\n    msg.payload = true;\n    msg.topic = \"fridge\";\n    msg.source = \"lfp_battery\";\n}\n// if battery is too low turn off fridge\nelse if(low_battery) {\n    msg.payload = false;\n    msg.topic = \"fridge\";\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4305,7 +4310,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1340,
+        "x": 1330,
         "y": 660,
         "wires": [
             []
@@ -4315,15 +4320,15 @@
         "id": "1966728c9236e2bb",
         "type": "function",
         "z": "78b28997a4d07be2",
-        "name": "summer algorithm",
+        "name": "spring algorithm",
         "func": "var fridge_state = global.get(\"output_state.fridge\");\nvar soc = global.get(\"state_of_charge\");\nvar properties = flow.get(\"algorithms.summer\");\nvar fridge_temp = global.get(\"sensors.fridge_temp\");\nconst charger_state = global.get(\"mppt_broadcast.CS\");\n\n// turn on fridge if upper threshold temperature exeeded or mppt is in float\nif((charger_state == 5 && fridge_temp > 5) || (fridge_temp > properties.on_threshold)) {\n    // if fridge already on or if mppt is off (is night)\n    if(fridge_state || charger_state == 0) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = true;\n    msg.source = \"lfp_battery\";\n}\n\n// turn off fridge if temperature is lower than lower threshold \nelse if(fridge_temp < properties.off_threshold) {\n    // if fridge already off\n    if(!fridge_state) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = false;\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1330,
-        "y": 700,
+        "x": 1320,
+        "y": 780,
         "wires": [
             [
                 "d79bcea1e9a923c6"
@@ -4411,11 +4416,16 @@
                 "t": "eq",
                 "v": "battery_life",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "spring",
+                "vt": "str"
             }
         ],
         "checkall": "false",
         "repair": false,
-        "outputs": 6,
+        "outputs": 7,
         "x": 1110,
         "y": 640,
         "wires": [
@@ -4432,10 +4442,13 @@
                 "883ff0dabf8e8aaa"
             ],
             [
-                "1966728c9236e2bb"
+                "ab1a572a899e6e7a"
             ],
             [
                 "a0bbb818d234da39"
+            ],
+            [
+                "1966728c9236e2bb"
             ]
         ]
     },
@@ -4448,8 +4461,8 @@
         "links": [
             "36ef8234e5ee6087"
         ],
-        "x": 1635,
-        "y": 580,
+        "x": 1755,
+        "y": 640,
         "wires": []
     },
     {
@@ -4457,7 +4470,7 @@
         "type": "function",
         "z": "78b28997a4d07be2",
         "name": "always on lead",
-        "func": "var fridge_state = global.get(\"output_state.fridge\");\n\n// if battery is too low abort and do nothing\nif(global.get(\"low_soc\")) {\n    return;\n}\n\n\n\n// if fridge is off or source is not lfp, turn it on\nif(!fridge_state) {\n    msg.payload = true;\n    msg.topic = \"fridge\";\n    return msg;\n}\n\nreturn;",
+        "func": "const fridge_state = global.get(\"output_state.fridge\");\nconst source = global.get(\"output_state.inverter_source\");\nconst low_battery = global.get(\"soc.lead_low\");\n\n\n// if fridge is off or source is not lead, and battery is not low turn it on\nif((!fridge_state || (source == \"lfp_battery\")) && !low_battery) {\n    msg.payload = true;\n    msg.topic = \"fridge\";\n    msg.source = \"lead_battery\";\n}\n// if battery is too low turn off fridge\nelse if(low_battery) {\n    msg.payload = false;\n    msg.topic = \"fridge\";\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4479,7 +4492,7 @@
         "func": "",
         "outputs": 1,
         "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\nvar algorithms = {\n    always_on: {\n        on_threshold: 6,\n        off_threshold: 0,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    always_on_lead: {\n        on_threshold: 10,\n        off_threshold: 2,\n        description: \n        \"Always onhalijdnifivnhaloooo\"\n    },\n    always_off: {\n        on_threshold: 0,\n        off_threshold: 0,\n        description: \n        \"Always ocnfuncer9ennhalihaloooo\"\n    },\n    summer: {\n        on_threshold: 10,\n        off_threshold: 2,\n        description: \n        \"Always on9ucnopaidjcihalihaloooo\"\n    },\n    winter: {\n        on_threshold: 10,\n        off_threshold: 5,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    battery_life: {\n        on_threshold: 15,\n        off_threshold: 7,\n        description: \n        \"Always onhalihaloooo\"\n    }\n};\nflow.set(\"algorithms\", algorithms);\n\nreturn;",
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\nvar algorithms = {\n    always_on: {\n        on_threshold: 6,\n        off_threshold: 0,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    always_on_lead: {\n        on_threshold: 10,\n        off_threshold: 2,\n        description: \n        \"Always onhalijdnifivnhaloooo\"\n    },\n    always_off: {\n        on_threshold: 0,\n        off_threshold: 0,\n        description: \n        \"Always ocnfuncer9ennhalihaloooo\"\n    },\n    spring: {\n        on_threshold: 10,\n        off_threshold: 2,\n        description: \n        \"Always on9ucnopaidjcihalihaloooo\"\n    },\n    winter: {\n        on_threshold: 10,\n        off_threshold: 5,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    battery_life: {\n        on_threshold: 15,\n        off_threshold: 7,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    summer: {\n        on_threshold: 7,\n        off_threshold: 4,\n        time_threshold: 30,\n        description: \n        \"Always onhalihaloooo\"\n    }\n};\nflow.set(\"algorithms\", algorithms);\n\nreturn;",
         "finalize": "",
         "libs": [],
         "x": 150,
@@ -4577,21 +4590,20 @@
         "name": "init",
         "props": [
             {
-                "p": "payload"
+                "p": "topic",
+                "vt": "str"
             }
         ],
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "1",
-        "topic": "",
-        "payload": "always_off",
-        "payloadType": "str",
-        "x": 170,
-        "y": 380,
+        "topic": "SELECT fridge_algorithm FROM settings WHERE id=1;",
+        "x": 110,
+        "y": 300,
         "wires": [
             [
-                "b5c43be785249085"
+                "235454e495b97358"
             ]
         ]
     },
@@ -4893,71 +4905,8 @@
         "wires": [
             [
                 "7eb26657ca88314f",
-                "9342b1041f1f9ae3"
-            ]
-        ]
-    },
-    {
-        "id": "197be4ea0e156d65",
-        "type": "inject",
-        "z": "78b28997a4d07be2",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 920,
-        "y": 840,
-        "wires": [
-            [
-                "775d38e664ab0508"
-            ]
-        ]
-    },
-    {
-        "id": "02ed16a6ebcf5535",
-        "type": "debug",
-        "z": "78b28997a4d07be2",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1210,
-        "y": 840,
-        "wires": []
-    },
-    {
-        "id": "775d38e664ab0508",
-        "type": "function",
-        "z": "78b28997a4d07be2",
-        "name": "",
-        "func": "msg.payload = new Date().getHours();\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1060,
-        "y": 840,
-        "wires": [
-            [
-                "02ed16a6ebcf5535"
+                "9342b1041f1f9ae3",
+                "546a98a5c56f7c87"
             ]
         ]
     },
@@ -5018,6 +4967,112 @@
         "x": 1470,
         "y": 200,
         "wires": []
+    },
+    {
+        "id": "ab1a572a899e6e7a",
+        "type": "function",
+        "z": "78b28997a4d07be2",
+        "name": "summer algorithm",
+        "func": "const fridge_state = global.get(\"output_state.fridge\");\nconst fridge_temp = global.get(\"sensors.fridge_temp\");\nconst charger_state = global.get(\"mppt_broadcast.CS\");\nconst low_battery = global.get(\"soc.lfp_low\");\nconst properties = flow.get(\"algorithms.summer\");\n\nif(context.get(\"timer\")===undefined){\n    context.set(\"timer\", 0);\n}\nconst elapsed_time = Math.round((Date.now() - context.get(\"timer\"))/60000);\n\n// turn on fridge if upper threshold temperature exeeded\nif(fridge_temp > properties.on_threshold && elapsed_time > 10) {\n    // if fridge already on or if mppt is off (is night) or if battery is low\n    if(fridge_state || charger_state == 0 || low_battery) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = true;\n    msg.source = \"lfp_battery\";\n    // restart timer\n    context.set(\"timer\", Date.now());\n}\n\n// turn off fridge if temperature is lower than lower threshold or time threshold is exeeded or the battery is low\nelse if(fridge_temp < properties.off_threshold || elapsed_time > properties.time_threshold || low_battery) {\n    // if fridge already off\n    if(!fridge_state) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = false;\n    // restart timer\n    context.set(\"timer\", Date.now());\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1330,
+        "y": 700,
+        "wires": [
+            [
+                "d79bcea1e9a923c6"
+            ]
+        ]
+    },
+    {
+        "id": "50b1a02b2b6bf27e",
+        "type": "mysql",
+        "z": "78b28997a4d07be2",
+        "mydb": "9accbd4c3bdcd845",
+        "name": "save algorithm",
+        "x": 920,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "546a98a5c56f7c87",
+        "type": "change",
+        "z": "78b28997a4d07be2",
+        "name": "save setting in db",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "UPDATE settings SET fridge_algorithm=? WHERE id =1;",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 730,
+        "y": 460,
+        "wires": [
+            [
+                "50b1a02b2b6bf27e"
+            ]
+        ]
+    },
+    {
+        "id": "235454e495b97358",
+        "type": "mysql",
+        "z": "78b28997a4d07be2",
+        "mydb": "9accbd4c3bdcd845",
+        "name": "get algorithm",
+        "x": 250,
+        "y": 300,
+        "wires": [
+            [
+                "9d84ba6573900aea"
+            ]
+        ]
+    },
+    {
+        "id": "9d84ba6573900aea",
+        "type": "change",
+        "z": "78b28997a4d07be2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload[0].fridge_algorithm",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 300,
+        "wires": [
+            [
+                "b5c43be785249085"
+            ]
+        ]
     },
     {
         "id": "4ba88c3a7bf4d7cf",
@@ -5226,33 +5281,10 @@
         "links": [
             "1874703f19edaf5a",
             "503c12d16819e9da",
-            "1d18e0d4fa25afdb",
-            "804d9160d5379cef",
-            "3eaa17a3417f5b8b",
-            "a628f89f591c3690",
-            "1e62d72933ef2bcd",
-            "19e263f10f550181",
-            "e7286d0da156bdcf",
             "928b3a38f03c176e",
-            "e3217e2708881be8",
-            "8527b3d67fe2224a",
-            "43f77f31e3b2c1b0",
-            "b8ac58645a52e7c6",
-            "c486e5132cc02d93",
-            "e538c1f7d61d4772",
-            "f3f7558a608089a3",
-            "922227ec3aad9f6d",
-            "d267ecf420261df1",
-            "e75caaeb484e35dd",
-            "c82a9209d50b9495",
-            "11cc5bc2508e0b49",
-            "6c74cf4b52583377",
-            "7903acae81de3fd8",
-            "1e2cd0481d654584",
-            "27f798f29dcff875",
-            "b1e32e51141fe749",
-            "c85d48e227ee6bfd",
-            "bde5457bae4472d5"
+            "bde5457bae4472d5",
+            "e7286d0da156bdcf",
+            "a98a1f03b2e8d5f8"
         ],
         "x": 755,
         "y": 60,
@@ -6626,6 +6658,39 @@
         "wires": [
             [
                 "5657ebb35eb98b08"
+            ]
+        ]
+    },
+    {
+        "id": "2cee04d019e36444",
+        "type": "function",
+        "z": "5a08a5132887b1a2",
+        "name": "set lfp low",
+        "func": "const lfp_voltage = msg.payload.V;\nif(lfp_voltage <= 11000) {\n    global.set(\"soc.lfp_low\", true);\n}\nelse if(global.get(\"soc.lfp_low\") && lfp_voltage >= 11700) {\n    global.set(\"soc.lfp_low\", false);\n}\nreturn;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a98a1f03b2e8d5f8",
+        "type": "link in",
+        "z": "5a08a5132887b1a2",
+        "name": "lfp_soc",
+        "links": [
+            "cd7be1f40dda90df"
+        ],
+        "x": 265,
+        "y": 540,
+        "wires": [
+            [
+                "2cee04d019e36444"
             ]
         ]
     },
