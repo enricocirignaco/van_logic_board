@@ -316,13 +316,13 @@
             "928b3a38f03c176e",
             "a4d932bcecd17514",
             "be41a7f828962f8c",
-            "2ec5374cc7d45626",
             "bde5457bae4472d5",
             "3b63ad5a137efd38",
             "27dff5e8f07846b1",
             "a408cdad7701296b",
             "c2df51ef9125b574",
-            "68c85cf9d66453b2"
+            "68c85cf9d66453b2",
+            "ed34cb45279c1235"
         ],
         "x": 1314,
         "y": 19,
@@ -3139,9 +3139,9 @@
         "id": "5404bdd93d2c8747",
         "type": "delay",
         "z": "24f18b1077451b8f",
-        "name": "10sec delay",
+        "name": "20sec delay",
         "pauseType": "delay",
-        "timeout": "15",
+        "timeout": "20",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -5354,7 +5354,7 @@
         "y": 140,
         "wires": [
             [
-                "2ec5374cc7d45626"
+                "ed34cb45279c1235"
             ]
         ]
     },
@@ -5426,7 +5426,7 @@
         "title": "Battery",
         "label": "W",
         "format": "{{value}}",
-        "min": "-200",
+        "min": "0",
         "max": "200",
         "colors": [
             "#ff9300",
@@ -5439,26 +5439,6 @@
         "x": 1620,
         "y": 140,
         "wires": []
-    },
-    {
-        "id": "2ec5374cc7d45626",
-        "type": "function",
-        "z": "493e4b0fcbc7484f",
-        "g": "232f2c028585f7b9",
-        "name": "Parser",
-        "func": "\n// calculate power\nmsg.payload = Math.round((msg.payload.I/1000) * (msg.payload.V/1000));\n\n// if charger is on and battery is not full (not absorption nor float state)\nif(global.get(\"output_state.charger\") && msg.payload.CS !=4 && msg.payload.CS !=5){\n    const charger_power = Math.round(4*msg.payload.V/1000);\n    msg.payload = msg.payload + charger_power;\n}\n\n// ui stuff --> change gage color if is charging or discharging\nif(msg.payload > 0 && context.get(\"color\") != \"green\" ){\n    context.set(\"color\", \"green\");\n}\nelse if(msg.payload <= 0 && context.get(\"color\") != \"red\") {\n    context.set(\"color\", \"red\");\n}\nelse {\n    //msg.payload = Math.abs(msg.payload);\n    return msg;\n}\n\n// remove sign\nmsg.payload = Math.abs(msg.payload);\nmsg.ui_control = \n{\n    \"gtype\": \"gage\",\n\n    \"options\":\n    {\n        \"min\": -200,\n        \"max\": 200,\n        \"colors\": [context.get(\"color\"), context.get(\"color\"), context.get(\"color\")]\n    }\n};\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1450,
-        "y": 140,
-        "wires": [
-            [
-                "be41a7f828962f8c"
-            ]
-        ]
     },
     {
         "id": "bde5457bae4472d5",
@@ -5495,11 +5475,11 @@
         "max": "200",
         "colors": [
             "#00f900",
-            "#ff9300",
-            "#ff2600"
+            "#00f900",
+            "#ff9300"
         ],
         "seg1": "",
-        "seg2": "",
+        "seg2": "150",
         "className": "",
         "x": 1610,
         "y": 180,
@@ -5802,6 +5782,26 @@
         "wires": [
             [
                 "faab1e33cd83d2ce"
+            ]
+        ]
+    },
+    {
+        "id": "ed34cb45279c1235",
+        "type": "function",
+        "z": "493e4b0fcbc7484f",
+        "g": "232f2c028585f7b9",
+        "name": "Parser",
+        "func": "// calculate power\nmsg.payload = Math.round((msg.payload.I/1000) * (msg.payload.V/1000));\n\n// if charger is on and battery is not full (not absorption nor float state)\nif(global.get(\"output_state.charger\") && msg.payload.CS !=4 && msg.payload.CS !=5){\n    const charger_power = Math.round(4*msg.payload.V/1000);\n    msg.payload = msg.payload + charger_power;\n}\n\n// ui stuff --> change gage color if is charging or discharging\nif(msg.payload > 0 && context.get(\"color\") != \"#00F900\" ){\n    context.set(\"color\", \"#00F900\");\n}\nelse if(msg.payload <= 0 && context.get(\"color\") != \"#CA3838\") {\n    context.set(\"color\", \"#CA3838\");\n}\nelse {\n    // remove sign\n    msg.payload = Math.abs(msg.payload);\n    return msg;\n}\n\n// remove sign\nmsg.payload = Math.abs(msg.payload);\nmsg.ui_control = \n{\n    \"gtype\": \"gage\",\n    \"colors\": [context.get(\"color\"), context.get(\"color\"), context.get(\"color\")],\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 140,
+        "wires": [
+            [
+                "be41a7f828962f8c"
             ]
         ]
     },
@@ -6563,6 +6563,7 @@
         "id": "a169fe1c4522c408",
         "type": "link out",
         "z": "5a08a5132887b1a2",
+        "d": true,
         "name": "hw_out",
         "mode": "link",
         "links": [
