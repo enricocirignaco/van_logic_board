@@ -4280,7 +4280,7 @@
         "y": 140,
         "wires": [
             [
-                "d79bcea1e9a923c6"
+                "d904d559433851af"
             ]
         ]
     },
@@ -4299,7 +4299,7 @@
         "y": 180,
         "wires": [
             [
-                "d79bcea1e9a923c6"
+                "d904d559433851af"
             ]
         ]
     },
@@ -4317,7 +4317,9 @@
         "x": 1630,
         "y": 260,
         "wires": [
-            []
+            [
+                "d904d559433851af"
+            ]
         ]
     },
     {
@@ -4335,7 +4337,7 @@
         "y": 380,
         "wires": [
             [
-                "d79bcea1e9a923c6"
+                "d904d559433851af"
             ]
         ]
     },
@@ -4353,7 +4355,9 @@
         "x": 1640,
         "y": 340,
         "wires": [
-            []
+            [
+                "d904d559433851af"
+            ]
         ]
     },
     {
@@ -4465,7 +4469,7 @@
         "links": [
             "36ef8234e5ee6087"
         ],
-        "x": 1905,
+        "x": 2085,
         "y": 260,
         "wires": []
     },
@@ -4484,7 +4488,7 @@
         "y": 220,
         "wires": [
             [
-                "d79bcea1e9a923c6"
+                "d904d559433851af"
             ]
         ]
     },
@@ -4564,7 +4568,7 @@
             "e9f912577a5edc23"
         ],
         "x": 195,
-        "y": 560,
+        "y": 420,
         "wires": [
             [
                 "cf6a3bc3f772aa9e"
@@ -4590,8 +4594,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 310,
-        "y": 560,
+        "x": 420,
+        "y": 420,
         "wires": [
             [
                 "6ce40a9b23ef15f0"
@@ -4621,8 +4625,8 @@
         "seg1": "0",
         "seg2": "10",
         "className": "",
-        "x": 480,
-        "y": 480,
+        "x": 590,
+        "y": 220,
         "wires": []
     },
     {
@@ -4637,7 +4641,7 @@
             "e6441c2c3626269a"
         ],
         "x": 195,
-        "y": 480,
+        "y": 220,
         "wires": [
             [
                 "08c5c713b62ce9a6"
@@ -4684,10 +4688,12 @@
         "offcolor": "",
         "animate": false,
         "className": "",
-        "x": 470,
-        "y": 520,
+        "x": 580,
+        "y": 360,
         "wires": [
-            []
+            [
+                "f12dcefaf3377485"
+            ]
         ]
     },
     {
@@ -4712,8 +4718,8 @@
         "shape": "circle",
         "showGlow": true,
         "name": "fridge",
-        "x": 460,
-        "y": 560,
+        "x": 570,
+        "y": 420,
         "wires": []
     },
     {
@@ -4730,9 +4736,7 @@
         "x": 1630,
         "y": 300,
         "wires": [
-            [
-                "d79bcea1e9a923c6"
-            ]
+            []
         ]
     },
     {
@@ -4740,8 +4744,8 @@
         "type": "mysql",
         "z": "78b28997a4d07be2",
         "mydb": "9accbd4c3bdcd845",
-        "name": "save algorithm",
-        "x": 1140,
+        "name": "",
+        "x": 1120,
         "y": 300,
         "wires": [
             []
@@ -4786,8 +4790,8 @@
         "type": "mysql",
         "z": "78b28997a4d07be2",
         "mydb": "9accbd4c3bdcd845",
-        "name": "get algorithm",
-        "x": 250,
+        "name": "",
+        "x": 240,
         "y": 280,
         "wires": [
             [
@@ -4837,9 +4841,9 @@
         "crontab": "",
         "once": true,
         "onceDelay": "1",
-        "topic": "SELECT fridge_algorithm FROM settings WHERE id=1;",
-        "x": 160,
-        "y": 520,
+        "topic": "SELECT fridge_override FROM settings WHERE id=1;",
+        "x": 110,
+        "y": 360,
         "wires": [
             [
                 "ef7ccaa8b14aca9d"
@@ -4851,11 +4855,13 @@
         "type": "mysql",
         "z": "78b28997a4d07be2",
         "mydb": "9accbd4c3bdcd845",
-        "name": "get algorithm",
-        "x": 300,
-        "y": 520,
+        "name": "",
+        "x": 240,
+        "y": 360,
         "wires": [
-            []
+            [
+                "a8259e3b58a3a18e"
+            ]
         ]
     },
     {
@@ -4863,9 +4869,9 @@
         "type": "mysql",
         "z": "78b28997a4d07be2",
         "mydb": "9accbd4c3bdcd845",
-        "name": "save algorithm",
-        "x": 850,
-        "y": 520,
+        "name": "",
+        "x": 1120,
+        "y": 360,
         "wires": [
             []
         ]
@@ -4880,7 +4886,7 @@
                 "t": "set",
                 "p": "topic",
                 "pt": "msg",
-                "to": "UPDATE settings SET fridge_algorithm=? WHERE id =1;",
+                "to": "UPDATE settings SET fridge_override=? WHERE id =1;",
                 "tot": "str"
             },
             {
@@ -4889,6 +4895,13 @@
                 "pt": "msg",
                 "to": "[msg.payload]",
                 "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "override",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -4896,11 +4909,30 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 660,
-        "y": 520,
+        "x": 950,
+        "y": 360,
         "wires": [
             [
                 "eb0bb2cff9e4d6e5"
+            ]
+        ]
+    },
+    {
+        "id": "d904d559433851af",
+        "type": "function",
+        "z": "78b28997a4d07be2",
+        "name": "override while driving",
+        "func": "const override = flow.get(\"override\");\nconst running = global.get(\"soc.lead_charging\");\n\nif(override && running){\n    msg.topic = \"lead_battery\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1920,
+        "y": 260,
+        "wires": [
+            [
+                "d79bcea1e9a923c6"
             ]
         ]
     },
@@ -8758,6 +8790,11 @@
                 "label": "mppt_daily_history",
                 "value": "mppt_daily_history",
                 "type": "str"
+            },
+            {
+                "label": "sensors",
+                "value": "sensors",
+                "type": "str"
             }
         ],
         "payload": "",
@@ -8810,7 +8847,7 @@
         "type": "function",
         "z": "d36037ce242039a2",
         "name": "",
-        "func": "const table = msg.payload;\nconst mppt = [\"entry_id\", \"v_batt\", \"i_bat\" ,\"v_panel\", \"p_panel\", \"op_state\", \"mppt_mode\", \"off_reason\", \"error_msg\", \"load_state\", \"i_load\", \"yield_total\", \"yield_today\", \"maximum_power_today\", \"yield_yesterday\", \"maximum_power_yesterday\", \"day_sequence_number\"];\nconst soc = [\"id\", \"lfp_soc\", \"lfp_low\", \"lead_voltage\", \"lead_low bool\", \"lead_charging\"];\nconst mppt_daily_history = [\"id\", \"energy_yield\", \"energy_consumed\", \"battery_voltage_max\", \"battery_voltage_min\", \"error_database\", \"error_0\", \"error_1\", \"error_2\", \"error_3\", \"time_bulk\", \"time_absorpion\", \"time_float\", \"power_max\", \"battery_current_max\", \"panel_voltage_max\", \"day_sequence_number\", \"energy_offset\", \"energy_charger\"];\n\nswitch(table){\n    case \"mppt\":\n        msg.options = mppt;\n        break;\n    case \"soc\":\n        msg.options = soc;\n        break;\n    case \"mppt_daily_history\":\n        msg.options = mppt_daily_history\n        break;\n}\nmsg.topic = msg.payload;\nreturn msg;",
+        "func": "const table = msg.payload;\nconst mppt = [\"entry_id\", \"v_batt\", \"i_bat\" ,\"v_panel\", \"p_panel\", \"op_state\", \"mppt_mode\", \"off_reason\", \"error_msg\", \"load_state\", \"i_load\", \"yield_total\", \"yield_today\", \"maximum_power_today\", \"yield_yesterday\", \"maximum_power_yesterday\", \"day_sequence_number\"];\nconst soc = [\"id\", \"lfp_soc\", \"lfp_low\", \"lead_voltage\", \"lead_low bool\", \"lead_charging\"];\nconst mppt_daily_history = [\"id\", \"energy_yield\", \"energy_consumed\", \"battery_voltage_max\", \"battery_voltage_min\", \"error_database\", \"error_0\", \"error_1\", \"error_2\", \"error_3\", \"time_bulk\", \"time_absorpion\", \"time_float\", \"power_max\", \"battery_current_max\", \"panel_voltage_max\", \"day_sequence_number\", \"energy_offset\", \"energy_charger\"];\nconst sensors =[\"id, indoor_temp, outdoor_temp, fridge_temp,\"];\n\nswitch(table){\n    case \"mppt\":\n        msg.options = mppt;\n        break;\n    case \"soc\":\n        msg.options = soc;\n        break;\n    case \"mppt_daily_history\":\n        msg.options = mppt_daily_history;\n        break;\n    case \"sensors\":\n        msg.options = sensors;\n        break;\n}\nmsg.topic = msg.payload;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
