@@ -6647,22 +6647,6 @@
         "wires": []
     },
     {
-        "id": "4b905e510ee088f4",
-        "type": "debug",
-        "z": "5a08a5132887b1a2",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 250,
-        "y": 980,
-        "wires": []
-    },
-    {
         "id": "19687f4d9f54670f",
         "type": "link out",
         "z": "5a08a5132887b1a2",
