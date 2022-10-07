@@ -13,6 +13,12 @@ off_reason SMALLINT NOT NULL,
 error_msg SMALLINT NOT NULL,
 load_state VARCHAR(3) NOT NULL,
 i_load INT NOT NULL,
+yield_total SMALLINT NOT NULL,
+yield_today SMALLINT NOT NULL,
+maximum_power_today SMALLINT NOT NULL,
+yield_yesterday SMALLINT NOT NULL,
+maximum_power_yesterday SMALLINT NOT NULL,
+day_sequence_number SMALLINT NOT NULL,
 timestamp TIMESTAMP NOT NULL,
 
 PRIMARY KEY(entry_id)
@@ -58,20 +64,34 @@ power_max SMALLINT NOT NULL,
 battery_current_max MEDIUMINT NOT NULL,
 panel_voltage_max MEDIUMINT NOT NULL,
 day_sequence_number TINYINT NOT NULL,
+energy_offset SMALLINT NOT NULL,
+energy_charger SMALLINT NOT NULL,
 timestamp TIMESTAMP NOT NULL,
 
 PRIMARY KEY(id)
 );
 
+CREATE TABLE sensors (
+id MEDIUMINT NOT NULL AUTO_INCREMENT,
+indoor_temp SMALLINT NOT NULL,
+outdoor_temp SMALLINT NOT NULL,
+fridge_temp SMALLINT NOT NULL,
+timestamp TIMESTAMP NOT NULL,
+
+PRIMARY KEY(id)
+);
 
 show tables;
-drop table mppt_daily_history;
-describe mppt;
-select * from mppt;
-select * from soc;
+select * from mppt ORDER BY entry_id DESC LIMIT 1;
+select * from soc ORDER BY id DESC LIMIT 100;
 select * from settings;
 select * from mppt_daily_history;
+select * from sensors;
+
+
 select charger_enable from settings where id=1;
+drop table mppt_daily_history;
+describe mppt;
 insert into soc (lead_low) values (false);
 UPDATE settings SET charger_enable=true WHERE id =1;
 select p_panel, timestamp from mppt 
@@ -79,6 +99,9 @@ select p_panel, timestamp from mppt
 insert into mppt (v_batt, i_batt, v_panel, p_panel, op_state, mppt_mode, off_reason, error_msg, load_state, i_load, timestamp)
 values (?,?,?,?,?,?,?,?,?,?,?);
 ALTER TABLE mppt CHANGE i_bat i_batt int;
-
+select energy_yield, energy_consumed, energy_offset from mppt_daily_history ORDER BY id DESC LIMIT 1;
 SELECT table_name "Table Name", table_rows "Rows Count", round(((data_length + index_length)/ 1024 / 1024),2)"Table Size (MB)" FROM information_schema.TABLES WHERE table_schema = "siegfried" AND table_name ="mppt";
-
+select energy_offset, timestamp from mppt_daily_history;
+ALTER TABLE mppt add day_sequence_number smallint not null after maximum_power_yesterday;
+alter table mppt_daily_history add energy_charger smallint not null after energy_offset;
+ALTER TABLE settings ADD fridge_algorithm TEXT(20) NOT NULL;
