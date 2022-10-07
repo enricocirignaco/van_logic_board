@@ -275,9 +275,7 @@
             "7ee5db236074879f"
         ],
         "x": 34,
-        "y": 59,
-        "w": 1062,
-        "h": 142
+        "y": 59
     },
     {
         "id": "82e7dfd030bb8d2f",
@@ -297,9 +295,7 @@
             "cd7be1f40dda90df"
         ],
         "x": 14,
-        "y": 19,
-        "w": 1132,
-        "h": 162
+        "y": 19
     },
     {
         "id": "232f2c028585f7b9",
@@ -327,9 +323,7 @@
             "ed34cb45279c1235"
         ],
         "x": 1314,
-        "y": 19,
-        "w": 412,
-        "h": 282
+        "y": 19
     },
     {
         "id": "fb118a00f83d2ac1",
@@ -358,28 +352,7 @@
             "97500ce8b1fb36d9"
         ],
         "x": 34,
-        "y": 219,
-        "w": 1062,
-        "h": 262
-    },
-    {
-        "id": "5a408ef9d6e94ab1",
-        "type": "group",
-        "z": "274cb03b3db2d71a",
-        "name": "Temperature Dashboard",
-        "style": {
-            "label": true
-        },
-        "nodes": [
-            "0ade02986402d041",
-            "e550af8caa271bec",
-            "081542ce9d9322a0",
-            "37b90db2973a2911"
-        ],
-        "x": 534,
-        "y": 119,
-        "w": 252,
-        "h": 122
+        "y": 219
     },
     {
         "id": "eb3edd6bd3a0106e",
@@ -400,9 +373,24 @@
             "5e0c9205af213c28"
         ],
         "x": 34,
-        "y": 379,
-        "w": 752,
-        "h": 202
+        "y": 379
+    },
+    {
+        "id": "5a408ef9d6e94ab1",
+        "type": "group",
+        "z": "274cb03b3db2d71a",
+        "name": "Temperature Dashboard",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "0ade02986402d041",
+            "e550af8caa271bec",
+            "081542ce9d9322a0",
+            "37b90db2973a2911"
+        ],
+        "x": 534,
+        "y": 119
     },
     {
         "id": "a74bb25de5c78e26",
@@ -3019,16 +3007,18 @@
         "z": "24f18b1077451b8f",
         "name": "broker_input",
         "links": [
+            "19687f4d9f54670f",
             "9de2c1b1700d6284",
             "a169fe1c4522c408",
             "d79bcea1e9a923c6",
             "db6405ab01538e53"
         ],
-        "x": 45,
-        "y": 440,
+        "x": 205,
+        "y": 560,
         "wires": [
             [
-                "258356cbe57acc92"
+                "258356cbe57acc92",
+                "043281a3fab4887e"
             ]
         ]
     },
@@ -3036,7 +3026,7 @@
         "id": "44ff06845f59072b",
         "type": "switch",
         "z": "24f18b1077451b8f",
-        "name": "switch",
+        "name": "switch ON",
         "property": "topic",
         "propertyType": "msg",
         "rules": [
@@ -3059,11 +3049,12 @@
         "checkall": "true",
         "repair": false,
         "outputs": 3,
-        "x": 530,
+        "x": 550,
         "y": 280,
         "wires": [
             [
-                "b09da3342afd5d6b"
+                "b09da3342afd5d6b",
+                "9fda12100ca3fdfe"
             ],
             [
                 "09f065597a63d456"
@@ -3390,8 +3381,7 @@
         "y": 120,
         "wires": [
             [
-                "04e5bfda356179d6",
-                "6050a94de8cabbe9"
+                "04e5bfda356179d6"
             ]
         ]
     },
@@ -3399,6 +3389,7 @@
         "id": "b09da3342afd5d6b",
         "type": "change",
         "z": "24f18b1077451b8f",
+        "d": true,
         "name": "switch power source to Lead",
         "rules": [
             {
@@ -3471,8 +3462,7 @@
         "name": "update hardware",
         "mode": "link",
         "links": [
-            "3c41044470a0259c",
-            "967c1f84b7ad708b"
+            "3c41044470a0259c"
         ],
         "x": 995,
         "y": 160,
@@ -3491,29 +3481,6 @@
         "x": 1385,
         "y": 160,
         "wires": []
-    },
-    {
-        "id": "6050a94de8cabbe9",
-        "type": "delay",
-        "z": "24f18b1077451b8f",
-        "name": "1sec delay",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1510,
-        "y": 120,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "025d0f7e6dfea871",
@@ -4203,6 +4170,23 @@
         ]
     },
     {
+        "id": "043281a3fab4887e",
+        "type": "debug",
+        "z": "24f18b1077451b8f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 150,
+        "y": 400,
+        "wires": []
+    },
+    {
         "id": "b5c43be785249085",
         "type": "ui_dropdown",
         "z": "78b28997a4d07be2",
@@ -4248,8 +4232,8 @@
                 "type": "str"
             },
             {
-                "label": "spring",
-                "value": "spring",
+                "label": "spring / fall",
+                "value": "spring_fall",
                 "type": "str"
             }
         ],
@@ -4326,14 +4310,14 @@
         "id": "1966728c9236e2bb",
         "type": "function",
         "z": "78b28997a4d07be2",
-        "name": "spring algorithm",
-        "func": "var fridge_state = global.get(\"output_state.fridge\");\nvar soc = global.get(\"state_of_charge\");\nvar properties = flow.get(\"algorithms.summer\");\nvar fridge_temp = global.get(\"sensors.fridge_temp\");\nconst charger_state = global.get(\"mppt_broadcast.CS\");\n\n// turn on fridge if upper threshold temperature exeeded or mppt is in float\nif((charger_state == 5 && fridge_temp > 5) || (fridge_temp > properties.on_threshold)) {\n    // if fridge already on or if mppt is off (is night)\n    if(fridge_state || charger_state == 0) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = true;\n    msg.source = \"lfp_battery\";\n}\n\n// turn off fridge if temperature is lower than lower threshold \nelse if(fridge_temp < properties.off_threshold) {\n    // if fridge already off\n    if(!fridge_state) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = false;\n}\n\nreturn msg;",
+        "name": "spring / fall algorithm",
+        "func": "const fridge_state = global.get(\"output_state.fridge\");\nconst fridge_temp = global.get(\"sensors.fridge_temp\");\n//const charger_state = global.get(\"mppt_broadcast.CS\");\nconst low_battery = global.get(\"soc.lfp_low\");\nconst properties = flow.get(\"algorithms.spring_fall\");\n\nif(context.get(\"timer\")===undefined){\n    context.set(\"timer\", 0);\n}\nconst elapsed_time = Math.round((Date.now() - context.get(\"timer\"))/60000);\n\n// turn on fridge if upper threshold temperature exeeded\nif(fridge_temp > properties.on_threshold && elapsed_time > 10) {\n    // if fridge already on or if mppt is off (is night) or if battery is low\n    if(fridge_state || low_battery) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = true;\n    msg.source = \"lfp_battery\";\n    // restart timer\n    context.set(\"timer\", Date.now());\n}\n\n// turn off fridge if temperature is lower than lower threshold or time threshold is exeeded or the battery is low\nelse if(fridge_temp < properties.off_threshold || elapsed_time > properties.time_threshold || low_battery) {\n    // if fridge already off\n    if(!fridge_state) {\n        return;\n    }\n    msg.topic = \"fridge\";\n    msg.payload = false;\n    // restart timer\n    context.set(\"timer\", Date.now());\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1620,
+        "x": 1640,
         "y": 380,
         "wires": [
             [
@@ -4427,7 +4411,7 @@
             },
             {
                 "t": "eq",
-                "v": "spring",
+                "v": "spring_fall",
                 "vt": "str"
             }
         ],
@@ -4500,7 +4484,7 @@
         "func": "",
         "outputs": 1,
         "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\nvar algorithms = {\n    always_on: {\n        on_threshold: 6,\n        off_threshold: 0,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    always_on_lead: {\n        on_threshold: 10,\n        off_threshold: 2,\n        description: \n        \"Always onhalijdnifivnhaloooo\"\n    },\n    always_off: {\n        on_threshold: 0,\n        off_threshold: 0,\n        description: \n        \"Always ocnfuncer9ennhalihaloooo\"\n    },\n    spring: {\n        on_threshold: 10,\n        off_threshold: 2,\n        description: \n        \"Always on9ucnopaidjcihalihaloooo\"\n    },\n    winter: {\n        on_threshold: 10,\n        off_threshold: 5,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    battery_life: {\n        on_threshold: 15,\n        off_threshold: 7,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    summer: {\n        on_threshold: 7,\n        off_threshold: 4,\n        time_threshold: 30,\n        description: \n        \"Always onhalihaloooo\"\n    }\n};\nflow.set(\"algorithms\", algorithms);\n\nreturn;",
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\nvar algorithms = {\n    always_on: {\n        on_threshold: 6,\n        off_threshold: 0,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    always_on_lead: {\n        on_threshold: 10,\n        off_threshold: 2,\n        description: \n        \"Always onhalijdnifivnhaloooo\"\n    },\n    always_off: {\n        on_threshold: 0,\n        off_threshold: 0,\n        description: \n        \"Always ocnfuncer9ennhalihaloooo\"\n    },\n    spring_fall: {\n        on_threshold: 10,\n        off_threshold: 6,\n        description: \n        \"Always on9ucnopaidjcihalihaloooo\"\n    },\n    winter: {\n        on_threshold: 10,\n        off_threshold: 5,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    battery_life: {\n        on_threshold: 15,\n        off_threshold: 7,\n        description: \n        \"Always onhalihaloooo\"\n    },\n    summer: {\n        on_threshold: 7,\n        off_threshold: 4,\n        time_threshold: 30,\n        description: \n        \"Always onhalihaloooo\"\n    }\n};\nflow.set(\"algorithms\", algorithms);\n\nreturn;",
         "finalize": "",
         "libs": [],
         "x": 150,
@@ -4736,7 +4720,9 @@
         "x": 1630,
         "y": 300,
         "wires": [
-            []
+            [
+                "d904d559433851af"
+            ]
         ]
     },
     {
@@ -6557,59 +6543,120 @@
         ]
     },
     {
-        "id": "0ade02986402d041",
-        "type": "ui_gauge",
-        "z": "274cb03b3db2d71a",
-        "g": "5a408ef9d6e94ab1",
-        "name": "temp_out",
-        "group": "4c88ce79aeb1c97e",
-        "order": 1,
-        "width": 4,
-        "height": 5,
-        "gtype": "donut",
-        "title": "",
-        "label": "Out C°",
-        "format": "{{value}}",
-        "min": "-15",
-        "max": "45",
-        "colors": [
-            "#00f900",
-            "#00f900",
-            "#00f900"
+        "id": "26dd98ef30834c7f",
+        "type": "inject",
+        "z": "5a08a5132887b1a2",
+        "name": "clock",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "source",
+                "v": "lead_battery",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
         ],
-        "seg1": "",
-        "seg2": "",
-        "className": "",
-        "x": 700,
-        "y": 200,
+        "repeat": "",
+        "crontab": "28 09 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "charger",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 150,
+        "y": 800,
+        "wires": [
+            [
+                "1a9320345cb4a1bb",
+                "19687f4d9f54670f"
+            ]
+        ]
+    },
+    {
+        "id": "1a9320345cb4a1bb",
+        "type": "delay",
+        "z": "5a08a5132887b1a2",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 380,
+        "y": 840,
+        "wires": [
+            [
+                "8e185064ad598691"
+            ]
+        ]
+    },
+    {
+        "id": "8e185064ad598691",
+        "type": "change",
+        "z": "5a08a5132887b1a2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "charger",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 840,
+        "wires": [
+            [
+                "19687f4d9f54670f"
+            ]
+        ]
+    },
+    {
+        "id": "31dd7423a677ccb4",
+        "type": "comment",
+        "z": "5a08a5132887b1a2",
+        "name": "Keep starter battery charged",
+        "info": "Every day at 12 turn on the charger for 2 hours",
+        "x": 200,
+        "y": 760,
         "wires": []
     },
     {
-        "id": "e550af8caa271bec",
-        "type": "ui_gauge",
-        "z": "274cb03b3db2d71a",
-        "g": "5a408ef9d6e94ab1",
-        "name": "temp_in",
-        "group": "4c88ce79aeb1c97e",
-        "order": 2,
-        "width": 3,
-        "height": 5,
-        "gtype": "donut",
-        "title": "",
-        "label": "In C°",
-        "format": "{{value}}",
-        "min": "-15",
-        "max": "45",
-        "colors": [
-            "#00f900",
-            "#00f900",
-            "#00f900"
+        "id": "19687f4d9f54670f",
+        "type": "link out",
+        "z": "5a08a5132887b1a2",
+        "name": "test",
+        "mode": "link",
+        "links": [
+            "36ef8234e5ee6087"
         ],
-        "seg1": "",
-        "seg2": "",
-        "className": "",
-        "x": 700,
-        "y": 160,
+        "x": 815,
+        "y": 800,
         "wires": []
     },
     {
@@ -6665,40 +6712,6 @@
         "y": 420,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "081542ce9d9322a0",
-        "type": "link in",
-        "z": "274cb03b3db2d71a",
-        "g": "5a408ef9d6e94ab1",
-        "name": "temp_in",
-        "links": [
-            "60fe06549654d7a9"
-        ],
-        "x": 575,
-        "y": 160,
-        "wires": [
-            [
-                "e550af8caa271bec"
-            ]
-        ]
-    },
-    {
-        "id": "37b90db2973a2911",
-        "type": "link in",
-        "z": "274cb03b3db2d71a",
-        "g": "5a408ef9d6e94ab1",
-        "name": "temp_in",
-        "links": [
-            "a9e006439192e826"
-        ],
-        "x": 575,
-        "y": 200,
-        "wires": [
-            [
-                "0ade02986402d041"
-            ]
         ]
     },
     {
@@ -7141,6 +7154,96 @@
         "x": 470,
         "y": 920,
         "wires": []
+    },
+    {
+        "id": "0ade02986402d041",
+        "type": "ui_gauge",
+        "z": "274cb03b3db2d71a",
+        "g": "5a408ef9d6e94ab1",
+        "name": "temp_in",
+        "group": "4c88ce79aeb1c97e",
+        "order": 1,
+        "width": 4,
+        "height": 5,
+        "gtype": "donut",
+        "title": "",
+        "label": "In C°",
+        "format": "{{value}}",
+        "min": "-15",
+        "max": "45",
+        "colors": [
+            "#00f900",
+            "#00f900",
+            "#00f900"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 700,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e550af8caa271bec",
+        "type": "ui_gauge",
+        "z": "274cb03b3db2d71a",
+        "g": "5a408ef9d6e94ab1",
+        "name": "temp_out",
+        "group": "4c88ce79aeb1c97e",
+        "order": 2,
+        "width": 3,
+        "height": 5,
+        "gtype": "donut",
+        "title": "",
+        "label": "Out C°",
+        "format": "{{value}}",
+        "min": "-15",
+        "max": "45",
+        "colors": [
+            "#00f900",
+            "#00f900",
+            "#00f900"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 700,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "081542ce9d9322a0",
+        "type": "link in",
+        "z": "274cb03b3db2d71a",
+        "g": "5a408ef9d6e94ab1",
+        "name": "temp_in",
+        "links": [
+            "60fe06549654d7a9"
+        ],
+        "x": 575,
+        "y": 160,
+        "wires": [
+            [
+                "e550af8caa271bec"
+            ]
+        ]
+    },
+    {
+        "id": "37b90db2973a2911",
+        "type": "link in",
+        "z": "274cb03b3db2d71a",
+        "g": "5a408ef9d6e94ab1",
+        "name": "temp_in",
+        "links": [
+            "a9e006439192e826"
+        ],
+        "x": 575,
+        "y": 200,
+        "wires": [
+            [
+                "0ade02986402d041"
+            ]
+        ]
     },
     {
         "id": "e8ee218f560979f9",
