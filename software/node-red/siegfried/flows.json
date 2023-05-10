@@ -295,7 +295,9 @@
             "cd7be1f40dda90df"
         ],
         "x": 14,
-        "y": 19
+        "y": 19,
+        "w": 1132,
+        "h": 162
     },
     {
         "id": "232f2c028585f7b9",
@@ -323,7 +325,9 @@
             "ed34cb45279c1235"
         ],
         "x": 1314,
-        "y": 19
+        "y": 19,
+        "w": 412,
+        "h": 282
     },
     {
         "id": "fb118a00f83d2ac1",
@@ -373,7 +377,9 @@
             "5e0c9205af213c28"
         ],
         "x": 34,
-        "y": 379
+        "y": 379,
+        "w": 752,
+        "h": 202
     },
     {
         "id": "5a408ef9d6e94ab1",
@@ -390,7 +396,9 @@
             "37b90db2973a2911"
         ],
         "x": 534,
-        "y": 119
+        "y": 119,
+        "w": 252,
+        "h": 122
     },
     {
         "id": "a74bb25de5c78e26",
@@ -647,7 +655,7 @@
         "className": ""
     },
     {
-        "id": "d7e636b47e450355",
+        "id": "d06ccf212cdf1e0a",
         "type": "ui_spacer",
         "z": "274cb03b3db2d71a",
         "name": "spacer",
@@ -657,7 +665,7 @@
         "height": 1
     },
     {
-        "id": "4d90ab3a15015556",
+        "id": "280c80bbd704af61",
         "type": "ui_spacer",
         "z": "274cb03b3db2d71a",
         "name": "spacer",
@@ -2437,7 +2445,7 @@
         "y": 940,
         "wires": [
             [
-                "8d808f0510ac1c56"
+                "1dfeda03f727a75e"
             ]
         ]
     },
@@ -2454,9 +2462,7 @@
         "x": 270,
         "y": 980,
         "wires": [
-            [
-                "63ea6439ffa83c58"
-            ]
+            []
         ]
     },
     {
@@ -2776,15 +2782,8 @@
         "name": "input_state_trigger",
         "mode": "link",
         "links": [
-            "9caacc1da750c852",
-            "0efd4833ca974c55",
-            "ae30eeae9c1a5c51",
-            "528f05d6f6054ab6",
-            "e5ceae0d0528eb0c",
-            "69ca1224f189f87d",
-            "3cb000ba3a4683df",
             "55529fed57d67761",
-            "138940fab1ba9511",
+            "69ca1224f189f87d",
             "7cf86181fdceccbe"
         ],
         "x": 905,
@@ -2799,7 +2798,7 @@
         "func": "\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\n// init global object\nglobal.set(\"input_state\", {});\nglobal.set(\"output_state\", {charger:false, fridge:false, inverter:false, inverter_source: \"lfp_battery\", pump: false, aux_output:false});",
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n// init global object\nglobal.set(\"input_state\", {});\nglobal.set(\"output_state\", {charger:false, fridge:false, inverter:false, inverter_source: \"lfp_battery\", pump: false, aux_output:false});\nglobal.set(\"water_meter_cnt\", 0);",
         "finalize": "",
         "libs": [],
         "x": 130,
@@ -2960,10 +2959,49 @@
         "to": "",
         "reg": false,
         "x": 1040,
-        "y": 900,
+        "y": 860,
         "wires": [
             [
                 "db6405ab01538e53"
+            ]
+        ]
+    },
+    {
+        "id": "1dfeda03f727a75e",
+        "type": "rbe",
+        "z": "a7233230404c3289",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 470,
+        "y": 1020,
+        "wires": [
+            [
+                "c8a96c20583db3cb"
+            ]
+        ]
+    },
+    {
+        "id": "c8a96c20583db3cb",
+        "type": "function",
+        "z": "a7233230404c3289",
+        "name": "increment counter",
+        "func": "var counter = global.get(\"water_meter_cnt\");\ncounter++;\nglobal.set(\"water_meter_cnt\", counter);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 1020,
+        "wires": [
+            [
+                "63ea6439ffa83c58"
             ]
         ]
     },
@@ -3389,15 +3427,14 @@
         "id": "b09da3342afd5d6b",
         "type": "change",
         "z": "24f18b1077451b8f",
-        "d": true,
         "name": "switch power source to Lead",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "lead_battery",
-                "tot": "str"
+                "to": "source",
+                "tot": "msg"
             },
             {
                 "t": "set",
@@ -3562,7 +3599,7 @@
         "id": "8d68c468bd54c3c8",
         "type": "function",
         "z": "24f18b1077451b8f",
-        "name": "",
+        "name": "switch off",
         "func": "const state = flow.get(\"state\");\nmsg.payload = false;\nif(msg.source == undefined){\n    msg.source = \"lfp_battery\";\n}\n\nswitch(msg.topic) {\n    //if fridge or inverter on turn only charger off\n    case \"charger\":\n        if(!state.fridge && !state.inverter){\n            return[null, msg];\n        }\n        msg.topic = \"charger\";\n        return[msg, null];\n        \n    //if charger or inverter on turn only fridge off\n    case \"fridge\":\n        if(!state.charger && !state.inverter){\n            return[null, msg];\n        }\n        msg.topic = \"fridge\";\n        return[msg, null];\n        \n        \n    // turn off inverter only if charger and fridge are off\n    case \"inverter\":\n        if(!state.charger && !state.fridge){\n            return[null, msg];\n        }\n}\n",
         "outputs": 2,
         "noerr": 0,
@@ -4174,7 +4211,7 @@
         "type": "debug",
         "z": "24f18b1077451b8f",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -5853,8 +5890,7 @@
                 "03c460bc3819a35e"
             ],
             [
-                "26959325fa10e60b",
-                "8bf22f9da6203342"
+                "f77240b673851ec2"
             ]
         ]
     },
@@ -5888,7 +5924,8 @@
         "y": 340,
         "wires": [
             [
-                "4517c637c76c72c7"
+                "4517c637c76c72c7",
+                "effc37f6ca558c10"
             ]
         ]
     },
@@ -5922,7 +5959,8 @@
         "y": 300,
         "wires": [
             [
-                "4517c637c76c72c7"
+                "4517c637c76c72c7",
+                "effc37f6ca558c10"
             ]
         ]
     },
@@ -5937,17 +5975,17 @@
         "height": 0,
         "gtype": "gage",
         "title": "LFP Battery",
-        "label": "%",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "100",
+        "label": "V",
+        "format": "{{msg.payload}}",
+        "min": "10",
+        "max": "14.6",
         "colors": [
             "#ff2600",
             "#ff9300",
             "#00f900"
         ],
-        "seg1": "20",
-        "seg2": "50",
+        "seg1": "12",
+        "seg2": "13",
         "className": "",
         "x": 810,
         "y": 60,
@@ -6148,7 +6186,7 @@
         "type": "function",
         "z": "5a08a5132887b1a2",
         "name": "check motor state",
-        "func": "msg.topic = \"charger\";\nmsg.source = \"lead_battery\";\n\n// if motor is running\nif(msg.enabled || msg.enabled == undefined){\n    \n    // if switch enabled\n    if(msg.payload == 1){\n        msg.payload = true;\n    }\n    // if switch disabled\n    else {\n        msg.payload = false;\n    }\n}\n// if motor is not running\nelse{\n    msg.payload = false\n}\n\nreturn msg;",
+        "func": "msg.topic = \"charger\";\n\n// if motor is running\nif(msg.enabled || msg.enabled == undefined){\n    msg.source = \"lead_battery\";\n    // if switch enabled\n    if(msg.payload == 1){\n        msg.payload = true;\n    }\n    // if switch disabled\n    else {\n        msg.payload = false;\n    }\n}\n// if motor is not running\nelse{\n    msg.source =\"lfp_battery\";\n    // if charge lead battery enabled\n    if(flow.get(\"charge_lead\")){\n        msg.payload = true;\n    }\n        // if charge lead battery disabled\n    else{\n        msg.payload = false;\n    }\n}\n\nif(global.get(\"output_state.charger\") != msg.payload){\n    return msg;\n}\nif(global.get(\"output_state.inverter_source\") != msg.source){\n    return msg;\n}\n\nreturn null;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -6159,7 +6197,8 @@
         "wires": [
             [
                 "32344b011955cb1f",
-                "a169fe1c4522c408"
+                "a169fe1c4522c408",
+                "31fbe0c491bde7bb"
             ]
         ]
     },
@@ -6424,6 +6463,13 @@
                 "pt": "global",
                 "to": "payload",
                 "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "mppt_broadcast.V",
+                "tot": "global"
             }
         ],
         "action": "",
@@ -6435,7 +6481,7 @@
         "y": 60,
         "wires": [
             [
-                "ad4dd13475942629"
+                "43263fc69739db04"
             ]
         ]
     },
@@ -6443,7 +6489,6 @@
         "id": "a169fe1c4522c408",
         "type": "link out",
         "z": "5a08a5132887b1a2",
-        "d": true,
         "name": "hw_out",
         "mode": "link",
         "links": [
@@ -6546,6 +6591,7 @@
         "id": "26dd98ef30834c7f",
         "type": "inject",
         "z": "5a08a5132887b1a2",
+        "d": true,
         "name": "clock",
         "props": [
             {
@@ -6660,11 +6706,190 @@
         "wires": []
     },
     {
+        "id": "59776590a4560a16",
+        "type": "ui_switch",
+        "z": "5a08a5132887b1a2",
+        "name": "",
+        "label": "Lead Charger",
+        "tooltip": "",
+        "group": "7dbe224d7e5b35ba",
+        "order": 9,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 820,
+        "y": 520,
+        "wires": [
+            [
+                "6c1be1323e95bd3f",
+                "c8fbf57188a52f49"
+            ]
+        ]
+    },
+    {
+        "id": "c8fbf57188a52f49",
+        "type": "ui_led",
+        "z": "5a08a5132887b1a2",
+        "order": 10,
+        "group": "7dbe224d7e5b35ba",
+        "width": 3,
+        "height": 1,
+        "label": " ",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "charger_led_lead",
+        "x": 1050,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "6c1be1323e95bd3f",
+        "type": "change",
+        "z": "5a08a5132887b1a2",
+        "name": "charge lead",
+        "rules": [
+            {
+                "t": "set",
+                "p": "charge_lead",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1030,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dc8eec0d77b3ca24",
+        "type": "comment",
+        "z": "5a08a5132887b1a2",
+        "name": "Lead charger section",
+        "info": "",
+        "x": 840,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "43263fc69739db04",
+        "type": "function",
+        "z": "5a08a5132887b1a2",
+        "name": "",
+        "func": "msg.payload = msg.payload /1000;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 60,
+        "wires": [
+            [
+                "ad4dd13475942629"
+            ]
+        ]
+    },
+    {
+        "id": "31fbe0c491bde7bb",
+        "type": "debug",
+        "z": "5a08a5132887b1a2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "effc37f6ca558c10",
+        "type": "debug",
+        "z": "5a08a5132887b1a2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 170,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f77240b673851ec2",
+        "type": "switch",
+        "z": "5a08a5132887b1a2",
+        "name": "",
+        "property": "charge_lead",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 250,
+        "y": 360,
+        "wires": [
+            [
+                "394b785ce758a398",
+                "03c460bc3819a35e"
+            ],
+            [
+                "8bf22f9da6203342",
+                "26959325fa10e60b"
+            ]
+        ]
+    },
+    {
         "id": "1b014b67048a60c9",
         "type": "ui_led",
         "z": "274cb03b3db2d71a",
         "g": "eb3edd6bd3a0106e",
-        "order": 2,
+        "order": 6,
         "group": "8ccf1fb7e0607deb",
         "width": 3,
         "height": 1,
@@ -6804,7 +7029,7 @@
         "type": "ui_led",
         "z": "274cb03b3db2d71a",
         "g": "eb3edd6bd3a0106e",
-        "order": 7,
+        "order": 11,
         "group": "8ccf1fb7e0607deb",
         "width": 7,
         "height": 1,
@@ -6875,7 +7100,7 @@
         "id": "f94a7c5b8bbe3346",
         "type": "ui_led",
         "z": "274cb03b3db2d71a",
-        "order": 4,
+        "order": 8,
         "group": "8ccf1fb7e0607deb",
         "width": 3,
         "height": 1,
@@ -6937,7 +7162,7 @@
         "label": "Fill lower tank",
         "tooltip": "",
         "group": "8ccf1fb7e0607deb",
-        "order": 3,
+        "order": 7,
         "width": 4,
         "height": 1,
         "passthru": false,
@@ -6965,7 +7190,7 @@
         "id": "1fe82f9abaf9ef62",
         "type": "ui_led",
         "z": "274cb03b3db2d71a",
-        "order": 6,
+        "order": 10,
         "group": "8ccf1fb7e0607deb",
         "width": 3,
         "height": 1,
@@ -7022,7 +7247,7 @@
         "label": "Upper Tank",
         "tooltip": "",
         "group": "8ccf1fb7e0607deb",
-        "order": 5,
+        "order": 9,
         "width": 4,
         "height": 1,
         "passthru": false,
@@ -7074,7 +7299,8 @@
         "y": 840,
         "wires": [
             [
-                "18362414f59c0ca8"
+                "18362414f59c0ca8",
+                "356688e8524c0883"
             ]
         ]
     },
@@ -7083,7 +7309,7 @@
         "type": "ui_text",
         "z": "274cb03b3db2d71a",
         "group": "8ccf1fb7e0607deb",
-        "order": 1,
+        "order": 5,
         "width": 4,
         "height": 1,
         "name": "",
@@ -7100,7 +7326,7 @@
         "type": "ui_text",
         "z": "274cb03b3db2d71a",
         "group": "8ccf1fb7e0607deb",
-        "order": 8,
+        "order": 2,
         "width": 3,
         "height": 1,
         "name": "",
@@ -7108,8 +7334,8 @@
         "format": "",
         "layout": "row-left",
         "className": "",
-        "x": 210,
-        "y": 920,
+        "x": 470,
+        "y": 980,
         "wires": []
     },
     {
@@ -7118,9 +7344,9 @@
         "z": "274cb03b3db2d71a",
         "name": "",
         "group": "8ccf1fb7e0607deb",
-        "order": 9,
-        "width": "2",
-        "height": "1",
+        "order": 4,
+        "width": 2,
+        "height": 1,
         "passthru": false,
         "label": "Reset",
         "tooltip": "",
@@ -7132,10 +7358,12 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 350,
-        "y": 920,
+        "x": 450,
+        "y": 1040,
         "wires": [
-            []
+            [
+                "5e8638b2e1d44788"
+            ]
         ]
     },
     {
@@ -7143,7 +7371,7 @@
         "type": "ui_text",
         "z": "274cb03b3db2d71a",
         "group": "8ccf1fb7e0607deb",
-        "order": 10,
+        "order": 3,
         "width": 2,
         "height": 1,
         "name": "",
@@ -7151,8 +7379,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 470,
-        "y": 920,
+        "x": 830,
+        "y": 980,
         "wires": []
     },
     {
@@ -7242,6 +7470,107 @@
         "wires": [
             [
                 "0ade02986402d041"
+            ]
+        ]
+    },
+    {
+        "id": "356688e8524c0883",
+        "type": "change",
+        "z": "274cb03b3db2d71a",
+        "name": "get water counter",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "water_meter_cnt",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 920,
+        "wires": [
+            [
+                "b9da04ea2219966f"
+            ]
+        ]
+    },
+    {
+        "id": "48cf880a66c0cc7c",
+        "type": "ui_gauge",
+        "z": "274cb03b3db2d71a",
+        "name": "",
+        "group": "8ccf1fb7e0607deb",
+        "order": 1,
+        "width": 7,
+        "height": 5,
+        "gtype": "wave",
+        "title": "",
+        "label": "l",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "15",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 830,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "5e8638b2e1d44788",
+        "type": "change",
+        "z": "274cb03b3db2d71a",
+        "name": "get water counter",
+        "rules": [
+            {
+                "t": "set",
+                "p": "water_meter_cnt",
+                "pt": "global",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 1040,
+        "wires": [
+            [
+                "356688e8524c0883"
+            ]
+        ]
+    },
+    {
+        "id": "b9da04ea2219966f",
+        "type": "function",
+        "z": "274cb03b3db2d71a",
+        "name": "conversion",
+        "func": "\nconst capacity = 15.0;\nvar consumed_in_l = msg.payload/500.0;\nmsg.payload = capacity - consumed_in_l;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 920,
+        "wires": [
+            [
+                "48cf880a66c0cc7c",
+                "adb014fe27404a5c"
             ]
         ]
     },
