@@ -1,0 +1,1043 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f85487de51b59156",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "8440e4bc13f54259",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "af663d67f9ebf5fb",
+        "type": "ui_group",
+        "name": "Simulator",
+        "tab": "f85487de51b59156",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "6d9e14c4dc182d6c",
+        "type": "ui_group",
+        "name": "User view",
+        "tab": "f85487de51b59156",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "98629c5331cea95d",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Inverter Logic",
+        "func": "/**\n * Inverter indirect needed for fridge and victron charger\n * Can also be manually used with the 230V outlet\n * This node is the only place where the inverter should be turned on or off\n */\n\nconst values = flow.get(\"values\");\n\nif(values.victronCharger || values.fridge || values.manualSwitch){\n    //turn on inverter\n    msg.payload = true;\n} else{\n    // turn off inverter\n    msg.payload = false\n}\nflow.set(\"values.inverter\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1140,
+        "y": 420,
+        "wires": [
+            [
+                "09176ded119a4a07",
+                "6ed0600d53a035dd"
+            ]
+        ]
+    },
+    {
+        "id": "09176ded119a4a07",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "inverter gpio",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1370,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "9629a3cb945cd963",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Fridge Logic",
+        "func": "/**\n * the fridge should be turned on and off only in this flow\n */\nconst algorithm = flow.get(\"fridgeAlgorithm\");\nconst fridgeState = flow.get(\"values.fridge\");\nmsg.payload = fridgeState;\n\n// main logic\nswitch (algorithm) {\n    // always on\n    case \"on\":\n        if (fridgeState) {\n            return;\n        }\n        msg.payload = true;\n        break;\n    // always off\n    case \"off\":\n        if (!fridgeState) {\n            return;\n        }\n        msg.payload = false;\n        break;\n    // low and high temp threshold\n    case \"auto\":\n        let temp = flow.get(\"values.fridgeTemp\");\n        if (temp >= flow.get(\"values.fridgeUpThreshold\")) {\n            //turn on fridge\n            if (fridgeState) {\n                return;\n            }\n            msg.payload = true;\n        }\n        else if (temp < flow.get(\"values.fridgeDownThreshold\")) {\n            //turn off fridge\n            if (!fridgeState) {\n                return;\n            }\n            msg.payload = false;\n        }\n        //msg.payload = !msg.payload;\n        //msg.temp = temp;\n        break;\n}\nflow.set(\"values.fridge\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 340,
+        "wires": [
+            [
+                "6fd3acf41607b92c",
+                "98629c5331cea95d"
+            ]
+        ]
+    },
+    {
+        "id": "67dcab1f8a6c6c59",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Victron Charger Logic",
+        "func": "/**\n * the charger should be turned on and off only in this flow\n */\nconst algorithm = flow.get(\"victronChargerAlgorithm\");\nconst chargerState = flow.get(\"values.VictronCharger\");\nmsg.payload = chargerState;\n\n// main logic\nswitch (algorithm) {\n    // always on\n    case \"on\":\n        if (chargerState) {\n            return;\n        }\n        msg.payload = true;\n        break;\n    // always off\n    case \"off\":\n        if (!chargerState) {\n            //return;\n        }\n        msg.payload = false;\n        break;\n    // only if motor is running\n    case \"auto\":\n        if (chargerState === flow.get(\"values.motorState\")){\n            return;\n        }\n        msg.payload = flow.get(\"values.motorState\");\n        break;\n}\nflow.set(\"values.victronCharger\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 440,
+        "wires": [
+            [
+                "f9ac16b468a4186a",
+                "98629c5331cea95d"
+            ]
+        ]
+    },
+    {
+        "id": "282cb43d013f8ab6",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Init Flow variables",
+        "func": "// All code is in the on start section",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\nflow.set(\"values\",  {\n    victronCharger: false,\n    charger: false,\n    fridge: false,\n    manualSwitch: false,\n    fridgeTemp: 0,\n    fridgeUpThreshold: 10,\n    fridgeDownThreshold:  2,\n    motorVoltage: 0,\n    motorState: false,\n    motorUpThreshold: 13.0,\n    motorDownThreshold: 12.0\n});\n\nflow.set(\"fridgeAlgorithm\", \"off\");\nflow.set(\"victronChargerAlgorithm\", \"off\");\nflow.set(\"chargerAlgorithm\", \"off\");",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "78635c0ff785d1f4",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "info": "The Gpio nodes needs to be triggered at reboot",
+        "x": 380,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a20ce8f2989b905d",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "victronCharger relay gpio",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1410,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "e99e80ea8bea2bf5",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "fridge relay gpio",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1380,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "7d78300f899ba128",
+        "type": "ui_dropdown",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "label": "Fridge settings",
+        "tooltip": "",
+        "place": "Off",
+        "group": "6d9e14c4dc182d6c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "On",
+                "value": "on",
+                "type": "str"
+            },
+            {
+                "label": "Off",
+                "value": "off",
+                "type": "str"
+            },
+            {
+                "label": "Auto(temp sensor)",
+                "value": "auto",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 360,
+        "y": 320,
+        "wires": [
+            [
+                "c7afbeeedb5c2b29"
+            ]
+        ]
+    },
+    {
+        "id": "c7afbeeedb5c2b29",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "update state",
+        "rules": [
+            {
+                "t": "set",
+                "p": "fridgeAlgorithm",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 320,
+        "wires": [
+            [
+                "9629a3cb945cd963"
+            ]
+        ]
+    },
+    {
+        "id": "be5300c4c06537b2",
+        "type": "ui_slider",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "label": "Fridge Temperature",
+        "tooltip": "",
+        "group": "af663d67f9ebf5fb",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "-10",
+        "max": "30",
+        "step": 1,
+        "className": "",
+        "x": 350,
+        "y": 360,
+        "wires": [
+            [
+                "f3eb657c6dc6db27"
+            ]
+        ]
+    },
+    {
+        "id": "f3eb657c6dc6db27",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "update state",
+        "rules": [
+            {
+                "t": "set",
+                "p": "values.fridgeTemp",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 360,
+        "wires": [
+            [
+                "9629a3cb945cd963"
+            ]
+        ]
+    },
+    {
+        "id": "e51fcdfb8498f3f0",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "temp sensor gpio",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 150,
+        "y": 360,
+        "wires": [
+            [
+                "be5300c4c06537b2"
+            ]
+        ]
+    },
+    {
+        "id": "49e088c8196b5fb2",
+        "type": "ui_led",
+        "z": "f6f2187d.f17ca8",
+        "order": 4,
+        "group": "6d9e14c4dc182d6c",
+        "width": 0,
+        "height": 0,
+        "label": "Fridge",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#919191",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": false,
+        "name": "led fridge",
+        "x": 1360,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "381297fb17f5c491",
+        "type": "ui_led",
+        "z": "f6f2187d.f17ca8",
+        "order": 5,
+        "group": "6d9e14c4dc182d6c",
+        "width": 0,
+        "height": 0,
+        "label": "Victron Charger",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#919191",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": false,
+        "name": "led victron charger",
+        "x": 1390,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "6ed0600d53a035dd",
+        "type": "ui_led",
+        "z": "f6f2187d.f17ca8",
+        "order": 7,
+        "group": "6d9e14c4dc182d6c",
+        "width": 0,
+        "height": 0,
+        "label": "Inverter",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#919191",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": false,
+        "name": "led inverter",
+        "x": 1370,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "fb30c68ecbc7ecb5",
+        "type": "ui_switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "label": "inverter switch",
+        "tooltip": "",
+        "group": "af663d67f9ebf5fb",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 360,
+        "y": 400,
+        "wires": [
+            [
+                "79d3c2d3281b9164"
+            ]
+        ]
+    },
+    {
+        "id": "79d3c2d3281b9164",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "update state",
+        "rules": [
+            {
+                "t": "set",
+                "p": "values.manualSwitch",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 400,
+        "wires": [
+            [
+                "98629c5331cea95d"
+            ]
+        ]
+    },
+    {
+        "id": "6fd3acf41607b92c",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1130,
+        "y": 320,
+        "wires": [
+            [
+                "e99e80ea8bea2bf5",
+                "49e088c8196b5fb2"
+            ]
+        ]
+    },
+    {
+        "id": "f9ac16b468a4186a",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1130,
+        "y": 560,
+        "wires": [
+            [
+                "a20ce8f2989b905d",
+                "381297fb17f5c491"
+            ]
+        ]
+    },
+    {
+        "id": "28f6256a4f8fe1e7",
+        "type": "ui_slider",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "label": "Motor voltage",
+        "tooltip": "",
+        "group": "af663d67f9ebf5fb",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "10",
+        "max": "14.5",
+        "step": "0.1",
+        "className": "",
+        "x": 360,
+        "y": 480,
+        "wires": [
+            [
+                "3f183250cf1cbd64"
+            ]
+        ]
+    },
+    {
+        "id": "3a90e203e00ea255",
+        "type": "ui_dropdown",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "label": "Victron charger",
+        "tooltip": "",
+        "place": "Off",
+        "group": "6d9e14c4dc182d6c",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "On",
+                "value": "on",
+                "type": "str"
+            },
+            {
+                "label": "Off",
+                "value": "off",
+                "type": "str"
+            },
+            {
+                "label": "Auto(motor running)",
+                "value": "auto",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 360,
+        "y": 440,
+        "wires": [
+            [
+                "cd46df84fb2b17c1"
+            ]
+        ]
+    },
+    {
+        "id": "533967acf687b5eb",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Motor logic",
+        "func": "let voltage = flow.get(\"values.motorVoltage\");\nlet motorState = flow.get(\"values.motorState\");\nmsg.payload = motorState;\nif (voltage >= flow.get(\"values.motorUpThreshold\")) {\n    //motor is running\n    if (motorState) {\n        return;\n    }\n    msg.payload = true;\n}\nelse if (voltage < flow.get(\"values.motorDownThreshold\")) {\n    //motor is not running\n    if (!motorState) {\n        return;\n    }\n    msg.payload = false;\n}\nflow.set(\"values.motorState\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 480,
+        "wires": [
+            [
+                "67dcab1f8a6c6c59",
+                "fc9ac802dfc9f02b"
+            ]
+        ]
+    },
+    {
+        "id": "fc9ac802dfc9f02b",
+        "type": "ui_led",
+        "z": "f6f2187d.f17ca8",
+        "order": 8,
+        "group": "6d9e14c4dc182d6c",
+        "width": 0,
+        "height": 0,
+        "label": "Motor",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#919191",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": false,
+        "name": "led motor",
+        "x": 1360,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "3f183250cf1cbd64",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "update state",
+        "rules": [
+            {
+                "t": "set",
+                "p": "values.motorVoltage",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 480,
+        "wires": [
+            [
+                "533967acf687b5eb"
+            ]
+        ]
+    },
+    {
+        "id": "cd46df84fb2b17c1",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "update state",
+        "rules": [
+            {
+                "t": "set",
+                "p": "victronChargerAlgorithm",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 440,
+        "wires": [
+            [
+                "67dcab1f8a6c6c59"
+            ]
+        ]
+    },
+    {
+        "id": "8e4e0b4121eb1cba",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "switch gpio",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 130,
+        "y": 400,
+        "wires": [
+            [
+                "fb30c68ecbc7ecb5"
+            ]
+        ]
+    },
+    {
+        "id": "fc49eb5a7a0683f3",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "motor voltage gpio",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 150,
+        "y": 480,
+        "wires": [
+            [
+                "28f6256a4f8fe1e7"
+            ]
+        ]
+    },
+    {
+        "id": "d4bae10cc496d08f",
+        "type": "ui_dropdown",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "label": "Auxiliary Charger",
+        "tooltip": "",
+        "place": "Off",
+        "group": "6d9e14c4dc182d6c",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "On",
+                "value": "on",
+                "type": "str"
+            },
+            {
+                "label": "Off",
+                "value": "off",
+                "type": "str"
+            },
+            {
+                "label": "Auto(when inverter on)",
+                "value": "auto",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 350,
+        "y": 520,
+        "wires": [
+            [
+                "dedea01689e480c8"
+            ]
+        ]
+    },
+    {
+        "id": "dedea01689e480c8",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "update state",
+        "rules": [
+            {
+                "t": "set",
+                "p": "chargerAlgorithm",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 520,
+        "wires": [
+            [
+                "a8ddf9e80aca1f09"
+            ]
+        ]
+    },
+    {
+        "id": "a8ddf9e80aca1f09",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Charger Logic",
+        "func": "/**\n * the charger should be turned on and off only in this flow\n */\nconst algorithm = flow.get(\"chargerAlgorithm\");\nconst chargerState = flow.get(\"values.charger\");\nmsg.payload = chargerState;\n\n// main logic\nswitch (algorithm) {\n    // always on\n    case \"on\":\n        if (chargerState) {\n            return;\n        }\n        msg.payload = true;\n        break;\n    // always off\n    case \"off\":\n        if (!chargerState) {\n            //return;\n        }\n        msg.payload = false;\n        break;\n    // only if inverter is on\n    case \"auto\":\n        if (chargerState === flow.get(\"values.inverter\")){\n            return;\n        }\n        msg.payload = flow.get(\"values.inverter\");\n        break;\n}\nflow.set(\"values.charger\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 620,
+        "wires": [
+            [
+                "a69ac28c6d32fc72",
+                "960b6a43b265e6f7"
+            ]
+        ]
+    },
+    {
+        "id": "a69ac28c6d32fc72",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "Charger relay gpio",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1390,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "960b6a43b265e6f7",
+        "type": "ui_led",
+        "z": "f6f2187d.f17ca8",
+        "order": 6,
+        "group": "6d9e14c4dc182d6c",
+        "width": 0,
+        "height": 0,
+        "label": "Auxiliary Charger",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#919191",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": false,
+        "name": "led auxiliary charger",
+        "x": 1400,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "85980d01d84b454c",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "off",
+        "payloadType": "str",
+        "x": 110,
+        "y": 320,
+        "wires": [
+            [
+                "7d78300f899ba128"
+            ]
+        ]
+    },
+    {
+        "id": "3fa50a7939c384d8",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "off",
+        "payloadType": "str",
+        "x": 110,
+        "y": 440,
+        "wires": [
+            [
+                "3a90e203e00ea255"
+            ]
+        ]
+    }
+]
