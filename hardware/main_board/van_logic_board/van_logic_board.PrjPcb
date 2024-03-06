@@ -135,7 +135,7 @@ GenerateClassCluster=0
 DocumentUniqueId=GUUVSWHF
 
 [Document6]
-DocumentPath=input_module.SchDoc
+DocumentPath=inputs.SchDoc
 AnnotationEnabled=0
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -152,8 +152,8 @@ GenerateClassCluster=0
 DocumentUniqueId=XKHSOENE
 
 [Document7]
-DocumentPath=output_module.SchDoc
-AnnotationEnabled=1
+DocumentPath=outputs.SchDoc
+AnnotationEnabled=0
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
@@ -221,7 +221,7 @@ DocumentUniqueId=
 
 [Document11]
 DocumentPath=led_control.SchDoc
-AnnotationEnabled=0
+AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
