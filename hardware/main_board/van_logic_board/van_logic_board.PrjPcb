@@ -64,7 +64,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=
+DocumentUniqueId=EBWXVSQB
 
 [Document2]
 DocumentPath=main.SchDoc
@@ -169,7 +169,7 @@ GenerateClassCluster=0
 DocumentUniqueId=KNORMMSS
 
 [Document8]
-DocumentPath=interfaces_module.SchDoc
+DocumentPath=interfaces.SchDoc
 AnnotationEnabled=0
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -186,7 +186,7 @@ GenerateClassCluster=0
 DocumentUniqueId=UOACEGQM
 
 [Document9]
-DocumentPath=control_module.SchDoc
+DocumentPath=mcu_power_supply.SchDoc
 AnnotationEnabled=0
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -220,7 +220,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document11]
-DocumentPath=led_control.SchDoc
+DocumentPath=pwm_outputs.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
