@@ -68,7 +68,7 @@ DocumentUniqueId=EBWXVSQB
 
 [Document2]
 DocumentPath=main.SchDoc
-AnnotationEnabled=0
+AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
@@ -136,7 +136,7 @@ DocumentUniqueId=GUUVSWHF
 
 [Document6]
 DocumentPath=inputs.SchDoc
-AnnotationEnabled=0
+AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
@@ -153,7 +153,7 @@ DocumentUniqueId=XKHSOENE
 
 [Document7]
 DocumentPath=outputs.SchDoc
-AnnotationEnabled=0
+AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
@@ -170,7 +170,7 @@ DocumentUniqueId=KNORMMSS
 
 [Document8]
 DocumentPath=interfaces.SchDoc
-AnnotationEnabled=0
+AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
@@ -187,7 +187,7 @@ DocumentUniqueId=UOACEGQM
 
 [Document9]
 DocumentPath=mcu_power_supply.SchDoc
-AnnotationEnabled=0
+AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
