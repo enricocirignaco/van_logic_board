@@ -1,2 +1,0 @@
-https://circuitdigest.com/microcontroller-projects/ac-phase-angle-control-for-light-dimmers-and-motor-speed-control-using-555-timer-and-pwm-control
-https://www.edn.com/555-timer-triggers-phase-control-circuit/
